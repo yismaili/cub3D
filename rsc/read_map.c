@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/21 19:05:03 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/21 19:23:49 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char    *ft_remplir_map(char *map, char *line)
 	int		i;
 
 	i = 0;
+    map = NULL;
 	spltd = ft_split(line, ' ');
 	while (spltd[i])
 	{
@@ -112,10 +113,11 @@ void	ft_read_maps(char *map_file, t_struct *ptr)
 	{
 		ptr->map[i] = (char *) malloc(sizeof(char) * get_width(map_file));
 		get_line = get_next_line(fd);
-        ptr->map[i] = ft_remplir_map(ptr->map[i], get_line);
+        // ptr->map[i] = ft_remplir_map(ptr->map[i], get_line);
+        ptr->map[i] = ft_strdup(get_line);
 		free(get_line);
 		i++;
 	}
-	ptr->map[i] = NULL;
+    ptr->map[i] = NULL;
 	close(fd);
 }
