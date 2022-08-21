@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/21 19:23:49 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/21 21:25:00 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char    *ft_remplir_map(char *map, char *line)
     return (map);
 }
 
-void	ft_read_maps(char *map_file, t_struct *ptr)
+void	ft_read_maps(char *map_file, t_struct *cub)
 {
 	int		fd;
 	int		i;
@@ -108,16 +108,16 @@ void	ft_read_maps(char *map_file, t_struct *ptr)
         exit(1);
     }
     height = get_height(map_file);
-	ptr->map = (char **) malloc(sizeof(char *) * (height + 1));
+	cub->map = (char **) malloc(sizeof(char *) * (height + 1));
 	while (i < height)
 	{
-		ptr->map[i] = (char *) malloc(sizeof(char) * get_width(map_file));
+		cub->map[i] = (char *) malloc(sizeof(char) * get_width(map_file));
 		get_line = get_next_line(fd);
-        // ptr->map[i] = ft_remplir_map(ptr->map[i], get_line);
-        ptr->map[i] = ft_strdup(get_line);
+        // cub->map[i] = ft_remplir_map(cub->map[i], get_line);
+        cub->map[i] = ft_strdup(get_line);
 		free(get_line);
 		i++;
 	}
-    ptr->map[i] = NULL;
+    cub->map[i] = NULL;
 	close(fd);
 }
