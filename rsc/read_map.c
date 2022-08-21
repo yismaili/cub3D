@@ -6,11 +6,28 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/21 16:41:14 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/21 19:05:03 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
+
+char *get_next_line(int fd)
+{
+	char line[8000000] = {0};
+	int ret = 1;
+	char c;
+	int i = 0;
+	while((ret = read(fd, &c, 1) > 0))
+	{
+		line[i++] = c;
+		if (c == '\n')
+			break ;
+	}
+	if (line[0] == 0)
+		return NULL;
+	return (ft_strdup(line));
+}
 
 int	get_height(char *map_file)
 {
@@ -56,7 +73,7 @@ int	get_width(char *map_file)
 	return (width);
 }
 
-void	ft_remplir_map(char *map, char *line)
+char    *ft_remplir_map(char *map, char *line)
 {
 	char	**spltd;
 	int		i;
@@ -65,13 +82,14 @@ void	ft_remplir_map(char *map, char *line)
 	spltd = ft_split(line, ' ');
 	while (spltd[i])
 	{
-		map = spltd[i];
+		map = ft_strjoin(map, spltd[i]);
         i++;
 	}
 	i = 0;
 	while (spltd[i])
 		free(spltd[i++]);
 	free(spltd);
+    return (map);
 }
 
 void	ft_read_maps(char *map_file, t_struct *ptr)
@@ -79,6 +97,7 @@ void	ft_read_maps(char *map_file, t_struct *ptr)
 	int		fd;
 	int		i;
 	char	*get_line;
+    int     height;
 
 	i = 0;
 	fd = open(map_file, O_RDONLY);
@@ -87,12 +106,13 @@ void	ft_read_maps(char *map_file, t_struct *ptr)
 		ft_putstr_fd("Error Open file\n", 1);
         exit(1);
     }
-	ptr->map = (char **) malloc(sizeof(char *) * (get_height(map_file) + 1));
-	while (i < ptr->height)
+    height = get_height(map_file);
+	ptr->map = (char **) malloc(sizeof(char *) * (height + 1));
+	while (i < height)
 	{
 		ptr->map[i] = (char *) malloc(sizeof(char) * get_width(map_file));
 		get_line = get_next_line(fd);
-        ft_remplir_map(ptr->map[i], get_line);
+        ptr->map[i] = ft_remplir_map(ptr->map[i], get_line);
 		free(get_line);
 		i++;
 	}

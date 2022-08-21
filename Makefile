@@ -6,7 +6,7 @@
 #    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 13:19:25 by yismaili          #+#    #+#              #
-#    Updated: 2022/08/21 16:50:22 by yismaili         ###   ########.fr        #
+#    Updated: 2022/08/21 18:54:01 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,14 +23,13 @@ FLAGS = -Wall -Werror -Wextra
 framework= -framework OpenGL -framework AppKit -g
 RM = rm -rf
 
-FILES = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c rsc/read_map.c  rsc/main.c  
+FILES = rsc/read_map.c  rsc/main.c  
  
 
 OBJ_FILES= $(FILES:.c=.o)
 
 MSG = Everything is fcleaned!
 HEADER = includes/cub3D.h
-HEADER_GNL = get_next_line/get_next_line.h
 CREATER = yismaili && souchen
 LIBFT = libft/libft.a
 NAME = cub3D
@@ -48,7 +47,7 @@ all : $(NAME)
 $(NAME) : $(OBJ_FILES) $(LIBFT)
 	$(CC) $(OBJ_FILES) -lmlx $(framework) $(LIBFT) $(FLAGS) -o $(NAME)
 
-%.o : %.c $(HEADER_GNL)
+%.o : %.c $(HEADER)
 	@echo $(HOME)
 	@echo "$(GREEN)COMPILING$(RESET) $<"
 	$(CC)  $(FLAGS)  -c $< -o $@
