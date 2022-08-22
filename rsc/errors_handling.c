@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/22 19:46:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/22 20:06:08 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,3 @@ int ft_check_texture(t_struct *cub, char *dirct, int len)
     }
     return (1);
 }
-// hi i am younes ismaili from 1337 "for testing"
-
-
-// hi i am younes ismaili from 1337 "for testing"
