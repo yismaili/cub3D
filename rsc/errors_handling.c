@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/22 21:51:28 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/22 22:07:07 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int ft_check_texture(t_struct *cub, char *dirct, int len)
 
     path = ft_search_inmap(cub, dirct, len);
     if (!path)
-        return (ft_putstr_fd("File path not fount\n", 2),0);
+        return (0);
     else
     {
         ptr = path;
@@ -42,9 +42,22 @@ int ft_check_texture(t_struct *cub, char *dirct, int len)
         free(ptr);
          fd = open(path, O_RDONLY);
          if (fd < 0)
-            return (ft_putstr_fd("Error Open file\n", 2), 0);
-        else
+            return (0);
+        else //for testing
             printf("GOOD\n");
     }
+    return (1);
+}
+
+int ft_check_alltextures(t_struct *cub)
+{
+    if (ft_check_texture(cub, "NO", 2) == 0)
+        return (ft_putstr_fd("North texureh not fount\n", 2), 0);
+    if (ft_check_texture(cub, "SO", 2) == 0)
+        return (ft_putstr_fd("South texure not fount\n", 2), 0);
+    if (ft_check_texture(cub, "WE", 2) == 0)
+        return (ft_putstr_fd("West texure not fount\n", 2), 0);
+    if (ft_check_texture(cub, "EA", 2) == 0)
+        return (ft_putstr_fd("East texure not fount\n", 2), 0);
     return (1);
 }
