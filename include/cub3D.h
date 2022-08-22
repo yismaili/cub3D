@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/21 19:04:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:58:00 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int     get_width(char *map_file);
 char    *ft_remplir_map(char *map, char *line);
 char	*get_next_line(int fd);
 void	ft_read_maps(char *map_file, t_struct *ptr);
-
+int		ft_check_texture(t_struct *cub, char *dirct, int len);
+char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch);
 #endif

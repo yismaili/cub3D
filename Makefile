@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
+#    By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 13:19:25 by yismaili          #+#    #+#              #
-#    Updated: 2022/08/21 19:09:12 by yismaili         ###   ########.fr        #
+#    Updated: 2022/08/22 18:52:29 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ FLAGS = -Wall -Werror -Wextra -fsanitize=address
 framework= -framework OpenGL -framework AppKit -g
 RM = rm -rf
 
-FILES = rsc/read_map.c  rsc/main.c  
+FILES = rsc/read_map.c  rsc/main.c rsc/errors_handling.c
  
 
 OBJ_FILES= $(FILES:.c=.o)
