@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/22 20:21:47 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/22 21:15:17 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ int ft_check_texture(t_struct *cub, char *dirct, int len)
         return (ft_putstr_fd("File path not fount\n",2),0);
     else
     {
-        fd = open("texure/xpm/wood.xpm", O_RDONLY);
-        if (fd < 0)
+         path = path + len + 3;
+         printf("%s\n",path);
+         fd = open(path, O_RDONLY);
+         if (fd < 0)
             return (ft_putstr_fd("Error Open file\n", 2), 0);
     }
     return (1);
 }
-///test

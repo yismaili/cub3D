@@ -1,10 +1,10 @@
-NO ../texure/xpm/wood.xpm
+NO ./texure/xpm/wood.xpm
 
-SO ../texure/xpm/wood.xpm
+SO ./texure/xpm/wood.xpm
 
-WE ../texure/xpm/wood.xpm
+WE ./texure/xpm/wood.xpm
 
-EA ../texure/xpm/wood.xpm
+EA ./texure/xpm/wood.xpm
 
 F 220,100,0
 
