@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/22 18:58:29 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/22 19:10:03 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,4 @@ int ft_check_texture(t_struct *cub, char *dirct, int len)
     }
     return (1);
 }
+///isadfjdhsfjsdflsfjldf for testing
