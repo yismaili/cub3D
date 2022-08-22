@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   errors_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/22 20:15:53 by yismaili         ###   ########.fr       */
-/*   Updated: 2022/08/22 20:00:09 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/22 20:21:47 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/cub3D.h"
 
@@ -43,3 +43,4 @@ int ft_check_texture(t_struct *cub, char *dirct, int len)
     }
     return (1);
 }
+///test
