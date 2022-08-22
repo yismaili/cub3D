@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/22 18:58:00 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/22 22:04:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ char	*get_next_line(int fd);
 void	ft_read_maps(char *map_file, t_struct *ptr);
 int		ft_check_texture(t_struct *cub, char *dirct, int len);
 char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch);
+int		ft_check_alltextures(t_struct *cub);
 #endif
