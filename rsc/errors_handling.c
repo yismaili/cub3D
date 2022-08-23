@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/23 14:39:41 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/23 15:36:57 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch)
     return (NULL);
 }
 
-int ft_check_texture(t_struct *cub, char *dirct, int len)
+char    *ft_check_texture(t_struct *cub, char *dirct, int len)
 {
     char    *path;
     int     fd;
@@ -35,7 +35,7 @@ int ft_check_texture(t_struct *cub, char *dirct, int len)
 
     path = ft_search_inmap(cub, dirct, len);
     if (!path)
-        return (0);
+        return (NULL);
     else
     {
         ptr = path;
@@ -43,24 +43,28 @@ int ft_check_texture(t_struct *cub, char *dirct, int len)
         free(ptr);
          fd = open(path, O_RDONLY);
          if (fd < 0)
-            return (0);
+            return (NULL);
         else //for testing
             printf("GOOD\n");
     }
-    return (1);
+    return (path);
 }
 
 int ft_check_alltextures(t_struct *cub)
 {
     if (ft_check_alldouble(cub) == 0)
         return (ft_putstr_fd("invalide map\n", 2), 0);
-    if (ft_check_texture(cub, "NO", 2) == 0)
+    cub->drct.north_path = ft_check_texture(cub, "NO", 2);
+    if (cub->drct.north_path == NULL)
         return (ft_putstr_fd("North texureh not fount\n", 2), 0);
-    if (ft_check_texture(cub, "SO", 2) == 0)
+    cub->drct.south_path = ft_check_texture(cub, "SO", 2);
+    if (cub->drct.south_path== NULL)
         return (ft_putstr_fd("South texure not fount\n", 2), 0);
-    if (ft_check_texture(cub, "WE", 2) == 0)
+    cub->drct.west_path = ft_check_texture(cub, "WE", 2);
+    if (cub->drct.west_path == NULL)
         return (ft_putstr_fd("West texure not fount\n", 2), 0);
-    if (ft_check_texture(cub, "EA", 2) == 0)
+    cub->drct.east_path = ft_check_texture(cub, "EA", 2);
+    if (cub->drct.east_path == NULL)
         return (ft_putstr_fd("East texure not fount\n", 2), 0);
     return (1);
 }
