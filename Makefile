@@ -6,7 +6,7 @@
 #    By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 13:19:25 by yismaili          #+#    #+#              #
-#    Updated: 2022/08/23 14:01:04 by yismaili         ###   ########.fr        #
+#    Updated: 2022/08/23 18:49:31 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ RESET = \033[0m
 BBlue=\033[0;34m
 BYellow=\033[1;33m
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -fsanitize=address
-framework= -framework OpenGL -framework AppKit -g
+FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+framework= -framework OpenGL -framework AppKit 
 RM = rm -rf
 
 FILES = rsc/read_map.c  rsc/main.c rsc/errors_handling.c
@@ -28,10 +28,20 @@ FILES = rsc/read_map.c  rsc/main.c rsc/errors_handling.c
 OBJ_FILES= $(FILES:.c=.o)
 
 MSG = Everything is fcleaned!
-HEADER = includes/cub3D.h
+HEADER = ./include/cub3D.h
 CREATER = yismaili && souchen
 LIBFT = libft/libft.a
 NAME = cub3D
+
+
+
+$(NAME) : $(OBJ_FILES) $(LIBFT)
+	$(CC) $(OBJ_FILES) -lmlx $(framework) $(LIBFT) $(FLAGS) -o $(NAME)
+	
+%.o : %.c $(HEADER)
+	$(CC) $(FLAGS) -o $@ -c $<
+	@echo $(HOME)
+	@echo "$(GREEN)COMPILING$(RESET) $<"
 
 all : $(NAME)
 
@@ -43,13 +53,7 @@ all : $(NAME)
 		@echo "╚█████╔╝╚██████╔╝██████╦╝██████╔╝██████╔╝"
 		@echo "░╚════╝░░╚═════╝░╚═════╝░╚═════╝░╚═════╝░ $(RESET)BY $(RED)$(CREATER)"
 
-$(NAME) : $(OBJ_FILES) $(LIBFT)
-	$(CC) $(OBJ_FILES) -lmlx $(framework) $(LIBFT) $(FLAGS) -o $(NAME)
 
-%.o : %.c $(HEADER)
-	@echo $(HOME)
-	@echo "$(GREEN)COMPILING$(RESET) $<"
-	$(CC)  $(FLAGS)  -c $< -o $@
 $(LIBFT):
 	make -C libft
 

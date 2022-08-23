@@ -6,11 +6,21 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/23 15:36:13 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:10:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
+
+void print(char **str)
+{
+     int i = 0;
+    while (str[i])
+    {
+        printf("%s",str[i]);
+        i++;
+    }
+}
 
 int main(int ac, char **av)
 {
@@ -20,16 +30,12 @@ int main(int ac, char **av)
 	ft_read_maps(av[1], &cub);
     ft_check_alltextures(&cub);
     ft_check_rgb(&cub);
-    printf("%d\n",cub.flr.r);
+   // ft_jump_lines(&cub);
+     printf("\n%d\n",cub.flr.r);
      printf("NO --->%s\n",cub.drct.north_path);
      printf("SO --->%s\n",cub.drct.south_path);
      printf("WE --->%s\n",cub.drct.west_path);
      printf("EA --->%s\n",cub.drct.east_path);
-    // int i = 0;
-    // while (cub.map[i])
-    // {
-    //     printf("%s",cub.map[i]);
-    //     i++;
-    // }
+     print(cub.map);
     
 }
