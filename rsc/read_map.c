@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/22 18:17:14 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:40:43 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,6 @@ void	ft_read_maps(char *map_file, t_struct *cub)
 		free(get_line);
 		i++;
 	}
-    cub->map[i] = NULL;
+  	cub->map[i] = NULL;
 	close(fd);
 }
