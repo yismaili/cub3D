@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/23 19:10:16 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/23 20:01:10 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ char    *ft_check_texture(t_struct *cub, char *dirct, int len)
         fd = open(path, O_RDONLY);
         if (fd < 0)
             return (NULL);
-        else //for testing
-            printf("GOOD\n");
     }
     return (path);
 }
@@ -152,23 +150,19 @@ int ft_check_alldouble(t_struct *cub)
 
 char    *ft_jump_lines(t_struct *cub)
 {
-    int i;
-  //  char    **splt_map;
-    int     j = 0;
+    int     i;
+    char    *splt_map = NULL;
+    //int j = 0;
     
     i = 0;
     while (cub->map[i])
     {
-        j = 0;
-        while (cub->map[i][j])
-        {
-            printf("%c",cub->map[i][j]);
-            if (cub->map[i][j] == '\n')
-                printf("\n");
-            j++;
-        }
+        if (cub->map[i][0] == 'N' || cub->map[i][0] == 'S' || cub->map[i][0] == 'W'|| cub->map[i][0] == 'E' || cub->map[i][0] == 'F' || cub->map[i][0] == 'C' || cub->map[i][0] == '\0' || cub->map[i][0] == '\n' )
+            i++;
+        else
+           splt_map = ft_strdup(cub->map[i]);
         i++;
     }
-    
+    printf("%s\n", splt_map);
     return (NULL);
 }

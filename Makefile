@@ -6,7 +6,7 @@
 #    By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 13:19:25 by yismaili          #+#    #+#              #
-#    Updated: 2022/08/23 18:49:31 by yismaili         ###   ########.fr        #
+#    Updated: 2022/08/23 19:23:25 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ LIBFT = libft/libft.a
 NAME = cub3D
 
 
+all : $(NAME)
+		@echo "$(GREEN)BY $(RED)$(CREATER)"
 
 $(NAME) : $(OBJ_FILES) $(LIBFT)
 	$(CC) $(OBJ_FILES) -lmlx $(framework) $(LIBFT) $(FLAGS) -o $(NAME)
@@ -42,17 +44,6 @@ $(NAME) : $(OBJ_FILES) $(LIBFT)
 	$(CC) $(FLAGS) -o $@ -c $<
 	@echo $(HOME)
 	@echo "$(GREEN)COMPILING$(RESET) $<"
-
-all : $(NAME)
-
-		@echo "$(BBlue)"
-		@echo "░█████╗░██╗░░░██╗██████╗░██████╗░██████╗░"
-		@echo "██╔══██╗██║░░░██║██╔══██╗╚════██╗██╔══██╗"
-		@echo "██║░░╚═╝██║░░░██║██████╦╝░█████╔╝██║░░██║"
-		@echo "██║░░██╗██║░░░██║██╔══██╗░╚═══██╗██║░░██║"
-		@echo "╚█████╔╝╚██████╔╝██████╦╝██████╔╝██████╔╝"
-		@echo "░╚════╝░░╚═════╝░╚═════╝░╚═════╝░╚═════╝░ $(RESET)BY $(RED)$(CREATER)"
-
 
 $(LIBFT):
 	make -C libft
