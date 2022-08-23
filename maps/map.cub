@@ -6,7 +6,7 @@ WE ./texure/xpm/wood.xpm
 
 EA ./texure/xpm/wood.xpm
 
-F 220,100,0
+F 220,100,hh
 
 C 225,30,0
 
