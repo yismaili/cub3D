@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/23 15:36:57 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:10:16 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ char    *ft_check_texture(t_struct *cub, char *dirct, int len)
     char    *path;
     int     fd;
     char    *ptr;
-
-    path = ft_search_inmap(cub, dirct, len);
+    path = ft_strdup(ft_search_inmap(cub, dirct, len));
     if (!path)
         return (NULL);
     else
@@ -40,8 +39,8 @@ char    *ft_check_texture(t_struct *cub, char *dirct, int len)
         ptr = path;
         path = ft_substr(path, len + 1, (ft_strlen(path) - (len + 2)));
         free(ptr);
-         fd = open(path, O_RDONLY);
-         if (fd < 0)
+        fd = open(path, O_RDONLY);
+        if (fd < 0)
             return (NULL);
         else //for testing
             printf("GOOD\n");
@@ -76,7 +75,7 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len)
     int     i;
     int     num;
 
-    data = ft_search_inmap(cub, flor_clg, len);
+    data = ft_strdup(ft_search_inmap(cub, flor_clg, len));
     if (!data)
         return (NULL);
     ptr = data;
@@ -149,4 +148,27 @@ int ft_check_alldouble(t_struct *cub)
     if (ft_check_double(cub, "F", 1) == 2 || ft_check_double(cub, "C", 1) == 2)
         return (0);  
     return (1);
+}
+
+char    *ft_jump_lines(t_struct *cub)
+{
+    int i;
+  //  char    **splt_map;
+    int     j = 0;
+    
+    i = 0;
+    while (cub->map[i])
+    {
+        j = 0;
+        while (cub->map[i][j])
+        {
+            printf("%c",cub->map[i][j]);
+            if (cub->map[i][j] == '\n')
+                printf("\n");
+            j++;
+        }
+        i++;
+    }
+    
+    return (NULL);
 }

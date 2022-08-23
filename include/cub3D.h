@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/23 15:25:27 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/23 18:53:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len);
 int		ft_check_rgb(t_struct *cub);
 int		ft_check_double(t_struct *cub, char *dirct, int len);
 int		ft_check_alldouble(t_struct *cub);
-
+char    *ft_jump_lines(t_struct *cub);
+void print(char **str);
 #endif
