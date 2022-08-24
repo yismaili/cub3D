@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/24 16:18:18 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/24 19:28:52 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,6 @@ int	get_width(char *map_file, int height)
 	return (max);
 }
 
-char    *ft_remplir_map(char *line, int len)
-{
-	char	*mmset;
-	char	*mmmve;
-
-	mmset = ft_memset(line, ' ', len);
-	mmmve = ft_memmove(mmset, line, len);
-	//printf("%s", mmmve);
-    return (mmmve);
-}
-
 void	ft_read_maps(char *map_file, t_struct *cub)
 {
 	int		fd;
@@ -98,7 +87,6 @@ void	ft_read_maps(char *map_file, t_struct *cub)
     cub->height = get_height(map_file);
 	cub->width = get_width(map_file, cub->height);
 	cub->map = (char **) malloc(sizeof(char *) * (cub->height + 1));
-	 printf("%d\n", cub->width);
 	while (i < cub->height)
 	{
 		cub->map[i] = (char *) malloc(sizeof(char) * cub->width);
