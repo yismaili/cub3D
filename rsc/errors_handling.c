@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/24 16:20:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/24 21:52:37 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,37 @@ char    **ft_jump_lines(t_struct *cub)
     {
        data[i++] = ft_strdup(cub->map[len++]);
     }
+    cub->len_ofmap = i;
     data[i] = NULL;
     return (data);
+}
+int ft_check_space(char *data)
+{
+    int i;
+
+    i = 0;
+    printf("%s\n", data);
+    while (data[i])
+    {
+        if (data[i] == '0')
+            printf("Open map\n");
+            i++;
+    }
+    return (0);
+}
+char    *ft_check_map(t_struct *cub)
+{   
+    char    **data;
+    int i = 0;
+
+    data = ft_jump_lines(cub);
+    // while (data[i])
+    // {
+       if (ft_check_space(data[i]) != 0)
+            return (ft_putstr_fd("Map error\n", 2), NULL);
+        if (ft_check_space(data[cub->len_ofmap - 1]) != 0)
+           return (ft_putstr_fd("Map error\n", 2), NULL);
+    //     i++;
+    // }
+    return (NULL);
 }

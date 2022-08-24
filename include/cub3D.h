@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/24 16:20:34 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/24 21:52:53 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ typedef struct s_struct
 	t_dirct		drct;
 	int			height;
 	int			width;
+	int			len_ofmap;
 }	t_struct;
 
 int     get_height(char *map_file);
 int		get_width(char *map_file, int height);
-char    *ft_remplir_map(char *line, int len);
+char    *ft_check_map(t_struct *cub);
 char	*get_next_line(int fd);
 void	ft_read_maps(char *map_file, t_struct *ptr);
 char    *ft_check_texture(t_struct *cub, char *dirct, int len);
