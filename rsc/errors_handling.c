@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/24 21:52:37 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/24 22:55:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,8 @@ char    **ft_jump_lines(t_struct *cub)
     data[i] = NULL;
     return (data);
 }
-int ft_check_space(char *data)
+
+int ft_check_bgnend(char *data)
 {
     int i;
 
@@ -182,24 +183,36 @@ int ft_check_space(char *data)
     while (data[i])
     {
         if (data[i] == '0')
-            printf("Open map\n");
+            return (0);
             i++;
     }
-    return (0);
+    return (1);
 }
+
 char    *ft_check_map(t_struct *cub)
 {   
     char    **data;
     int i = 0;
+    int j;
 
     data = ft_jump_lines(cub);
-    // while (data[i])
-    // {
-       if (ft_check_space(data[i]) != 0)
-            return (ft_putstr_fd("Map error\n", 2), NULL);
-        if (ft_check_space(data[cub->len_ofmap - 1]) != 0)
-           return (ft_putstr_fd("Map error\n", 2), NULL);
-    //     i++;
-    // }
+    if (ft_check_bgnend(data[i]) == 0)
+        return (ft_putstr_fd("Open map\n", 2), NULL);
+    if (ft_check_bgnend(data[cub->len_ofmap - 1]) == 0)
+        return (ft_putstr_fd("Open map\n", 2), NULL);
+    while (data[i])
+    { 
+        if (data[i][0] == '0')
+            return (ft_putstr_fd("Open map\n", 2), NULL);
+        j = 0;
+        while (data[i][j])
+        {
+            if (data[i][j] == '0' && data[i][j + 1] == ' ')
+                return (ft_putstr_fd("Open map\n", 2), NULL);
+           j++;
+        }
+        
+        i++;
+    }
     return (NULL);
 }
