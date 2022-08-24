@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/23 18:53:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:20:34 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ typedef struct s_struct
 	t_ceilling 	clg;
 	t_floor		flr;
 	t_dirct		drct;
+	int			height;
+	int			width;
 }	t_struct;
 
 int     get_height(char *map_file);
-int     get_width(char *map_file);
-char    *ft_remplir_map(char *map, char *line);
+int		get_width(char *map_file, int height);
+char    *ft_remplir_map(char *line, int len);
 char	*get_next_line(int fd);
 void	ft_read_maps(char *map_file, t_struct *ptr);
 char    *ft_check_texture(t_struct *cub, char *dirct, int len);
@@ -61,6 +63,6 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len);
 int		ft_check_rgb(t_struct *cub);
 int		ft_check_double(t_struct *cub, char *dirct, int len);
 int		ft_check_alldouble(t_struct *cub);
-char    *ft_jump_lines(t_struct *cub);
+char    **ft_jump_lines(t_struct *cub);
 void print(char **str);
 #endif

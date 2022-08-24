@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/23 20:01:10 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:20:11 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,21 +148,27 @@ int ft_check_alldouble(t_struct *cub)
     return (1);
 }
 
-char    *ft_jump_lines(t_struct *cub)
+char    **ft_jump_lines(t_struct *cub)
 {
     int     i;
-    char    *splt_map = NULL;
-    //int j = 0;
-    
+    char    **data;
+    int     len;
+
     i = 0;
-    while (cub->map[i])
+    len = 0;
+    while (cub->map[len])
     {
-        if (cub->map[i][0] == 'N' || cub->map[i][0] == 'S' || cub->map[i][0] == 'W'|| cub->map[i][0] == 'E' || cub->map[i][0] == 'F' || cub->map[i][0] == 'C' || cub->map[i][0] == '\0' || cub->map[i][0] == '\n' )
-            i++;
+        if ((cub->map[len][0] == 'N' || cub->map[len][0] == 'S' || cub->map[len][0] == 'W'|| cub->map[len][0] == 'E' || cub->map[len][0] == 'F' || cub->map[len][0] == 'C' || cub->map[len][0] == '\0' || cub->map[len][0] == '\n') )
+            len++;
         else
-           splt_map = ft_strdup(cub->map[i]);
-        i++;
+            break;    
     }
-    printf("%s\n", splt_map);
-    return (NULL);
+    data = malloc(sizeof(char *) * ((cub->height - len) + 1));
+    i = 0;
+    while (cub->map[len])
+    {
+       data[i++] = ft_strdup(cub->map[len++]);
+    }
+    data[i] = NULL;
+    return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/23 19:40:43 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:18:18 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,49 +48,38 @@ int	get_height(char *map_file)
 	return (height);
 }
 
-int	get_width(char *map_file)
+int	get_width(char *map_file, int height)
 {
 	int		fd;
-	char	**words;
 	int		width;
 	char	*get_line;
-	int		i;
+	int i = 0;
+	size_t max;
 
 	width = 0;
+	max = 0;
 	fd = open (map_file, O_RDONLY);
-	get_line = get_next_line(fd);
-	words = ft_split(get_line, ' ');
-	while (words[width])
+	while (i < height)
 	{
-		width++;
+		get_line = get_next_line(fd);
+		if (ft_strlen(get_line) > max)
+			max = ft_strlen(get_line);
+		free(get_line);
+		i++;
 	}
 	close(fd);
-	free(get_line);
-	i = 0;
-	while (words[i])
-		free(words[i++]);
-	free(words);
-	return (width);
+	return (max);
 }
 
-char    *ft_remplir_map(char *map, char *line)
+char    *ft_remplir_map(char *line, int len)
 {
-	char	**spltd;
-	int		i;
+	char	*mmset;
+	char	*mmmve;
 
-	i = 0;
-    map = NULL;
-	spltd = ft_split(line, ' ');
-	while (spltd[i])
-	{
-		map = ft_strjoin(map, spltd[i]);
-        i++;
-	}
-	i = 0;
-	while (spltd[i])
-		free(spltd[i++]);
-	free(spltd);
-    return (map);
+	mmset = ft_memset(line, ' ', len);
+	mmmve = ft_memmove(mmset, line, len);
+	//printf("%s", mmmve);
+    return (mmmve);
 }
 
 void	ft_read_maps(char *map_file, t_struct *cub)
@@ -98,7 +87,6 @@ void	ft_read_maps(char *map_file, t_struct *cub)
 	int		fd;
 	int		i;
 	char	*get_line;
-    int     height;
 
 	i = 0;
 	fd = open(map_file, O_RDONLY);
@@ -107,13 +95,14 @@ void	ft_read_maps(char *map_file, t_struct *cub)
 		ft_putstr_fd("Error Open file\n", 1);
         exit(1);
     }
-    height = get_height(map_file);
-	cub->map = (char **) malloc(sizeof(char *) * (height + 1));
-	while (i < height)
+    cub->height = get_height(map_file);
+	cub->width = get_width(map_file, cub->height);
+	cub->map = (char **) malloc(sizeof(char *) * (cub->height + 1));
+	 printf("%d\n", cub->width);
+	while (i < cub->height)
 	{
-		cub->map[i] = (char *) malloc(sizeof(char) * get_width(map_file));
+		cub->map[i] = (char *) malloc(sizeof(char) * cub->width);
 		get_line = get_next_line(fd);
-        // cub->map[i] = ft_remplir_map(cub->map[i], get_line);
         cub->map[i] = ft_strdup(get_line);
 		free(get_line);
 		i++;
