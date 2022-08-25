@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/24 21:30:02 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/25 12:32:28 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int main(int ac, char **av)
     // printf("EA --->%s\n",cub.drct.east_path);
     //  print(data);
     //  printf("-------------------------------------------------------\n");
-     //print(cub.map);
+    //  print(cub.map);
     
 }
