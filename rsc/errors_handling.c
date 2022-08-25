@@ -6,11 +6,35 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/24 22:55:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/25 12:35:49 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
+
+char	*ft_strdup_new(const char *s1, int len)
+{
+	char	*dst;
+	int		i;
+
+	i = 0;
+	dst = (char *)malloc(len + 1 * sizeof(char));
+	if (!dst)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+			dst[i] = s1[i];
+		i++;
+	}
+	while (i < len)
+	{
+		dst[i] = ' ';
+		i++;
+	}
+	dst[i] = '\0';
+	
+	return (dst);
+}
 
 char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch)
 {
@@ -167,7 +191,7 @@ char    **ft_jump_lines(t_struct *cub)
     i = 0;
     while (cub->map[len])
     {
-       data[i++] = ft_strdup(cub->map[len++]);
+       data[i++] = ft_strdup_new(cub->map[len++], cub->width);
     }
     cub->len_ofmap = i;
     data[i] = NULL;
@@ -179,7 +203,7 @@ int ft_check_bgnend(char *data)
     int i;
 
     i = 0;
-    printf("%s\n", data);
+  //  printf("%s\n", data);
     while (data[i])
     {
         if (data[i] == '0')
@@ -214,5 +238,6 @@ char    *ft_check_map(t_struct *cub)
         
         i++;
     }
+         print(data);
     return (NULL);
 }
