@@ -6,14 +6,14 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/25 12:35:49 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/25 16:26:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../include/cub3D.h"
 
-char	*ft_strdup_new(const char *s1, int len)
+char	*ft_strdup_map(const char *s1, int len)
 {
 	char	*dst;
 	int		i;
@@ -192,7 +192,8 @@ char    **ft_jump_lines(t_struct *cub)
     i = 0;
     while (cub->map[len])
     {
-       data[i++] = ft_strdup_new(cub->map[len++], cub->width);
+    //    data[i++] = ft_strdup_map(cub->map[len++], cub->width);
+        data[i++] = ft_strdup(cub->map[len++]);
     }
     cub->len_ofmap = i;
     data[i] = NULL;
@@ -204,7 +205,6 @@ int ft_check_bgnend(char *data)
     int i;
 
     i = 0;
-  //  printf("%s\n", data);
     while (data[i])
     {
         if (data[i] == '0')
@@ -217,11 +217,11 @@ int ft_check_bgnend(char *data)
 char    *ft_check_map(t_struct *cub)
 {   
     char    **data;
-    int i = 0;
+    int i = 1;
     int j;
 
     data = ft_jump_lines(cub);
-    if (ft_check_bgnend(data[i]) == 0)
+    if (ft_check_bgnend(data[0]) == 0)
         return (ft_putstr_fd("Open map\n", 2), NULL);
     if (ft_check_bgnend(data[cub->len_ofmap - 1]) == 0)
         return (ft_putstr_fd("Open map\n", 2), NULL);
@@ -232,8 +232,13 @@ char    *ft_check_map(t_struct *cub)
         j = 0;
         while (data[i][j])
         {
-            if (data[i][j] == '0' && data[i][j + 1] == ' ')
+            if (data[i][j] == '0' && (data[i][j + 1] == ' '))
                 return (ft_putstr_fd("Open map\n", 2), NULL);
+            if (data[i][j] != 'N' && data[i][j] != 'S' && data[i][j] != 'W' && data[i][j] != 'E' && data[i][j] != '1' && data[i][j] != '0' && data[i][j] != '2' && data[i][j] != ' ' && data[i][j] != '\0')
+            {
+                printf("---->%c-->%d-->%d",data[i][j] , cub->width ,j);
+                return (ft_putstr_fd("Map error\n", 2), NULL);
+            }
            j++;
         }
         
