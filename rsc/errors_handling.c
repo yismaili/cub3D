@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/04 16:34:52 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:02:08 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,11 +213,25 @@ int ft_check_bgnend(char *data)
     }
     return (1);
 }
+int ft_len_ofline(char *str)
+{
+    int len;
+    int i;
 
+    len = 0;
+    i = 0;
+    while (str[i])
+    {
+        if (ft_isalpha(str[i]) || ft_isdigit(str[i]))
+            len++;
+        i++;
+    }
+  return (len);  
+}
 char    *ft_check_map(t_struct *cub)
 {   
     char    **data;
-    int i = 1;
+    int i = 0;
     int j;
 
     data = ft_jump_lines(cub);
@@ -234,14 +248,15 @@ char    *ft_check_map(t_struct *cub)
         {
             if (data[i][j] == '0' && (data[i][j + 1] == ' '))
                 return (ft_putstr_fd("Open map\n", 2), NULL);
-            // if (data[i][j] != 'N' && data[i][j] != 'S' && data[i][j] != 'W' && data[i][j] != 'E' && data[i][j] != '1' && data[i][j] != '0' && data[i][j] != '2' && data[i][j] != ' ' && data[i][j] != '\0')
-            // {
-            //     printf("---->%c-->%d-->%d",data[i][j] , cub->width ,j);
-            //     return (ft_putstr_fd("Map error\n", 2), NULL);
-            // }
+            if (data[i][j] != 'N' && data[i][j] != 'S' && data[i][j] != 'W' && data[i][j] != 'E' && data[i][j] != '1' && data[i][j] != '0' && data[i][j] != '2' && data[i][j] != '\0'  && data[i][j] != '\n' && data[i][j] != ' ')
+            {
+                return (ft_putstr_fd("Map error\n", 2), NULL);
+            }
            j++;
         }
-        
+        // if (data[i][ft_len_ofline(data[i]) + ] != '1')
+        //     printf("----> %d\n",ft_len_ofline(data[i]));
+        //     // return (ft_putstr_fd("Open map\n", 2), NULL);
         i++;
     }
          print(data);
