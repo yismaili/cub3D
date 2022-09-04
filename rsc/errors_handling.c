@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/04 16:34:52 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/04 19:05:08 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ char    *ft_check_map(t_struct *cub)
         return (ft_putstr_fd("Open map\n", 2), NULL);
     while (data[i])
     { 
+        data[i] = ft_strtrim(data[i], " ");
         if (data[i][0] == '0')
             return (ft_putstr_fd("Open map\n", 2), NULL);
         j = 0;
@@ -233,14 +234,15 @@ char    *ft_check_map(t_struct *cub)
         {
             if (data[i][j] == '0' && (data[i][j + 1] == ' '))
                 return (ft_putstr_fd("Open map\n", 2), NULL);
-            // if (data[i][j] != 'N' && data[i][j] != 'S' && data[i][j] != 'W' && data[i][j] != 'E' && data[i][j] != '1' && data[i][j] != '0' && data[i][j] != '2' && data[i][j] != ' ' && data[i][j] != '\0')
-            // {
-            //     printf("---->%c-->%d-->%d",data[i][j] , cub->width ,j);
-            //     return (ft_putstr_fd("Map error\n", 2), NULL);
-            // }
+            if (data[i][j] != 'N' && data[i][j] != 'S' && data[i][j] != 'W' && data[i][j] != 'E' && data[i][j] != '1' && data[i][j] != '0' && data[i][j] != '2' && data[i][j] != '\0'  && data[i][j] != '\n')
+            {
+                printf("---->%c-->%d-->%d",data[i][j] , cub->width ,j);
+                return (ft_putstr_fd("Map error\n", 2), NULL);
+            }
            j++;
         }
-        
+        if (data[i][j - 2] != '1')
+            printf("hey--> %c\n", data[i][j - 2]);
         i++;
     }
          print(data);
