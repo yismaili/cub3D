@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/25 14:34:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/05 16:22:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int		ft_check_alldouble(t_struct *cub);
 char    **ft_jump_lines(t_struct *cub);
 int 	ft_check_bgnend(char *data);
 char	*ft_strdup_map(const char *s1, int len);
+int		ft_check_openmap(char **data);
 void print(char **str);
 #endif
