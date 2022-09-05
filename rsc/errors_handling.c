@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/05 18:27:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/05 19:52:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,12 +188,16 @@ char    **ft_jump_lines(t_struct *cub)
         else
             break;    
     }
-    data = malloc(sizeof(char *) * ((cub->height - len) + 1));
+    data = ft_calloc(sizeof(char *), cub->width + 1);
     i = 0;
-    while (cub->map[len])
+    while (cub->map[i++] && i < cub->height)
     {
-        data[i++] = ft_strdup_map(cub->map[len++], cub->width);
-       // data[i++] = ft_strdup(cub->map[len++]);
+        // printf("%p\n", cub.map[i]);
+       data[i] = ft_calloc(sizeof(char), cub->width + 1);
+        ft_memset(data[i], ' ', cub->width);
+       data[i][cub->width] = '\0';
+        ft_memmove(data[i], cub->map[len], ft_strlen(cub->map[len]));
+        i++;
     }
     cub->len_ofmap = i;
     data[i] = NULL;
