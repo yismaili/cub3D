@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/04 21:02:08 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/05 13:53:50 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,30 @@ int ft_len_ofline(char *str)
     }
   return (len);  
 }
+
+int count_direction(char **str)
+{
+    int i;
+    int len;
+    int j;
+
+    i = 0;
+    j = 0;
+    len = 0;
+    while (str[i])
+    {
+        j = 0;
+        while (str[i][j])
+        {
+            if (ft_isalpha(str[i][j]))
+                len++;
+            j++;
+        }
+       i++; 
+    }
+   return (len); 
+}
+
 char    *ft_check_map(t_struct *cub)
 {   
     char    **data;
@@ -234,6 +258,8 @@ char    *ft_check_map(t_struct *cub)
     int j;
 
     data = ft_jump_lines(cub);
+    if (count_direction(data) != 1)
+        return (ft_putstr_fd("too many direction", 2), NULL);
     if (ft_check_bgnend(data[0]) == 0)
         return (ft_putstr_fd("Open map\n", 2), NULL);
     if (ft_check_bgnend(data[cub->len_ofmap - 1]) == 0)
