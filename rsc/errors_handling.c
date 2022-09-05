@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/05 13:53:50 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/05 18:27:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,8 @@ char    **ft_jump_lines(t_struct *cub)
     i = 0;
     while (cub->map[len])
     {
-    //    data[i++] = ft_strdup_map(cub->map[len++], cub->width);
-        data[i++] = ft_strdup(cub->map[len++]);
+        data[i++] = ft_strdup_map(cub->map[len++], cub->width);
+       // data[i++] = ft_strdup(cub->map[len++]);
     }
     cub->len_ofmap = i;
     data[i] = NULL;
@@ -255,10 +255,11 @@ int count_direction(char **str)
 char    *ft_check_map(t_struct *cub)
 {   
     char    **data;
-    int i = 0;
+    int i;
     int j;
 
     data = ft_jump_lines(cub);
+    i = 0;
     if (count_direction(data) != 1)
         return (ft_putstr_fd("too many direction", 2), NULL);
     if (ft_check_bgnend(data[0]) == 0)
@@ -266,25 +267,43 @@ char    *ft_check_map(t_struct *cub)
     if (ft_check_bgnend(data[cub->len_ofmap - 1]) == 0)
         return (ft_putstr_fd("Open map\n", 2), NULL);
     while (data[i])
-    { 
-        if (data[i][0] == '0')
-            return (ft_putstr_fd("Open map\n", 2), NULL);
+    {
         j = 0;
         while (data[i][j])
         {
-            if (data[i][j] == '0' && (data[i][j + 1] == ' '))
-                return (ft_putstr_fd("Open map\n", 2), NULL);
             if (data[i][j] != 'N' && data[i][j] != 'S' && data[i][j] != 'W' && data[i][j] != 'E' && data[i][j] != '1' && data[i][j] != '0' && data[i][j] != '2' && data[i][j] != '\0'  && data[i][j] != '\n' && data[i][j] != ' ')
-            {
                 return (ft_putstr_fd("Map error\n", 2), NULL);
-            }
            j++;
         }
-        // if (data[i][ft_len_ofline(data[i]) + ] != '1')
-        //     printf("----> %d\n",ft_len_ofline(data[i]));
-        //     // return (ft_putstr_fd("Open map\n", 2), NULL);
         i++;
     }
-         print(data);
+    ft_check_openmap(data);
+    print(data);
     return (NULL);
+}
+
+int ft_check_openmap(char **data)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (data[i])
+    {
+        j = 0;
+        while(data[i][j])
+        {
+            if (data[i][j] == ' ')
+            {
+                if (data[i - 1][j] != '1' && data[i + 1][j] != '1' && data[i][j - 1] != '1' && data[i][j + 1] != '1')
+                  {
+                  //  printf("---> qwdqwedwq %s\n", data[i]);
+                    break;
+                  } 
+            }
+            j++;
+        }
+        i++;
+    }
+    return (0);                                                                                                                                                                                                                                                                                    
 }

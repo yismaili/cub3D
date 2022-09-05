@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/25 14:33:57 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/05 18:25:40 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,24 @@
 
 char *get_next_line(int fd)
 {
-	char line[8000000] = {0};
-	int ret = 1;
-	char c;
-	int i = 0;
-	while((ret = read(fd, &c, 1) > 0))
-	{
-		line[i++] = c;
-		if (c == '\n')
-			break ;
-	}
-	if (line[0] == 0)
-		return NULL;
-	return (ft_strdup(line));
+    int 	i = 0;
+    int 	rd = 0;
+    char	character;
+    char 	*buffer = malloc(10000);
+
+    while ((rd = read(fd, &character, 1)) > 0)
+    {
+        if (character == '\n')
+            break;
+        buffer[i++] = character;
+    }
+    if ((!buffer[i - 1] && !rd) || rd == -1)
+    {
+        free(buffer);
+        return (NULL);
+    }
+    buffer[i] =  '\0';
+    return(buffer);
 }
 
 int	get_height(char *map_file)
@@ -89,7 +94,7 @@ void	ft_read_maps(char *map_file, t_struct *cub)
 	cub->map = (char **) malloc(sizeof(char *) * (cub->height + 1));
 	while (i < cub->height)
 	{
-		cub->map[i] = (char *) malloc(sizeof(char) * cub->width);
+		// cub->map[i] = (char *) malloc(sizeof(char) * cub->width);
 		get_line = get_next_line(fd);
         cub->map[i] = ft_strdup(get_line);
 		free(get_line);
