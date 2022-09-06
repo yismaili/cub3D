@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/06 17:43:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:50:49 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ char    *ft_check_texture(t_struct *cub, char *dirct, int len)
     char    *path;
     int     fd;
     char    *ptr;
-    path = ft_strdup(ft_search_inmap(cub, dirct, len));
+    char    *srch;
+
+    srch = ft_search_inmap(cub, dirct, len);
+    path = ft_strdup(srch);
     if (!path)
         return (NULL);
     else
@@ -240,7 +243,6 @@ char    *ft_check_map(t_struct *cub)
     int j;
 
     data = ft_jump_lines(cub);
-    print(data);
     i = 0;
     if (count_direction(data) != 1)
         return (ft_putstr_fd("too many direction", 2), NULL);
