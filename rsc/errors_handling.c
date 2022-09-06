@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/06 14:55:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/06 16:41:21 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,14 +166,14 @@ char    **ft_jump_lines(t_struct *cub)
     }
     data = ft_calloc(sizeof(char *), (cub->height - len) + 1);
     i = 0;
-    while (cub->map[len] )
+    while (cub->map[len])
     {
          //printf("%p\n", cub->map[len]);
-       data[i] = ft_calloc(sizeof(char), cub->width + 1);
+        data[i] = ft_calloc(sizeof(char), cub->width + 1);
         ft_memset(data[i], ' ', cub->width);
-       data[i][cub->width] = '\0';
+        data[i][cub->width] = '\0';
         ft_memmove(data[i], cub->map[len], ft_strlen(cub->map[len]));
-         len++;
+        len++;
         i++;
     }
     cub->len_ofmap = i;
@@ -259,7 +259,7 @@ char    *ft_check_map(t_struct *cub)
         }
         i++;
     }
-    ft_check_openmap(data);
+  ft_check_openmap(data);
     return (NULL);
 }
 
@@ -276,9 +276,9 @@ int ft_check_openmap(char **data)
         {
             if (data[i][j] == ' ')
             {
-                if (data[i - 1][j] != '1' && data[i + 1][j] != '1' && data[i][j - 1] != '1' && data[i][j + 1] != '1')
+                if (data[i][j + 1] != '1' && data[i][j + 1] != ' ' && data[i][j + 1] != '\0')
                   {
-                  //  printf("---> qwdqwedwq %s\n", data[i]);
+                   printf("---> qwdqwedwq %s\n", data[i]);
                     break;
                   } 
             }
