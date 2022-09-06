@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/06 12:51:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:43:06 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ char *get_next_line(int fd)
             break;
         buff[i] = c;
 		i++;
-    }
-    if ((!buff[i - 1] && !read_line) || read_line== - 1)
+	}
+    buff[i] =  '\0';
+    if ((!buff[i] && !read_line) || read_line == - 1)
     {
         free(buff);
         return (NULL);
     }
-    buff[i] =  '\0';
     return(buff);
 }
 
@@ -105,5 +105,4 @@ void	ft_read_maps(char *map_file, t_struct *cub)
 	}
   	cub->map[i] = NULL;
 	close(fd);
-	    print(cub->map);
 }
