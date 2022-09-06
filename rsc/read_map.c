@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/06 11:32:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:51:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,28 @@
 
 char *get_next_line(int fd)
 {
-    int 	i = 0;
-    int 	rd = 0;
-    char	character;
-    char 	*buffer = malloc(10000);
-
-    while ((rd = read(fd, &character, 1)) > 0)
+    int 	i;
+    int 	read_line;
+    char	c;
+    char 	*buff;
+	
+	i = 0;
+    read_line = 0;
+	buff = (char *)malloc(sizeof(char) * 10000);
+    while ((read_line = read(fd, &c, 1)) > 0)
     {
-        if (character == '\n')
+        if (c == '\n')
             break;
-        buffer[i++] = character;
+        buff[i] = c;
+		i++;
     }
-    if ((!buffer[i - 1] && !rd) || rd == -1)
+    if ((!buff[i - 1] && !read_line) || read_line== - 1)
     {
-        free(buffer);
+        free(buff);
         return (NULL);
     }
-    buffer[i] =  '\0';
-    return(buffer);
+    buff[i] =  '\0';
+    return(buff);
 }
 
 int	get_height(char *map_file)
