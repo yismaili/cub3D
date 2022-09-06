@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/05 19:52:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:26:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char    *ft_check_texture(t_struct *cub, char *dirct, int len)
     else
     {
         ptr = path;
-        path = ft_substr(path, len + 1, (ft_strlen(path) - (len + 2)));
+        path = ft_substr(path, len + 1, (ft_strlen(path) - (len + 1)));
         free(ptr);
         fd = open(path, O_RDONLY);
         if (fd < 0)
@@ -101,7 +101,7 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len)
     if (!data)
         return (NULL);
     ptr = data;
-    data = ft_substr(data, len + 1, (ft_strlen(data) -(len + 2)));
+    data = ft_substr(data, len + 1, (ft_strlen(data) - (len + 1)));
     free(ptr);
     splt_data = ft_split(data, ',');
     i = 0;
@@ -189,13 +189,14 @@ char    **ft_jump_lines(t_struct *cub)
     }
     data = ft_calloc(sizeof(char *), cub->width + 1);
     i = 0;
-    while (cub->map[i++] && i < cub->height)
+    while (cub->map[i] && i < cub->height)
     {
         // printf("%p\n", cub.map[i]);
        data[i] = ft_calloc(sizeof(char), cub->width + 1);
         ft_memset(data[i], ' ', cub->width);
        data[i][cub->width] = '\0';
         ft_memmove(data[i], cub->map[len], ft_strlen(cub->map[len]));
+        len++;
         i++;
     }
     cub->len_ofmap = i;
@@ -281,7 +282,6 @@ char    *ft_check_map(t_struct *cub)
         i++;
     }
     ft_check_openmap(data);
-    print(data);
     return (NULL);
 }
 
