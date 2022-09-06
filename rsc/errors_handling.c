@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/06 16:58:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:43:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,8 @@ char    *ft_check_map(t_struct *cub)
         }
         i++;
     }
-  ft_check_openmap(data);
+    if (ft_check_openmap(data))
+        return (ft_putstr_fd("Open map\n", 2), NULL);
     return (NULL);
 }
 
@@ -277,18 +278,12 @@ int ft_check_openmap(char **data)
             if (data[i][j] == ' ')
             {
                 if (data[i][j + 1] != '1' && data[i][j + 1] != ' ' && data[i][j + 1] != '\0')
-                {
-                    printf("---> qwdqwedwq %s\n", data[i]);
-                    break;
-                } 
+                    return (1);
             }
             if (data[i][j] == '0')
             {
-                  if (data[i][j + 1] == ' ' || data[i][j + 1] == '\0')
-                    {
-                        printf("---> qwdqwedwq %s\n", data[i]);
-                        break;
-                    } 
+                if (data[i][j + 1] == ' ' || data[i][j + 1] == '\0' || data[i - 1][j] == ' '  || data[i + 1][j] == ' ' )
+                    return (1);
             }
             j++;
         }
