@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/06 14:51:14 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:49:17 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,5 @@ int main(int ac, char **av)
      ft_check_alltextures(&cub);
     ft_check_rgb(&cub);
     ft_check_map(&cub);
-    
-    // int i = 6;
-    // int j = 0;
-    // char **map = ft_calloc(sizeof(char *), cub.width + 1);
-    // while (cub.map[i++] && i < cub.height)
-    // {
-    //     // printf("%p\n", cub.map[i]);
-    //     map[j] = ft_calloc(sizeof(char), cub.width + 1);
-    //     ft_memset(map[j], ' ', cub.width);
-    //     map[j][cub.width] = '\0';
-    //     ft_memmove(map[j], cub.map[i], ft_strlen(cub.map[i]));
-    //      printf("--%zu--\n", ft_strlen(map[j]));
-    //     j++;
-    // }
-    // printf("\n%d\n",cub.flr.r);
-    // printf("NO --->%s\n",cub.drct.north_path);
-    // printf("SO --->%s\n",cub.drct.south_path);
-    // printf("WE --->%s\n",cub.drct.west_path);
-    // printf("EA --->%s\n",cub.drct.east_path);
-    //  print(data);
-    //  printf("-------------------------------------------------------\n");
-   // print(map);
-    
+    print(ft_jump_lines(&cub));
 }
