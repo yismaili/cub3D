@@ -6,36 +6,12 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/06 12:26:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:55:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../include/cub3D.h"
-
-char	*ft_strdup_map(const char *s1, int len)
-{
-	char	*dst;
-	int		i;
-
-	i = 0;
-	dst = (char *)malloc(len + 1 * sizeof(char));
-	if (!dst)
-		return (NULL);
-	while (s1[i] != '\0')
-	{
-			dst[i] = s1[i];
-		i++;
-	}
-	while (i < len)
-	{
-		dst[i] = ' ';
-		i++;
-	}
-	dst[i] = '\0';
-	
-	return (dst);
-}
 
 char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch)
 {
@@ -188,16 +164,16 @@ char    **ft_jump_lines(t_struct *cub)
         else
             break;    
     }
-    data = ft_calloc(sizeof(char *), cub->width + 1);
+    data = ft_calloc(sizeof(char *), (cub->height - len) + 1);
     i = 0;
-    while (cub->map[i] && i < cub->height)
+    while (cub->map[len] )
     {
-        // printf("%p\n", cub.map[i]);
+         //printf("%p\n", cub->map[len]);
        data[i] = ft_calloc(sizeof(char), cub->width + 1);
         ft_memset(data[i], ' ', cub->width);
        data[i][cub->width] = '\0';
         ft_memmove(data[i], cub->map[len], ft_strlen(cub->map[len]));
-        len++;
+         len++;
         i++;
     }
     cub->len_ofmap = i;
@@ -264,6 +240,7 @@ char    *ft_check_map(t_struct *cub)
     int j;
 
     data = ft_jump_lines(cub);
+    print(data);
     i = 0;
     if (count_direction(data) != 1)
         return (ft_putstr_fd("too many direction", 2), NULL);
