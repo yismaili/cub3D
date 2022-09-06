@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/06 16:41:21 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/06 16:58:06 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,10 +276,18 @@ int ft_check_openmap(char **data)
             if (data[i][j] == ' ')
             {
                 if (data[i][j + 1] != '1' && data[i][j + 1] != ' ' && data[i][j + 1] != '\0')
-                  {
-                   printf("---> qwdqwedwq %s\n", data[i]);
+                {
+                    printf("---> qwdqwedwq %s\n", data[i]);
                     break;
-                  } 
+                } 
+            }
+            if (data[i][j] == '0')
+            {
+                  if (data[i][j + 1] == ' ' || data[i][j + 1] == '\0')
+                    {
+                        printf("---> qwdqwedwq %s\n", data[i]);
+                        break;
+                    } 
             }
             j++;
         }
