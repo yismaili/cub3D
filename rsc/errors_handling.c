@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/07 21:51:02 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/07 21:57:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,12 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len)
     int     i;
     int     num;
 
-    data = ft_strdup(ft_search_inmap(cub, flor_clg, len));
+     char    *srch;
+    char    **new_map;
+
+    new_map = ft_split_map(cub);
+    srch = ft_search_innewmap(new_map,  flor_clg, len);
+    data = ft_strdup(srch);
     if (!data)
         return (NULL);
     ptr = data;
