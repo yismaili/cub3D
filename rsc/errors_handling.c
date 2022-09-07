@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/07 18:59:39 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/07 21:51:02 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ char    *ft_check_texture(t_struct *cub, char *dirct, int len)
     char    **new_map;
 
     new_map = ft_split_map(cub);
-   // print(new_map);
     srch = ft_search_innewmap(new_map, dirct, len);
     path = ft_strdup(srch);
     if (!path)
@@ -232,7 +231,7 @@ char    **ft_jump_lines(t_struct *cub)
     len = 0;
     while (cub->map[len])
     {
-        if ((cub->map[len][0] == 'N' || cub->map[len][0] == 'S' || cub->map[len][0] == 'W'|| cub->map[len][0] == 'E' || cub->map[len][0] == 'F' || cub->map[len][0] == 'C' || cub->map[len][0] == '\0' || cub->map[len][0] == '\n') )
+        if (ft_strchr(cub->map[len],'N') || ft_strchr(cub->map[len], 'S') || ft_strchr(cub->map[len], 'W')|| ft_strchr(cub->map[len], 'E')|| ft_strchr(cub->map[len], 'F')|| ft_strchr(cub->map[len], 'C')|| cub->map[len][0] == '\0'|| cub->map[len][0] == '\n')
             len++;
         else
             break;    
