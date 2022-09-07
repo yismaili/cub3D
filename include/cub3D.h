@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/05 16:22:59 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/07 17:05:07 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char    *ft_check_map(t_struct *cub);
 char	*get_next_line(int fd);
 void	ft_read_maps(char *map_file, t_struct *ptr);
 char    *ft_check_texture(t_struct *cub, char *dirct, int len);
-char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch);
+char    *ft_search_innewmap(char **new_map, char *search, int len_ofsrch);
 int		ft_check_alltextures(t_struct *cub);
 char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len);
 int		ft_check_rgb(t_struct *cub);
@@ -68,5 +68,7 @@ char    **ft_jump_lines(t_struct *cub);
 int 	ft_check_bgnend(char *data);
 char	*ft_strdup_map(const char *s1, int len);
 int		ft_check_openmap(char **data);
+char    **ft_split_map(t_struct *cub);
+char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch);
 void print(char **str);
 #endif

@@ -6,11 +6,23 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/06 18:50:49 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/07 18:59:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (0);
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
 
 char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch)
 {
@@ -26,17 +38,75 @@ char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch)
     return (NULL);
 }
 
+char    *ft_search_innewmap(char **new_map, char *search, int len_ofsrch)
+{
+    int i;
+
+    i = 0;
+    while (new_map[i])
+    {
+        if (!ft_strncmp(new_map[i], search, len_ofsrch))
+            return (new_map[i]);
+        i++;
+    }
+    return (NULL);
+}
+
+char    **ft_split_map(t_struct *cub)
+{
+    int     i;
+    int     j;
+    int     len;
+    int     k;
+    int     l;
+    char    **path;
+
+    i = 0;
+    k = 0;
+    len = 0;
+    path = (char **)malloc(sizeof(char *) * cub->height + 1);
+    while (cub->height > i)
+    {
+        j = 0;
+        while (cub->map[i][j])
+        {
+            if (cub->map[i][j] != ' ')
+                len++;
+            j++;
+        }
+        j = 0;
+        l = 0;
+        path[k] = ft_calloc(sizeof(char), len + 1);
+        while (cub->map[i][j])
+        {
+            if (cub->map[i][j] != ' ')
+               path[k][l++] = cub->map[i][j];
+            j++;
+        }
+        path[k][l] = '\0';
+        k++;
+        i++;
+    }
+    return (path);
+}
+
 char    *ft_check_texture(t_struct *cub, char *dirct, int len)
 {
     char    *path;
     int     fd;
     char    *ptr;
     char    *srch;
+    char    **new_map;
 
-    srch = ft_search_inmap(cub, dirct, len);
+    new_map = ft_split_map(cub);
+   // print(new_map);
+    srch = ft_search_innewmap(new_map, dirct, len);
     path = ft_strdup(srch);
     if (!path)
+    {
+        printf("hey i am her\n");
         return (NULL);
+    }
     else
     {
         ptr = path;
@@ -53,18 +123,18 @@ int ft_check_alltextures(t_struct *cub)
 {
     if (ft_check_alldouble(cub) == 0)
         return (ft_putstr_fd("invalide map\n", 2), 0);
-    cub->drct.north_path = ft_check_texture(cub, "NO", 2);
+    cub->drct.north_path = ft_check_texture(cub, "NO", 1);
     if (cub->drct.north_path == NULL)
         return (ft_putstr_fd("North texureh not fount\n", 2), 0);
-    cub->drct.south_path = ft_check_texture(cub, "SO", 2);
+    cub->drct.south_path = ft_check_texture(cub, "SO", 1);
     if (cub->drct.south_path== NULL)
         return (ft_putstr_fd("South texure not fount\n", 2), 0);
-    cub->drct.west_path = ft_check_texture(cub, "WE", 2);
+    cub->drct.west_path = ft_check_texture(cub, "WE", 1);
     if (cub->drct.west_path == NULL)
         return (ft_putstr_fd("West texure not fount\n", 2), 0);
-    cub->drct.east_path = ft_check_texture(cub, "EA", 2);
+    cub->drct.east_path = ft_check_texture(cub, "EA", 1);
     if (cub->drct.east_path == NULL)
-        return (ft_putstr_fd("East texure not fount\n", 2), 0);
+        return (ft_putstr_fd("East texure not fount\n",1), 0);
     return (1);
 }
 
@@ -170,7 +240,6 @@ char    **ft_jump_lines(t_struct *cub)
     i = 0;
     while (cub->map[len])
     {
-         //printf("%p\n", cub->map[len]);
         data[i] = ft_calloc(sizeof(char), cub->width + 1);
         ft_memset(data[i], ' ', cub->width);
         data[i][cub->width] = '\0';
