@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/07 18:59:51 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/07 21:21:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,18 @@ int main(int ac, char **av)
     if (ac != 2)
 		return (ft_putstr_fd("Usage : ./cub3D path/to/map.cub", 0), 0);
 	ft_read_maps(av[1], &cub);
-     ft_check_alltextures(&cub);
+    ft_check_alltextures(&cub);
     ft_check_rgb(&cub);
     ft_check_map(&cub);
     print(ft_jump_lines(&cub));
+    printf("F --> %d ",cub.flr.r);
+    printf("%d ",cub.flr.g);
+    printf("%d \n",cub.flr.b);
+    printf("C --> %d ",cub.clg.r);
+    printf("%d ",cub.clg.g);
+    printf("%d \n",cub.clg.b);
+    printf("NO --->%s\n",cub.drct.north_path);
+    printf("SO --->%s\n",cub.drct.south_path);
+    printf("WE --->%s\n",cub.drct.west_path);
+    printf("EA --->%s\n",cub.drct.east_path);
 }
