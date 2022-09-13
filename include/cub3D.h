@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/13 13:29:05 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:55:06 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../libft/libft.h"
+# define W_WIDTH 2000
+# define W_HEIGHT 1200
 
 typedef struct s_floor
 {
@@ -47,6 +49,8 @@ typedef struct s_coordinate
 	int x_1;
 	int y;
 	int y_1;
+	int	z;
+	int z_1;
 	
 }	t_coordinate;
 typedef struct s_struct
@@ -59,6 +63,8 @@ typedef struct s_struct
 	int			width;
 	int			len_ofmap;
 	t_coordinate cordnt;
+	void	*mlx_ptr;
+    void	*win_ptr;
 }	t_struct;
 
 
@@ -80,5 +86,6 @@ char	*ft_strdup_map(const char *s1, int len);
 int		ft_check_openmap(char **data);
 char    **ft_split_map(t_struct *cub);
 char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch);
+void    ft_draw_map(t_struct *cub);
 void print(char **str);
 #endif
