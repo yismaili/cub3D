@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/13 15:38:53 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/13 16:13:18 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,5 @@ void    ft_draw_map(t_struct *cub)
         }
         y++;
     }
-    
+    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 2, 2);
 }

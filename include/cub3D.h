@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/13 14:55:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/13 16:16:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@ typedef struct s_struct
 	t_coordinate cordnt;
 	void	*mlx_ptr;
     void	*win_ptr;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		shift_x;
+	int		shift_y;
+	float	cos_x;
+	float	sin_y;
+	int		zom;
 }	t_struct;
 
 

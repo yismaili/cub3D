@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/13 15:54:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/13 16:16:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ void print(char **str)
     }
 }
 
+void	ft_initialization(t_struct *ptr)
+{
+	if (ptr->height < 100 && ptr->width < 100)
+		ptr->zom = 10;
+	else
+		ptr->zom = 2;
+	ptr->cos_x = 0.523599;
+	ptr->sin_y = 0.523599;
+	ptr->shift_x = W_WIDTH / 2;
+	ptr->shift_y = W_HEIGHT / 2 - 200;
+}
+
 int main(int ac, char **av)
 {
     t_struct cub;
@@ -33,8 +45,11 @@ int main(int ac, char **av)
     ft_check_rgb(&cub);
     ft_check_map(&cub);
     cub.mlx_ptr = mlx_init();
-	cub.win_ptr = mlx_new_window(cub.mlx_ptr, W_WIDTH, W_HEIGHT, "cub3D");
+	cub.win_ptr = mlx_new_window(&cub.mlx_ptr, W_WIDTH, W_HEIGHT, "cub3D");
+    cub.img = mlx_new_image(&cub.mlx_ptr, W_WIDTH, W_HEIGHT);
+	cub.addr = mlx_get_data_addr(&cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
     ft_draw_map(&cub);
+    mlx_loop(&cub.mlx_ptr);
     // print(ft_jump_lines(&cub));
     // printf("F --> %d ",cub.flr.r);
     // printf("%d ",cub.flr.g);
