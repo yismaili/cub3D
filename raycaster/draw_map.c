@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/13 16:13:18 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/13 20:44:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void    ft_bresenham(t_struct *cub)
     p_1 = cub->cordnt.x_1;
     cub->cordnt.z = data[(int)cub->cordnt.y][(int)cub->cordnt.x];
     cub->cordnt.z_1 = data[(int)cub->cordnt.y_1][(int)cub->cordnt.x_1];
-    cub->cordnt.x = (p - cub->cordnt.y) * cos(30);
-    cub->cordnt.y = (p + cub->cordnt.y) * sin(30) - cub->cordnt.z;
-    cub->cordnt.x_1 = (p_1 - cub->cordnt.y_1) * cos(30);
-    cub->cordnt.y_1 = (p_1 + cub->cordnt.y_1) * sin(30) - cub->cordnt.z_1;
+    cub->cordnt.x = (p - cub->cordnt.y) * cos(cub->cos_x);
+    cub->cordnt.y = (p + cub->cordnt.y) * sin(cub->sin_y) - cub->cordnt.z;
+    cub->cordnt.x_1 = (p_1 - cub->cordnt.y_1) * cos(cub->cos_x);
+    cub->cordnt.y_1 = (p_1 + cub->cordnt.y_1) * sin(cub->sin_y) - cub->cordnt.z_1;
     x_step = cub->cordnt.x_1 - cub->cordnt.x;
     y_step = cub->cordnt.y_1 - cub->cordnt.y;
     max = ft_max(abs((int)x_step), abs((int)y_step));
@@ -103,6 +103,7 @@ void    ft_draw_map(t_struct *cub)
     height = ft_count_height(data);
     while (y < height)
     {
+    //printf("hey\n");
         x = 0;
         while (x < cub->width)
         {
