@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/14 11:37:29 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/14 12:30:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void    ft_bresenham(t_struct *cub)
     y_step /= max;
     while ((int)(cub->cordnt.x - cub->cordnt.x_1) || (int)(cub->cordnt.y - cub->cordnt.y_1))
     {
-       	mlx_pixel_put(cub->mlx_ptr, cub->win_ptr, cub->cordnt.x,  cub->cordnt.y, 0x0000ff);
+       	mlx_pixel_put(cub->mlx_ptr, cub->win_ptr, cub->cordnt.x,  cub->cordnt.y, 0xffffff);
 		cub->cordnt.x = cub->cordnt.x + x_step;
 		cub->cordnt.y = cub->cordnt.y + y_step;
     // printf("---> %f\n",cub->cordnt.x);
@@ -98,22 +98,27 @@ void    ft_draw_map(t_struct *cub)
     int y;
     int height;
     char    **data;
+    int     len;
 
     y = 0;
+    len = 0;
     data = ft_jump_lines(cub);
+    print(data);
     height = ft_count_height(data);
     while (y < height)
     {
         x = 0;
-        while (x < cub->width)
+        len = ft_strlen(data[y]);
+        while (x < len)
         {
-            if (x < cub->width - 1)
+            if (x < len - 1)
                 ft_coordinate(x, y, cub, 0);
             if (y < height - 1)
                 ft_coordinate(x, y, cub, 1);
+           printf("x---> %d\n", x);
             x++;
         }
-     printf("hey---> %d\n", y);
+    printf("y---> %d\n", y);
         y++;
     }
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 2, 2);
