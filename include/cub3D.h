@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/13 20:06:54 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/14 11:34:45 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ typedef struct s_dirct
 
 typedef struct s_coordinate
 {
-	int x;
-	int x_1;
-	int y;
-	int y_1;
-	int	z;
-	int z_1;
+	float x;
+	float x_1;
+	float y;
+	float y_1;
+	float	z;
+	float z_1;
 	
 }	t_coordinate;
 typedef struct s_struct
