@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/07 21:57:09 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/14 11:51:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char    *ft_check_texture(t_struct *cub, char *dirct, int len)
     path = ft_strdup(srch);
     if (!path)
     {
-        printf("hey i am her\n");
+        //printf("hey i am her\n");
         return (NULL);
     }
     else

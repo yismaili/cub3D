@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/14 11:38:50 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/14 11:42:29 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_initialization(t_struct *ptr)
 	ptr->cos_x = 0.523599;
 	ptr->sin_y = 0.523599;
 	ptr->shift_x = W_WIDTH / 2;
-	ptr->shift_y = W_HEIGHT / 2 - 200;
+	ptr->shift_y = W_HEIGHT / 2 - 0;
 }
 
 int f(t_struct *cub)
