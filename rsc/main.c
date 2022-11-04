@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/14 11:42:29 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/04 12:09:15 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,6 @@ void	ft_initialization(t_struct *ptr)
 	ptr->shift_y = W_HEIGHT / 2 - 0;
 }
 
-int f(t_struct *cub)
-{
-    ft_draw_map(cub);
-    return 0;
-}
-
 int main(int ac, char **av)
 {
     t_struct cub;
@@ -54,8 +48,7 @@ int main(int ac, char **av)
 	cub.win_ptr = mlx_new_window(&cub.mlx_ptr, W_WIDTH, W_HEIGHT, "cub3D");
     cub.img = mlx_new_image(&cub.mlx_ptr, W_WIDTH, W_HEIGHT);
 	cub.addr = mlx_get_data_addr(&cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
-   // mlx_loop_hook(cub.mlx_ptr, f, &cub);
-       ft_draw_map(&cub);
+   // ft_draw_map(&cub);
     mlx_loop(cub.mlx_ptr);
     // print(ft_jump_lines(&cub));
     // printf("F --> %d ",cub.flr.r);
