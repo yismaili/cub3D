@@ -6,23 +6,24 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/05 14:47:23 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/05 19:46:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-void	my_mlx_pixel_put(t_struct *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_struct *ptr, int x, int y, int color)
 {
 	char	*dst;
 
 	if (x > 0 && y > 0 && x < W_WIDTH && y < W_HEIGHT)
 	{
-		dst = data->addr + (y * data->line_length + x
-				* (data->bits_per_pixel / 8));
+		dst = ptr->addr + (y * ptr->line_length + x
+				* (ptr->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
 }
+
 float	ft_max(float a, float b)
 {
 	if (a > b)
@@ -77,10 +78,9 @@ void    ft_bresenham(t_struct *cub)
     y_step /= max;
     while ((int)(cub->cordnt.x - cub->cordnt.x_1) || (int)(cub->cordnt.y - cub->cordnt.y_1))
     {
-       my_mlx_pixel_put(cub, cub->cordnt.x, cub->cordnt.y, cub->color);
+        my_mlx_pixel_put(cub, cub->cordnt.x,  cub->cordnt.y, 0xffff);
 		cub->cordnt.x = cub->cordnt.x + x_step;
 		cub->cordnt.y = cub->cordnt.y + y_step;
-     printf("---> %f\n",cub->cordnt.x);
     }
 }
 
@@ -100,7 +100,6 @@ void    ft_coordinate(int x, int y, t_struct *cub, int check)
         cub->cordnt.y = y;
         cub->cordnt.y_1 = y + 1;
     }
-    cub->color = 0xffffff;
     ft_bresenham(cub);
 }
 
@@ -115,22 +114,21 @@ void    ft_draw_map(t_struct *cub)
     y = 0;
     len = 0;
     data = ft_jump_lines(cub);
-    print(data);
+   // print(data);
     height = ft_count_height(data);
-    while (y < height)
+    while (y < 100)
     {
         x = 0;
-        len = ft_strlen(data[y]);
-        while (x < len)
+        //len = ft_strlen(data[y]);
+        while (x < 100)
         {
-            if (x < len - 1)
-                ft_coordinate(x, y, cub, 0);
-            if (y < height - 1)
-                ft_coordinate(x, y, cub, 1);
-          // printf("x---> %d\n", x);
+            // if (x < len - 1)
+            //     ft_coordinate(x, y, cub, 0);
+            // if (y < height - 1)
+            //     ft_coordinate(x, y, cub, 1);
+             my_mlx_pixel_put(cub, x, y, 0xffff);
             x++;
         }
-   // printf("y---> %d\n", y);
         y++;
     }
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 2, 2);

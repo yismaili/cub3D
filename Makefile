@@ -6,7 +6,7 @@
 #    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 13:19:25 by yismaili          #+#    #+#              #
-#    Updated: 2022/11/04 16:06:13 by yismaili         ###   ########.fr        #
+#    Updated: 2022/11/05 18:32:32 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ all : $(NAME)
 		@echo "$(GREEN)BY $(RED)$(CREATER)"
 
 $(NAME) : $(OBJ_FILES) $(LIBFT)
-	$(CC) $(OBJ_FILES) -lmlx $(framework) $(LIBFT) $(FLAGS) -o $(NAME)
+	$(CC) $(OBJ_FILES) -lmlx  $(framework) $(LIBFT) $(FLAGS) -o $(NAME)
 	
 %.o : %.c $(HEADER)
 	$(CC) $(FLAGS) -o $@ -c $<

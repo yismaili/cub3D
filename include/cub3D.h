@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/05 14:44:51 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/05 18:42:50 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../libft/libft.h"
-# define W_WIDTH 1000
-# define W_HEIGHT 500
+# define W_WIDTH 2000
+# define W_HEIGHT 1580
 
 typedef struct s_floor
 {
