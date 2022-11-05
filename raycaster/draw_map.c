@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/05 19:46:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/05 20:02:16 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void    ft_bresenham(t_struct *cub)
     cub->cordnt.z = data[(int)cub->cordnt.y][(int)cub->cordnt.x];
     cub->cordnt.z_1 = data[(int)cub->cordnt.y_1][(int)cub->cordnt.x_1];
     cub->cordnt.x = (p - cub->cordnt.y) * cos(cub->cos_x);
-    cub->cordnt.y = (p + cub->cordnt.y) * sin(cub->sin_y) - cub->cordnt.z;
+    cub->cordnt.y = (p + cub->cordnt.y) * sin(cub->sin_y) ;
     cub->cordnt.x_1 = (p_1 - cub->cordnt.y_1) * cos(cub->cos_x);
-    cub->cordnt.y_1 = (p_1 + cub->cordnt.y_1) * sin(cub->sin_y) - cub->cordnt.z_1;
+    cub->cordnt.y_1 = (p_1 + cub->cordnt.y_1) * sin(cub->sin_y);
     x_step = cub->cordnt.x_1 - cub->cordnt.x;
     y_step = cub->cordnt.y_1 - cub->cordnt.y;
     max = ft_max(abs((int)x_step), abs((int)y_step));
@@ -122,14 +122,14 @@ void    ft_draw_map(t_struct *cub)
         //len = ft_strlen(data[y]);
         while (x < 100)
         {
-            // if (x < len - 1)
-            //     ft_coordinate(x, y, cub, 0);
-            // if (y < height - 1)
-            //     ft_coordinate(x, y, cub, 1);
-             my_mlx_pixel_put(cub, x, y, 0xffff);
+            if (x < len - 1)
+                ft_coordinate(x, y, cub, 0);
+            if (y < height - 1)
+                ft_coordinate(x, y, cub, 1);
+            // my_mlx_pixel_put(cub, x, y, 0xffff);
             x++;
         }
         y++;
     }
-    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 2, 2);
+    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
