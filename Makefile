@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+         #
+#    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 13:19:25 by yismaili          #+#    #+#              #
-#    Updated: 2022/09/13 12:51:19 by yismaili         ###   ########.fr        #
+#    Updated: 2022/11/04 16:06:13 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ RESET = \033[0m
 BBlue=\033[0;34m
 BYellow=\033[1;33m
 CC = gcc
-FLAGS = -g -Wall -Werror -Wextra -g -fsanitize=address
+FLAGS = -g -Wall -Werror -Wextra -g #-fsanitize=address
 framework= -framework OpenGL -framework AppKit 
 RM = rm -rf
 
