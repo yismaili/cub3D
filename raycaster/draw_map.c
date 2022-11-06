@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/06 12:36:40 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/06 18:08:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ void    ft_bresenham(t_struct *cub)
     {
         if ( cub->checkColorMap == 1)
         {
-                my_mlx_pixel_put(cub, cub->cordnt.x, cub->cordnt.y, 0xffff);  
-                cub->checkColorMap = 0;  
+            
+            my_mlx_pixel_put(cub, cub->cordnt.x, cub->cordnt.y, 0xffff);
+            cub->checkColorMap = 0;  
         }
         else{
                 my_mlx_pixel_put(cub, cub->cordnt.x, cub->cordnt.y, 0x00FF0000); 
@@ -83,21 +84,21 @@ void    ft_bresenham(t_struct *cub)
 
 void    ft_coordinate(int x, int y, t_struct *cub, int check)
 {
-    if (check == 0)
-    {
-        cub->cordnt.x = x;
-        cub->cordnt.x_1 = x + 1;
-        cub->cordnt.y = y;
-        cub->cordnt.y_1 = y;
-    }
-    if (check == 1)
-    {
-        cub->cordnt.x = x;
-        cub->cordnt.x_1 = x;
-        cub->cordnt.y = y;
-        cub->cordnt.y_1 = y + 1;
-    }
-    ft_bresenham(cub);
+    int i = 0;
+        if (check == 0)
+        {
+            cub->cordnt.x = x;
+            cub->cordnt.x_1 = x + 1;
+            cub->cordnt.y = y;
+            cub->cordnt.y_1 = y;
+        }
+        if (check == 1)
+        {
+            cub->cordnt.x = x;
+            cub->cordnt.x_1 = x;
+            cub->cordnt.y = y;
+            cub->cordnt.y_1 = y + 1;
+        }
 }
 
 void    ft_draw_map(t_struct *cub)
@@ -117,20 +118,20 @@ void    ft_draw_map(t_struct *cub)
     while (data[y])
     {
         x = 0;
-        //len = ft_strlen(data[y]);
+       len = ft_strlen(data[y]);
         while (data[y][x])
         {
             if (data[y][x] == '1')
             {
-                 cub->checkColorMap = 1;
+                cub->checkColorMap = 1;
             }
-            // if (x < len - 1)
-            //     ft_coordinate(x, y, cub, 0);
+            if (x < len - 1)
+                ft_coordinate(x, y, cub, 0);
             if (y < height - 1)
                 ft_coordinate(x, y, cub, 1);
            x++;
         }
        y++;
     }
-    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
+    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 111, 110);
 }
