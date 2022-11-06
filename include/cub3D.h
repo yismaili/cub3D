@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/05 19:59:46 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/06 12:27:03 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_struct
 	float	sin_y;
 	int		zom;
 	int color;
+	int checkColorMap;
 }	t_struct;
 
 
