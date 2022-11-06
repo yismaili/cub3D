@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/06 11:51:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/06 12:36:40 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,23 @@ void    ft_bresenham(t_struct *cub)
     float   y_step;
     float   max;
     char    **data;
-    float   p;
-    float   p_1;
     
-    data = ft_jump_lines(cub);
-    p = cub->cordnt.x;
-    p_1 = cub->cordnt.x_1;
-    cub->cordnt.z = data[(int)cub->cordnt.y][(int)cub->cordnt.x];
-    cub->cordnt.z_1 = data[(int)cub->cordnt.y_1][(int)cub->cordnt.x_1];
-    cub->cordnt.x = (p - cub->cordnt.y) * cos(cub->cos_x);
-    cub->cordnt.y = (p + cub->cordnt.y) * sin(cub->sin_y) ;
-    cub->cordnt.x_1 = (p_1 - cub->cordnt.y_1) * cos(cub->cos_x) - cub->cordnt.z;
-    cub->cordnt.y_1 = (p_1 + cub->cordnt.y_1) * sin(cub->sin_y) - cub->cordnt.z_1;
-    x_step = cub->cordnt.x_1 - cub->cordnt.x;
-    y_step = cub->cordnt.y_1 - cub->cordnt.y;
-    max = ft_max(abs((int)x_step), abs((int)y_step));
-    x_step /= max;
-    y_step /= max;
+        data = ft_jump_lines(cub);
+        x_step = (cub->cordnt.x_1) - cub->cordnt.x;
+        y_step = (cub->cordnt.y_1) - cub->cordnt.y;
+        max = ft_max(abs((int)x_step), abs((int)y_step));
+        x_step /= max;
+        y_step /= max;
     while ((int)(cub->cordnt.x - cub->cordnt.x_1) || (int)(cub->cordnt.y - cub->cordnt.y_1))
     {
-        my_mlx_pixel_put(cub, cub->cordnt.x,  cub->cordnt.y, 0xffff);
+        if ( cub->checkColorMap == 1)
+        {
+                my_mlx_pixel_put(cub, cub->cordnt.x, cub->cordnt.y, 0xffff);  
+                cub->checkColorMap = 0;  
+        }
+        else{
+                my_mlx_pixel_put(cub, cub->cordnt.x, cub->cordnt.y, 0x00FF0000); 
+         }
 		cub->cordnt.x = cub->cordnt.x + x_step;
 		cub->cordnt.y = cub->cordnt.y + y_step;
     }
@@ -110,40 +107,30 @@ void    ft_draw_map(t_struct *cub)
     int height;
     char    **data;
     int     len;
-    float   x_step;
-    float   y_step;
-    float   max;
+   
 
     y = 0;
     len = 0;
+    cub->checkColorMap = 0;
     data = ft_jump_lines(cub);
     height = ft_count_height(data);
-    printf("%d\n",height);
     while (data[y])
     {
         x = 0;
         //len = ft_strlen(data[y]);
-         y_step = (y+1) - y;
         while (data[y][x])
         {
-            // if (x < len - 1)
-            //     ft_coordinate(x, y, cub, 0);
-            // if (y < height - 1)
-            //     ft_coordinate(x, y, cub, 1);
-            x_step = (x+1) - x;
-            max = ft_max(abs((int)x_step), abs((int)y_step));
-            x_step /= max;
-            y_step /= max;
             if (data[y][x] == '1')
             {
-                 my_mlx_pixel_put(cub, x, y, 0xffff);    
+                 cub->checkColorMap = 1;
             }
-            else{
-                  my_mlx_pixel_put(cub, x, y, 0x00FF0000); 
-            }
-            x = x + x_step;
+            // if (x < len - 1)
+            //     ft_coordinate(x, y, cub, 0);
+            if (y < height - 1)
+                ft_coordinate(x, y, cub, 1);
+           x++;
         }
-        y = y + y_step;
+       y++;
     }
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
