@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/07 18:42:02 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:29:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void    ft_draw_map(t_struct *cub)
 
     y = 0;
     len = 0;
+    player_position(cub);
     data = ft_jump_lines(cub);
     while (data[y])
     {
@@ -125,8 +126,6 @@ void player_position(t_struct *cub){
 
 int	player_move(int key, t_struct *p)
 {
-    player_position(p);
-    printf("%d\n",key);
 	if (key == 125)
 		p->player.position_y += 1;
 	if (key == 126)
@@ -156,8 +155,8 @@ void update_ptayer(t_struct *cub){
         {
             if (data[y][x] == '1')
                 draw_cub(cub, x, y, 0xFF00000);
-            else if (y == cub->player.position_y && x == cub->player.position_x && data[y][x] == '0'){
-                 draw_cub(cub, x, y, 0xfffff);
+            else if (y == cub->player.position_y && x == cub->player.position_x){
+                draw_cub(cub, x, y, 0xfffff);
             }
             else
                 draw_cub(cub, x, y, 0);
