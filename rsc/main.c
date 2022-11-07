@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/07 17:31:09 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:59:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,6 @@ void print(char **str)
         printf("|%s|\n",str[i]);
         i++;
     }
-}
-
-void	ft_initialization(t_struct *ptr)
-{
-	if (ptr->height < 100 && ptr->width < 100)
-		ptr->zom = 10;
-	else
-		ptr->zom = 2;
-	ptr->cos_x = 0.523599;
-	ptr->sin_y = 0.523599;
-	ptr->shift_x = W_WIDTH / 2;
-	ptr->shift_y = W_HEIGHT / 2 - 0;
 }
 
 int main(int ac, char **av)
@@ -48,7 +36,6 @@ int main(int ac, char **av)
 	cub.win_ptr = mlx_new_window(cub.mlx_ptr, W_WIDTH, W_HEIGHT, "cub3D");
     cub.img = mlx_new_image(cub.mlx_ptr, W_WIDTH, W_HEIGHT);
 	cub.addr = mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
-   // ft_initialization(&cub);
     ft_draw_map(&cub);
     mlx_key_hook(cub.win_ptr, player_move, &cub);
     mlx_loop(cub.mlx_ptr);
