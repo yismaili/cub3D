@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/07 11:54:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:30:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,21 +103,26 @@ void    ft_coordinate(int x, int y, t_struct *cub, int check)
     ft_bresenham(cub);
 }
 
-void    draw_cub(t_struct *ptr, int x, int y, int scale, int color)
+void    draw_cub(t_struct *ptr, int x, int y, int color)
 {
     int start_x;
     int start_y;
     int i;
     int j;
+     char    **data;
     
-    start_x = x * scale;
-    start_y = y * scale;
+     data = ft_jump_lines(ptr);
+    int  height = ft_count_height(data);
+    int scaleHeight = W_HEIGHT/ height;
+    int scaleWidth = W_HEIGHT/ height;
+    start_x = x * scaleWidth;
+    start_y = y * scaleHeight;
     i = start_y;
     j = start_x;
-    while (i < start_y + scale)
+    while (i < start_y + scaleHeight)
     {
         j =  start_x;
-        while (j < start_x + scale)
+        while (j < start_x + scaleWidth)
         {
             my_mlx_pixel_put(ptr, j, i,color);
             j++;
@@ -125,6 +130,7 @@ void    draw_cub(t_struct *ptr, int x, int y, int scale, int color)
         i++;
     }
 }
+
 void    ft_draw_map(t_struct *cub)
 {
     int x;
@@ -132,20 +138,24 @@ void    ft_draw_map(t_struct *cub)
     int height;
     char    **data;
     int     len;
+    //int scale ;
 
     y = 0;
     len = 0;
     data = ft_jump_lines(cub);
     height = ft_count_height(data);
+    // scale = W_HEIGHT/ height;
+    // printf("----> %d\n", scale);
+    //     printf("----> %d\n", cub->width);
     while (data[y])
     {
         x = 0;
         while (data[y][x])
         {
             if (data[y][x] == '1')
-                draw_cub(cub, x, y, 32, 0xFF00000);
+                draw_cub(cub, x, y, 0xFF00000);
             else
-                draw_cub(cub, x, y, 32, 0xFFFFFF);
+                draw_cub(cub, x, y, 0xffff);
             x++;
         }
         y++;
