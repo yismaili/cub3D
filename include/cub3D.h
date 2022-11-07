@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/07 12:30:55 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/07 13:56:35 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,6 @@ typedef struct s_dirct
 	char *east_path;
 }	t_dirct;
 
-typedef struct s_coordinate
-{
-	float x;
-	float x_1;
-	float y;
-	float y_1;
-	float	z;
-	float z_1;
-	
-}	t_coordinate;
 typedef struct s_struct
 {
 	char		**map;
@@ -62,7 +52,6 @@ typedef struct s_struct
 	int			height;
 	int			width;
 	int			len_ofmap;
-	t_coordinate cordnt;
 	void	*mlx_ptr;
     void	*win_ptr;
 	void	*img;
