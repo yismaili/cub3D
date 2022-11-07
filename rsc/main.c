@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/06 12:02:41 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:31:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int main(int ac, char **av)
 	cub.addr = mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
    // ft_initialization(&cub);
     ft_draw_map(&cub);
+    mlx_key_hook(cub.win_ptr, player_move, &cub);
     mlx_loop(cub.mlx_ptr);
     // print(ft_jump_lines(&cub));
     // printf("F --> %d ",cub.flr.r);

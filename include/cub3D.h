@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/07 13:56:35 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:03:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ typedef struct s_dirct
 	char *west_path;
 	char *east_path;
 }	t_dirct;
+typedef struct  s_player{
+	int position_x;
+	int position_y;
+	
+}  t_player;
 
 typedef struct s_struct
 {
@@ -66,6 +71,7 @@ typedef struct s_struct
 	int		zom;
 	int color;
 	int checkColorMap;
+	t_player player;
 }	t_struct;
 
 
@@ -88,5 +94,8 @@ int		ft_check_openmap(char **data);
 char    **ft_split_map(t_struct *cub);
 char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch);
 void    ft_draw_map(t_struct *cub);
+void player_position(t_struct *cub);
+int	player_move(int key, t_struct *p);
+void update_ptayer(t_struct *cub);
 void print(char **str);
 #endif
