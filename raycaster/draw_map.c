@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/07 12:30:13 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/07 13:50:56 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,14 @@ void    draw_cub(t_struct *ptr, int x, int y, int color)
 {
     int start_x;
     int start_y;
-    int i;
-    int j;
-     char    **data;
+    int     i;
+    int     j;
+    char    **data;
     
-     data = ft_jump_lines(ptr);
+    data = ft_jump_lines(ptr);
     int  height = ft_count_height(data);
     int scaleHeight = W_HEIGHT/ height;
-    int scaleWidth = W_HEIGHT/ height;
+    int scaleWidth = W_WIDTH/ ptr->width;
     start_x = x * scaleWidth;
     start_y = y * scaleHeight;
     i = start_y;
@@ -135,18 +135,12 @@ void    ft_draw_map(t_struct *cub)
 {
     int x;
     int y;
-    int height;
     char    **data;
     int     len;
-    //int scale ;
 
     y = 0;
     len = 0;
     data = ft_jump_lines(cub);
-    height = ft_count_height(data);
-    // scale = W_HEIGHT/ height;
-    // printf("----> %d\n", scale);
-    //     printf("----> %d\n", cub->width);
     while (data[y])
     {
         x = 0;
@@ -154,8 +148,11 @@ void    ft_draw_map(t_struct *cub)
         {
             if (data[y][x] == '1')
                 draw_cub(cub, x, y, 0xFF00000);
+            else if (data[y][x] == 'E'|| data[y][x] == 'N' || data[y][x] == 'S' || data[y][x] == 'W'){
+                 draw_cub(cub, x, y, 0xfffff);
+            }
             else
-                draw_cub(cub, x, y, 0xffff);
+                draw_cub(cub, x, y, 0);
             x++;
         }
         y++;
