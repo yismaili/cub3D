@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/07 09:41:43 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/07 11:54:47 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,28 @@ void    ft_coordinate(int x, int y, t_struct *cub, int check)
     ft_bresenham(cub);
 }
 
+void    draw_cub(t_struct *ptr, int x, int y, int scale, int color)
+{
+    int start_x;
+    int start_y;
+    int i;
+    int j;
+    
+    start_x = x * scale;
+    start_y = y * scale;
+    i = start_y;
+    j = start_x;
+    while (i < start_y + scale)
+    {
+        j =  start_x;
+        while (j < start_x + scale)
+        {
+            my_mlx_pixel_put(ptr, j, i,color);
+            j++;
+        }
+        i++;
+    }
+}
 void    ft_draw_map(t_struct *cub)
 {
     int x;
@@ -110,40 +132,23 @@ void    ft_draw_map(t_struct *cub)
     int height;
     char    **data;
     int     len;
-    float   x_step;
-    float   y_step;
-    float   max;
 
     y = 0;
     len = 0;
     data = ft_jump_lines(cub);
     height = ft_count_height(data);
-    printf("%d\n",height);
     while (data[y])
     {
         x = 0;
-        //len = ft_strlen(data[y]);
-         y_step = (y+1) - y;
         while (data[y][x])
         {
-            // if (x < len - 1)
-            //     ft_coordinate(x, y, cub, 0);
-            // if (y < height - 1)
-            //     ft_coordinate(x, y, cub, 1);
-            x_step = (x+1) - x;
-            max = ft_max(abs((int)x_step), abs((int)y_step));
-            x_step /= max;
-            y_step /= max;
             if (data[y][x] == '1')
-            {
-                 my_mlx_pixel_put(cub, x, y, 0xffff);    
-            }
-            else{
-                  my_mlx_pixel_put(cub, x, y, 0x00FF0000); 
-            }
-            x = x + x_step;
+                draw_cub(cub, x, y, 32, 0xFF00000);
+            else
+                draw_cub(cub, x, y, 32, 0xFFFFFF);
+            x++;
         }
-        y = y + y_step;
+        y++;
     }
-    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 100, 100);
+    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 1, 1);
 }
