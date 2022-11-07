@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/07 16:43:27 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:42:02 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void    ft_draw_map(t_struct *cub)
     y = 0;
     len = 0;
     data = ft_jump_lines(cub);
-    player_position(cub);
     while (data[y])
     {
         x = 0;
@@ -126,19 +125,45 @@ void player_position(t_struct *cub){
 
 int	player_move(int key, t_struct *p)
 {
+    player_position(p);
+    printf("%d\n",key);
 	if (key == 125)
-		p->player.position_y += 10;
+		p->player.position_y += 1;
 	if (key == 126)
-		p->player.position_y -= 10;
+		p->player.position_y -= 1;
 	if (key == 124)
-		p->player.position_y += 10;
+		p->player.position_x += 1;
 	if (key == 123)
-		p->player.position_y -= 10;
-	return (0);
+		p->player.position_x -= 1;
     mlx_destroy_image(p->mlx_ptr, p->img);
     p->img = mlx_new_image(p->mlx_ptr, W_WIDTH, W_HEIGHT);
-    ft_draw_map(p);
+    update_ptayer(p);
+    return (0);
 }
-// void update_ptayer(t_struct *cub){
-    
-// }
+void update_ptayer(t_struct *cub){
+    int     x;
+    int     y;
+    char    **data;
+    int     len;
+
+    y = 0;
+    len = 0;
+    data = ft_jump_lines(cub);
+    while (data[y])
+    {
+        x = 0;
+        while (data[y][x])
+        {
+            if (data[y][x] == '1')
+                draw_cub(cub, x, y, 0xFF00000);
+            else if (y == cub->player.position_y && x == cub->player.position_x && data[y][x] == '0'){
+                 draw_cub(cub, x, y, 0xfffff);
+            }
+            else
+                draw_cub(cub, x, y, 0);
+            x++;
+        }
+        y++;
+    }
+    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 1, 1);
+}

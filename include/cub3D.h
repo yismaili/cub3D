@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/07 16:42:10 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:03:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch);
 void    ft_draw_map(t_struct *cub);
 void player_position(t_struct *cub);
 int	player_move(int key, t_struct *p);
+void update_ptayer(t_struct *cub);
 void print(char **str);
 #endif
