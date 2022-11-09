@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/07 18:59:13 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 10:44:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int main(int ac, char **av)
 {
     t_struct cub;
 
+    cub.player.rotationAngle = M_PI / 2;
+   cub.player.rotationSpeed = 2 * (M_PI / 180);
     if (ac != 2)
 		return (ft_putstr_fd("Usage : ./cub3D path/to/map.cub", 0), 0);
 	ft_read_maps(av[1], &cub);
