@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 21:37:36 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 22:00:16 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void    draw_cub(t_struct *ptr, int x, int y, int color)
     int  height = ft_count_height(data);
     int scaleHeight = W_HEIGHT/ height ;
     int scaleWidth = W_WIDTH/ ptr->width;
+    ptr->scaleHeight = scaleHeight;
+    ptr->scaleWidth = scaleWidth;
     start_x = x * scaleWidth;
     start_y = y * scaleHeight;
     i = start_y;
@@ -103,7 +105,7 @@ void    ft_draw_map(t_struct *cub)
             if (data[y][x] == '1')
                 draw_cub(cub, x, y, 0xFF00000);
             else if (y == cub->player.position_y && x == cub->player.position_x){
-                 draw_player(cub, x, y, 0xfffff);
+                 draw_player(cub, x * cub->scaleWidth, y * cub->scaleHeight, 0xfffff);
             }
             else
                 draw_cub(cub, x, y, 0);
@@ -178,7 +180,7 @@ void draw_player(t_struct *cub, int x, int y, int color)
 
 	x_1 = x + cos(cub->player.rottAngle) * 30;
     y_1 = y + sin(cub->player.rottAngle) * 30;
-    ddaForLine(cub, x,y,x_1,y_1,color);  
+    ddaForLine(cub, x, y, x_1, y_1, color);  
 }
 
 // Function for finding absolute value
@@ -191,7 +193,6 @@ int abs(int n)
         return (n *(-1));
     }
 }
- 
 // DDA Function for line generation
 void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
 {

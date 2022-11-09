@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 21:28:55 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 21:58:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_struct
 	int		zom;
 	int color;
 	int checkColorMap;
+	int scaleHeight;
+	int scaleWidth;
 	t_player player;
 }	t_struct;
 
