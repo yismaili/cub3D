@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 13:05:30 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 14:08:10 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void player_position(t_struct *cub){
     j = 0;
     while(data[i][j]){
         if (data[i][j] == 'E'|| data[i][j] == 'N' || data[i][j] == 'S' || data[i][j] == 'W'){
-          cub->player.position_x = j;
-         cub->player.position_y = i;
+        cub->player.position_x = j;
+        cub->player.position_y = i;
         return ;
         }
         j++;
@@ -152,4 +152,21 @@ int	player_move(int key, t_struct *p)
     p->img = mlx_new_image(p->mlx_ptr, W_WIDTH, W_HEIGHT);
     ft_draw_map(p);
     return (0);
+}
+
+void directionOfPlayer(t_struct *cub){
+    
+    char** data = ft_jump_lines(cub);
+    if (data[cub->player.position_y][cub->player.position_x] == 'N'){
+        cub->player.rottAngle = M_PI / 2;
+     }
+    if (data[cub->player.position_y][cub->player.position_x] == 'S'){
+        cub->player.rottAngle = M_PI *(3/2);
+     }
+    if (data[cub->player.position_y][cub->player.position_x] == 'W'){
+        cub->player.rottAngle = M_PI;
+     }
+    if (data[cub->player.position_y][cub->player.position_x] == 'E'){
+        cub->player.rottAngle = 0;
+     }
 }
