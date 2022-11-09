@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 12:04:56 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 12:58:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void    ft_draw_map(t_struct *cub)
 
     y = 0;
     len = 0;
-    player_position(cub);
     data = ft_jump_lines(cub);
     while (data[y])
     {
@@ -103,7 +102,7 @@ void    ft_draw_map(t_struct *cub)
         {
             if (data[y][x] == '1')
                 draw_cub(cub, x, y, 0xFF00000);
-            else if (data[y][x] == 'E'|| data[y][x] == 'N' || data[y][x] == 'S' || data[y][x] == 'W'){
+            else if (y == cub->player.position_y && x == cub->player.position_x){
                  draw_cub(cub, x, y, 0xfffff);
             }
             else
@@ -147,41 +146,11 @@ int	player_move(int key, t_struct *p)
 	if (key == 0)
 		p->player.position_x -= 1;
     if (key == 124)
-		p->player.rotationAngle += p->player.rotationSpeed;
+		p->player.rottAngle += 20;
 	if (key == 123)
-		p->player.rotationAngle -= p->player.rotationSpeed;
+		p->player.rottAngle -= 20;
     mlx_destroy_image(p->mlx_ptr, p->img);
     p->img = mlx_new_image(p->mlx_ptr, W_WIDTH, W_HEIGHT);
-    update_ptayer(p);
+    ft_draw_map(p);
     return (0);
-}
-
-void update_ptayer(t_struct *cub){
-    int     x;
-    int     y;
-    char    **data;
-    int     len;
-
-    y = 0;
-    len = 0;
-    data = ft_jump_lines(cub);
-    while (data[y])
-    {
-        x = 0;
-        while (data[y][x])
-        {
-            if (data[y][x] == '1'){
-                draw_cub(cub, x, y, 0xFF00000); 
-            }
-            else if (y == cub->player.position_y && x == cub->player.position_x){
-                draw_cub(cub, (x + cos(cub->player.rotationAngle)), (y + sin(cub->player.rotationAngle)), 0xfffff);
-            }
-            else{
-                draw_cub(cub, x, y, 0);   
-            }
-            x++;
-        }
-        y++;
-    }
-    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }

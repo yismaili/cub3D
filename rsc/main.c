@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 10:44:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 12:58:53 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int main(int ac, char **av)
 {
     t_struct cub;
 
-    cub.player.rotationAngle = M_PI / 2;
-   cub.player.rotationSpeed = 2 * (M_PI / 180);
+    cub.player.rottAngle = M_PI / 2;
+    cub.player.rottSpeed = 2 * (M_PI / 180);
     if (ac != 2)
 		return (ft_putstr_fd("Usage : ./cub3D path/to/map.cub", 0), 0);
 	ft_read_maps(av[1], &cub);
@@ -38,6 +38,7 @@ int main(int ac, char **av)
 	cub.win_ptr = mlx_new_window(cub.mlx_ptr, W_WIDTH, W_HEIGHT, "cub3D");
     cub.img = mlx_new_image(cub.mlx_ptr, W_WIDTH, W_HEIGHT);
 	cub.addr = mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
+     player_position(&cub);
     ft_draw_map(&cub);
     mlx_key_hook(cub.win_ptr, player_move, &cub);
     mlx_loop(cub.mlx_ptr);
