@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 22:36:54 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 22:44:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ void    draw_cub(t_struct *ptr, int x, int y, int color)
     start_y = y * ptr->scaleHeight;
     i = start_y;
     j = start_x; 
-        while (i < start_y +ptr->scaleHeight)
+    while (i < start_y +ptr->scaleHeight)
+    {
+        j =  start_x;
+        while (j < start_x + ptr->scaleWidth)
         {
-            j =  start_x;
-            while (j < start_x + ptr->scaleWidth)
-            {
-                my_mlx_pixel_put(ptr, j, i,color);
-                j++;
-            }
-            i++;
-        }
+            my_mlx_pixel_put(ptr, j, i,color);
+            j++;
+         }
+        i++;
+    }
 }
 
 void    ft_draw_map(t_struct *cub)
@@ -108,16 +108,18 @@ void player_position(t_struct *cub){
    char** data = ft_jump_lines(cub);
    while (data[i])
    {
-    j = 0;
-    while(data[i][j]){
-        if (data[i][j] == 'E'|| data[i][j] == 'N' || data[i][j] == 'S' || data[i][j] == 'W'){
-        cub->player.position_x = j;
-        cub->player.position_y = i;
-        return ;
+        j = 0;
+        while(data[i][j])
+        {
+            if (data[i][j] == 'E'|| data[i][j] == 'N' || data[i][j] == 'S' || data[i][j] == 'W')
+            {
+                cub->player.position_x = j;
+                cub->player.position_y = i;
+                return ;
+            }
+            j++;
         }
-        j++;
-    }
-    i++;
+        i++;
    } 
 }
 
@@ -188,8 +190,8 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     else
         steps = abs(dstnc_y);
     // calculate increment in x & y for each steps
-    float Xinc = dstnc_x / (float)steps;
-    float Yinc = dstnc_y / (float)steps;
+    float x_inc = dstnc_x / (float)steps;
+    float y_inc = dstnc_y / (float)steps;
     // Put pixel for each step
     float x = x_0;
     float y = y_0;
@@ -197,8 +199,8 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     while (i <= steps)
     {
        my_mlx_pixel_put(cub, x, y, color);
-       x += Xinc; // increment in x at each step
-       y += Yinc; // increment in y at each step
+       x += x_inc; // increment in x at each step
+       y += y_inc; // increment in y at each step
        i++;
     }
 }
