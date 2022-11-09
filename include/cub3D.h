@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
 /*   Updated: 2022/11/09 10:42:39 by yismaili         ###   ########.fr       */
@@ -20,6 +20,8 @@
 # include "../libft/libft.h"
 # define W_WIDTH 1020
 # define W_HEIGHT 580
+# define PI 3.14
+# define rotationAngle PI / 2
 
 typedef struct s_floor
 {
@@ -47,6 +49,7 @@ typedef struct  s_player{
 	int position_y;
 	float rotationAngle;
 	float rotationSpeed;
+
 	
 }  t_player;
 

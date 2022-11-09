@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
 /*   Updated: 2022/11/09 12:04:56 by yismaili         ###   ########.fr       */
@@ -56,8 +56,10 @@ void    draw_cub(t_struct *ptr, int x, int y, int color)
     
     data = ft_jump_lines(ptr);
     int  height = ft_count_height(data);
-    int scaleHeight = W_HEIGHT/ height;
+    int scaleHeight = W_HEIGHT/ height ;
     int scaleWidth = W_WIDTH/ ptr->width;
+    //printf("height = %d\n", height);
+    //printf("width: %d\n", ptr->width);
     start_x = x * scaleWidth;
     start_y = y * scaleHeight;
     i = start_y;
@@ -94,7 +96,7 @@ void    ft_draw_map(t_struct *cub)
 
     y = 0;
     len = 0;
-    player_position(cub);
+    player_position(cub); // get player position
     data = ft_jump_lines(cub);
     while (data[y])
     {
@@ -118,15 +120,21 @@ void    ft_draw_map(t_struct *cub)
 void player_position(t_struct *cub){
     int i = 0;
     int j = 0;
+    cub->player.rotation_angle = PI / 2;
    char** data = ft_jump_lines(cub);
+   while(data[i] != NULL)
+   {
+        printf("data : %s\n", data[i]);
+        i++;
+   }
    
    while (data[i])
    {
     j = 0;
     while(data[i][j]){
         if (data[i][j] == 'E'|| data[i][j] == 'N' || data[i][j] == 'S' || data[i][j] == 'W'){
-         cub->player.position_x = j;
-         cub->player.position_y = i;
+          cub->player.position_x = j + cos(cub->player.rotation_angle) * 40;
+         cub->player.position_y = i + sin(cub->player.rotation_angle) * 40;
         return ;
         }
         j++;
