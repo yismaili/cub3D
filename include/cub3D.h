@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 22:28:57 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 22:40:15 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ typedef struct s_ceilling
 
 typedef struct s_dirct
 {
-	char *north_path;
-	char *south_path;
-	char *west_path;
-	char *east_path;
+	char 	*north_path;
+	char 	*south_path;
+	char 	*west_path;
+	char 	*east_path;
 }	t_dirct;
 typedef struct  s_player{
-	int position_x;
-	int position_y;
-	float rottAngle;
+	int 	position_x;
+	int 	position_y;
+	float 	rottAngle;
 }  t_player;
 
 typedef struct s_struct
@@ -57,17 +57,17 @@ typedef struct s_struct
 	int			height;
 	int			width;
 	int			len_ofmap;
-	void	*mlx_ptr;
-    void	*win_ptr;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int checkColorMap;
-	int scaleHeight;
-	int scaleWidth;
-	t_player player;
+	void		*mlx_ptr;
+    void		*win_ptr;
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int 		checkColorMap;
+	int 		scaleHeight;
+	int 		scaleWidth;
+	t_player 	player;
 }	t_struct;
 
 
@@ -90,10 +90,10 @@ int		ft_check_openmap(char **data);
 char    **ft_split_map(t_struct *cub);
 char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch);
 void    ft_draw_map(t_struct *cub);
-void player_position(t_struct *cub);
-int	player_move(int key, t_struct *p);
-void directionOfPlayer(t_struct *cub);
-void draw_player(t_struct *cub, int x, int y, int color);
-void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
+void 	player_position(t_struct *cub);
+int		player_move(int key, t_struct *p);
+void 	directionOfPlayer(t_struct *cub);
+void 	draw_player(t_struct *cub, int x, int y, int color);
+void 	ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
 void print(char **str);
 #endif
