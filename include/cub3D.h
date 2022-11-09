@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 21:58:09 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 22:28:57 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ typedef struct  s_player{
 	int position_x;
 	int position_y;
 	float rottAngle;
-	float rottSpeed;
-	int x;
-	int y;
-	
 }  t_player;
 
 typedef struct s_struct
@@ -68,12 +64,6 @@ typedef struct s_struct
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		shift_x;
-	int		shift_y;
-	float	cos_x;
-	float	sin_y;
-	int		zom;
-	int color;
 	int checkColorMap;
 	int scaleHeight;
 	int scaleWidth;

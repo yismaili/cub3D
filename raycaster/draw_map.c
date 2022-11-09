@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 22:00:16 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 22:36:54 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,35 +56,22 @@ void    draw_cub(t_struct *ptr, int x, int y, int color)
     
     data = ft_jump_lines(ptr);
     int  height = ft_count_height(data);
-    int scaleHeight = W_HEIGHT/ height ;
-    int scaleWidth = W_WIDTH/ ptr->width;
-    ptr->scaleHeight = scaleHeight;
-    ptr->scaleWidth = scaleWidth;
-    start_x = x * scaleWidth;
-    start_y = y * scaleHeight;
+    ptr->scaleHeight = W_HEIGHT/ height ;
+    ptr->scaleWidth = W_WIDTH/ ptr->width;
+    start_x = x * ptr->scaleWidth;
+    start_y = y * ptr->scaleHeight;
     i = start_y;
-    j = start_x;
-    if (color == 0xfffff)
-    {
-       while (i < start_y + scaleHeight)
-        {
-             my_mlx_pixel_put(ptr, j, i,color);
-            i++;
-        }
-    }
-    else {
-        
-        while (i < start_y + scaleHeight)
+    j = start_x; 
+        while (i < start_y +ptr->scaleHeight)
         {
             j =  start_x;
-            while (j < start_x + scaleWidth)
+            while (j < start_x + ptr->scaleWidth)
             {
                 my_mlx_pixel_put(ptr, j, i,color);
                 j++;
             }
             i++;
         }
-    }
 }
 
 void    ft_draw_map(t_struct *cub)
@@ -104,9 +91,8 @@ void    ft_draw_map(t_struct *cub)
         {
             if (data[y][x] == '1')
                 draw_cub(cub, x, y, 0xFF00000);
-            else if (y == cub->player.position_y && x == cub->player.position_x){
+            else if (y == cub->player.position_y && x == cub->player.position_x)
                  draw_player(cub, x * cub->scaleWidth, y * cub->scaleHeight, 0xfffff);
-            }
             else
                 draw_cub(cub, x, y, 0);
             x++;
@@ -137,7 +123,6 @@ void player_position(t_struct *cub){
 
 int	player_move(int key, t_struct *p)
 {
-    printf("%d\n",key);
 	if (key == 1)
 		p->player.position_y += 1;
 	if (key == 13)
@@ -159,18 +144,14 @@ int	player_move(int key, t_struct *p)
 void directionOfPlayer(t_struct *cub){
     
     char** data = ft_jump_lines(cub);
-    if (data[cub->player.position_y][cub->player.position_x] == 'N'){
+    if (data[cub->player.position_y][cub->player.position_x] == 'N')
         cub->player.rottAngle = M_PI / 2;
-     }
-    if (data[cub->player.position_y][cub->player.position_x] == 'S'){
+    if (data[cub->player.position_y][cub->player.position_x] == 'S')
         cub->player.rottAngle = M_PI *(3/2);
-     }
-    if (data[cub->player.position_y][cub->player.position_x] == 'W'){
+    if (data[cub->player.position_y][cub->player.position_x] == 'W')
         cub->player.rottAngle = M_PI;
-     }
-    if (data[cub->player.position_y][cub->player.position_x] == 'E'){
+    if (data[cub->player.position_y][cub->player.position_x] == 'E')
         cub->player.rottAngle = 0;
-     }
 }
 
 void draw_player(t_struct *cub, int x, int y, int color)
@@ -196,19 +177,19 @@ int abs(int n)
 // DDA Function for line generation
 void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
 {
-    // calculate dstncx & dstncy
-    int dstncx = x_1 - x_0;
-    int dstncy = y_1 - y_0;
+    // calculate dstnc_x & dstnc_y
+    int dstnc_x = x_1 - x_0;
+    int dstnc_y = y_1 - y_0;
  
     // calculate steps required for generating pixels
     int steps;
-    if (abs(dstncx) > abs(dstncy))
-        steps = abs(dstncx);
+    if (abs(dstnc_x) > abs(dstnc_y))
+        steps = abs(dstnc_x);
     else
-        steps = abs(dstncy);
+        steps = abs(dstnc_y);
     // calculate increment in x & y for each steps
-    float Xinc = dstncx / (float)steps;
-    float Yinc = dstncy / (float)steps;
+    float Xinc = dstnc_x / (float)steps;
+    float Yinc = dstnc_y / (float)steps;
     // Put pixel for each step
     float x = x_0;
     float y = y_0;
