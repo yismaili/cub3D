@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 10:42:39 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 12:48:56 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ typedef struct s_dirct
 typedef struct  s_player{
 	int position_x;
 	int position_y;
-	float rotationAngle;
-	float rotationSpeed;
-
+	float rottAngle;
+	float rottSpeed;
 	
 }  t_player;
 
