@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 13:50:21 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/09 21:28:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include "../libft/libft.h"
 # define W_WIDTH 1020
 # define W_HEIGHT 580
-# define PI 3.14
-# define rotationAngle PI / 2
 
 typedef struct s_floor
 {
@@ -49,6 +47,8 @@ typedef struct  s_player{
 	int position_y;
 	float rottAngle;
 	float rottSpeed;
+	int x;
+	int y;
 	
 }  t_player;
 
@@ -101,5 +101,7 @@ void    ft_draw_map(t_struct *cub);
 void player_position(t_struct *cub);
 int	player_move(int key, t_struct *p);
 void directionOfPlayer(t_struct *cub);
+void draw_player(t_struct *cub, int x, int y, int color);
+void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
 void print(char **str);
 #endif
