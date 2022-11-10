@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/10 19:56:10 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/10 21:42:48 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ void    draw_cub(t_struct *ptr, int x, int y, int color)
     
     data = ft_jump_lines(ptr);
     int  height = ft_count_height(data);
-    ptr->scaleHeight = W_HEIGHT/ height ;
+    ptr->scaleHeight = W_HEIGHT/ height;
     ptr->scaleWidth = W_WIDTH/ ptr->width;
     start_x = x * ptr->scaleWidth;
     start_y = y * ptr->scaleHeight;
     i = start_y;
-    j = start_x; 
-    while (i < start_y +ptr->scaleHeight)
-    {
+    j = start_x;
+        while (i < start_y + ptr->scaleHeight)
+        {
         j =  start_x;
         while (j < start_x + ptr->scaleWidth)
         {
-            my_mlx_pixel_put(ptr, j, i,color);
+            my_mlx_pixel_put(ptr, j, i, color);
             j++;
          }
         i++;
@@ -101,7 +101,7 @@ void    ft_draw_map(t_struct *cub)
         }
         y++;
     }
-    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 1, 1);
+    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
 
 void player_position(t_struct *cub){
@@ -139,9 +139,9 @@ int	player_move(int key, t_struct *p)
 	if (key == 0)
 		 p->player.plyrPostin_x -= 1;
     if (key == 124)
-		p->player.rottAngle += 30;
+		p->player.rottAngle += M_PI / 6;
 	if (key == 123)
-		p->player.rottAngle -= 30;
+		p->player.rottAngle -= M_PI / 6;
     if (check_wall(p) != 1)
     {
         p->player.position_x = p->player.plyrPostin_x;
@@ -171,12 +171,6 @@ void draw_player(t_struct *cub, int x, int y, int color)
     int 	x_1;
 	int 	y_1;
 
-    // if (check_wall(cub) == 1){
-    //     cub->player.position_x = cub->player.plyrPostin_x;
-    //     cub->player.position_y = cub->player.plyrPostin_y;
-    //     // x = cub->player.plyrPostin_x * cub->scaleWidth;
-    //     // y = cub->player.plyrPostin_y * cub->scaleHeight;
-    // }
 	x_1 = x + cos(cub->player.rottAngle) * 30;
     y_1 = y + sin(cub->player.rottAngle) * 30;
     ddaForLine(cub, x, y, x_1, y_1, color);  
