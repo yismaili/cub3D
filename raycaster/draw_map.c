@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/09 22:44:13 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:49:33 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,18 @@ void    ft_draw_map(t_struct *cub)
         x = 0;
         while (data[y][x])
         {
-            if (data[y][x] == '1')
+            if (y == cub->player.position_y && x == cub->player.position_x){
+                if (check_wall(cub) == 1){
+        cub->player.position_x = cub->player.plyrPostin_x;
+        cub->player.position_y = cub->player.plyrPostin_y;
+        // x = cub->player.plyrPostin_x * cub->scaleWidth;
+        // y = cub->player.plyrPostin_y * cub->scaleHeight;
+    }
+                draw_player(cub, cub->player.position_x * cub->scaleWidth, cub->player.position_y * cub->scaleHeight, 0xfffff);
+                
+            }
+            else if (data[y][x] == '1')
                 draw_cub(cub, x, y, 0xFF00000);
-            else if (y == cub->player.position_y && x == cub->player.position_x)
-                 draw_player(cub, x * cub->scaleWidth, y * cub->scaleHeight, 0xfffff);
             else
                 draw_cub(cub, x, y, 0);
             x++;
@@ -125,8 +133,11 @@ void player_position(t_struct *cub){
 
 int	player_move(int key, t_struct *p)
 {
-	if (key == 1)
+    p->player.plyrPostin_x = p->player.position_x;
+    p->player.plyrPostin_y = p->player.position_y;
+	if (key == 1){
 		p->player.position_y += 1;
+    }
 	if (key == 13)
 		p->player.position_y -= 1;
 	if (key == 2)
@@ -161,6 +172,12 @@ void draw_player(t_struct *cub, int x, int y, int color)
     int 	x_1;
 	int 	y_1;
 
+    // if (check_wall(cub) == 1){
+    //     cub->player.position_x = cub->player.plyrPostin_x;
+    //     cub->player.position_y = cub->player.plyrPostin_y;
+    //     // x = cub->player.plyrPostin_x * cub->scaleWidth;
+    //     // y = cub->player.plyrPostin_y * cub->scaleHeight;
+    // }
 	x_1 = x + cos(cub->player.rottAngle) * 30;
     y_1 = y + sin(cub->player.rottAngle) * 30;
     ddaForLine(cub, x, y, x_1, y_1, color);  
@@ -205,3 +222,12 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     }
 }
  
+ int check_wall(t_struct *cub)
+ {
+    char **map;
+
+    map = ft_jump_lines(cub);
+    if (map[cub->player.position_y][cub->player.position_x] == '1')
+        return (1);
+    return (0);
+ }
