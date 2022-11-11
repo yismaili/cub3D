@@ -6,13 +6,13 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/10 21:42:48 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:03:35 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-void	my_mlx_pixel_put(t_struct *ptr, int x, int y, int color)
+void	my_mlx_pixel_put(t_struct *ptr, int x, int y, long color)
 {
 	char	*dst;
 
@@ -52,16 +52,12 @@ void    draw_cub(t_struct *ptr, int x, int y, int color)
     int start_y;
     int     i;
     int     j;
-    char    **data;
-    
-    data = ft_jump_lines(ptr);
-    int  height = ft_count_height(data);
-    ptr->scaleHeight = W_HEIGHT/ height;
-    ptr->scaleWidth = W_WIDTH/ ptr->width;
-    start_x = x * ptr->scaleWidth;
-    start_y = y * ptr->scaleHeight;
-    i = start_y;
-    j = start_x;
+
+        
+        start_x = x * ptr->scaleWidth;
+        start_y = y * ptr->scaleHeight;
+        i = start_y;
+        j = start_x;
         while (i < start_y + ptr->scaleHeight)
         {
         j =  start_x;
@@ -89,9 +85,8 @@ void    ft_draw_map(t_struct *cub)
         x = 0;
         while (data[y][x])
         {
-            if (y == cub->player.position_y && x == cub->player.position_x){
-                draw_player(cub, cub->player.position_x * cub->scaleWidth, cub->player.position_y * cub->scaleHeight, 0xfffff);
-                
+            if (y  == cub->player.position_y /cub->scaleHeight && x == cub->player.position_x /cub->scaleWidth){
+                draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff);   
             }
             else if (data[y][x] == '1')
                 draw_cub(cub, x, y, 0xFF00000);
@@ -108,6 +103,10 @@ void player_position(t_struct *cub){
     int i = 0;
     int j = 0;
    char** data = ft_jump_lines(cub);
+   int  height = ft_count_height(data);
+   
+    cub->scaleHeight = W_HEIGHT/ height;
+    cub->scaleWidth = W_WIDTH/ cub->width;
    while (data[i])
    {
         j = 0;
@@ -115,8 +114,8 @@ void player_position(t_struct *cub){
         {
             if (data[i][j] == 'E'|| data[i][j] == 'N' || data[i][j] == 'S' || data[i][j] == 'W')
             {
-                cub->player.position_x = j;
-                cub->player.position_y = i;
+                cub->player.position_x = j * cub->scaleWidth;
+                cub->player.position_y = i * cub->scaleHeight;
                 return ;
             }
             j++;
@@ -125,44 +124,48 @@ void player_position(t_struct *cub){
    } 
 }
 
-int	player_move(int key, t_struct *p)
-{
-    p->player.plyrPostin_x = p->player.position_x;
-    p->player.plyrPostin_y = p->player.position_y;
+int	player_move(int key, t_struct *cub)
+{ 
+    cub->player.plyrPostin_x = cub->player.position_x;
+    cub->player.plyrPostin_y = cub->player.position_y;
 	if (key == 1){
-		 p->player.plyrPostin_y += 1;
+		 cub->player.plyrPostin_y += 3;
     }
 	if (key == 13)
-		 p->player.plyrPostin_y -= 1;
-	if (key == 2)
-		 p->player.plyrPostin_x += 1;
-	if (key == 0)
-		 p->player.plyrPostin_x -= 1;
-    if (key == 124)
-		p->player.rottAngle += M_PI / 6;
-	if (key == 123)
-		p->player.rottAngle -= M_PI / 6;
-    if (check_wall(p) != 1)
     {
-        p->player.position_x = p->player.plyrPostin_x;
-        p->player.position_y = p->player.plyrPostin_y;
+		 cub->player.plyrPostin_y -= 3;
     }
-    mlx_destroy_image(p->mlx_ptr, p->img);
-    p->img = mlx_new_image(p->mlx_ptr, W_WIDTH, W_HEIGHT);
-    ft_draw_map(p);
+	if (key == 2){
+		 cub->player.plyrPostin_x += 3;
+    }
+	if (key == 0){
+		 cub->player.plyrPostin_x -= 3;
+    }
+    if (key == 124)
+		cub->player.rottAngle += M_PI / 6;
+	if (key == 123)
+		cub->player.rottAngle -= M_PI / 6;
+    if (check_wall(cub) != 1)
+    {
+        cub->player.position_x = cub->player.plyrPostin_x;
+        cub->player.position_y = cub->player.plyrPostin_y;
+    }
+    mlx_destroy_image(cub->mlx_ptr, cub->img);
+    cub->img = mlx_new_image(cub->mlx_ptr, W_WIDTH, W_HEIGHT);
+    ft_draw_map(cub);
     return (0);
 }
 
 void directionOfPlayer(t_struct *cub){
     
     char** data = ft_jump_lines(cub);
-    if (data[cub->player.position_y][cub->player.position_x] == 'N')
+    if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'N')
         cub->player.rottAngle = M_PI / 2;
-    if (data[cub->player.position_y][cub->player.position_x] == 'S')
+    if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'S')
         cub->player.rottAngle = M_PI *(3/2);
-    if (data[cub->player.position_y][cub->player.position_x] == 'W')
+    if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'W')
         cub->player.rottAngle = M_PI;
-    if (data[cub->player.position_y][cub->player.position_x] == 'E')
+    if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'E')
         cub->player.rottAngle = 0;
 }
 
@@ -170,7 +173,6 @@ void draw_player(t_struct *cub, int x, int y, int color)
 {
     int 	x_1;
 	int 	y_1;
-
 	x_1 = x + cos(cub->player.rottAngle) * 30;
     y_1 = y + sin(cub->player.rottAngle) * 30;
     ddaForLine(cub, x, y, x_1, y_1, color);  
@@ -220,7 +222,7 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     char **map;
 
     map = ft_jump_lines(cub);
-    if (map[cub->player.plyrPostin_y][cub->player.plyrPostin_x] == '1')
+    if (map[cub->player.plyrPostin_y/cub->scaleHeight][cub->player.plyrPostin_x/cub->scaleWidth] == '1')
         return (1);
     return (0);
  }
