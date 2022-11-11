@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/11 16:18:38 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/11 19:26:00 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void    ft_draw_map(t_struct *cub)
         x = 0;
         while (data[y][x])
         {
-            if (y  == cub->player.position_y /cub->scaleHeight && x == cub->player.position_x /cub->scaleWidth){
+            if ((y  == cub->player.position_y / cub->scaleHeight) && (x == cub->player.position_x / cub->scaleWidth)){
                 draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff);   
             }
             else if (data[y][x] == '1')
@@ -126,31 +126,29 @@ void player_position(t_struct *cub){
 
 int	player_move(int key, t_struct *cub)
 { 
-    int k = 0;
     int gred_x = cub->player.position_x;
     int gred_y = cub->player.position_y;
 	if (key == 1){
 		 gred_y += 3;
     }
-	if (key == 13)
+	else if (key == 13)
     {
 		 gred_y -= 3;
     }
-	if (key == 2){
+	else if (key == 2){
 		 gred_x += 3;
     }
-	if (key == 0){
+	else if (key == 0){
 		 gred_x -= 3;
     }
-    if (key == 124)
+    else if (key == 124)
     {
 		cub->player.rottAngle += M_PI / 6;
-        k = 1;
     }
-	if (key == 123){
-        k = 1;
+	else if (key == 123){
 		cub->player.rottAngle -= M_PI / 6;
     }
+    else {return (0);}
     if (check_wall(cub, gred_x, gred_y) != 1)
     {
         cub->player.position_x = gred_x;
@@ -179,8 +177,10 @@ void draw_player(t_struct *cub, int x, int y, int color)
 {
     int 	x_1;
 	int 	y_1;
-	x_1 = x + cos(cub->player.rottAngle) * 30;
-    y_1 = y + sin(cub->player.rottAngle) * 30;
+   // printf("x-->%d\n", x);
+	x_1 = x + cos(cub->player.rottAngle) * 42;
+    y_1 = y + sin(cub->player.rottAngle) * 42;
+   // printf("x_1-->%d\n", x_1);
     ddaForLine(cub, x, y, x_1, y_1, color);  
 }
 
@@ -228,6 +228,7 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     char **map;
 
     map = ft_jump_lines(cub);
+   /// printf("---> %cC\n",map[gred_y/cub->scaleHeight][gred_x/cub->scaleWidth]);
     if (map[gred_y/cub->scaleHeight][gred_x/cub->scaleWidth] == '1')
         return (1);
     return (0);
