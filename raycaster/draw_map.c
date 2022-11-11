@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/11 14:03:35 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/11 16:18:38 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,29 +126,35 @@ void player_position(t_struct *cub){
 
 int	player_move(int key, t_struct *cub)
 { 
-    cub->player.plyrPostin_x = cub->player.position_x;
-    cub->player.plyrPostin_y = cub->player.position_y;
+    int k = 0;
+    int gred_x = cub->player.position_x;
+    int gred_y = cub->player.position_y;
 	if (key == 1){
-		 cub->player.plyrPostin_y += 3;
+		 gred_y += 3;
     }
 	if (key == 13)
     {
-		 cub->player.plyrPostin_y -= 3;
+		 gred_y -= 3;
     }
 	if (key == 2){
-		 cub->player.plyrPostin_x += 3;
+		 gred_x += 3;
     }
 	if (key == 0){
-		 cub->player.plyrPostin_x -= 3;
+		 gred_x -= 3;
     }
     if (key == 124)
-		cub->player.rottAngle += M_PI / 6;
-	if (key == 123)
-		cub->player.rottAngle -= M_PI / 6;
-    if (check_wall(cub) != 1)
     {
-        cub->player.position_x = cub->player.plyrPostin_x;
-        cub->player.position_y = cub->player.plyrPostin_y;
+		cub->player.rottAngle += M_PI / 6;
+        k = 1;
+    }
+	if (key == 123){
+        k = 1;
+		cub->player.rottAngle -= M_PI / 6;
+    }
+    if (check_wall(cub, gred_x, gred_y) != 1)
+    {
+        cub->player.position_x = gred_x;
+        cub->player.position_y = gred_y;
     }
     mlx_destroy_image(cub->mlx_ptr, cub->img);
     cub->img = mlx_new_image(cub->mlx_ptr, W_WIDTH, W_HEIGHT);
@@ -217,12 +223,12 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     }
 }
  
- int check_wall(t_struct *cub)
+ int check_wall(t_struct *cub, int gred_x, int gred_y)
  {
     char **map;
 
     map = ft_jump_lines(cub);
-    if (map[cub->player.plyrPostin_y/cub->scaleHeight][cub->player.plyrPostin_x/cub->scaleWidth] == '1')
+    if (map[gred_y/cub->scaleHeight][gred_x/cub->scaleWidth] == '1')
         return (1);
     return (0);
  }
