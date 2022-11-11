@@ -6,7 +6,7 @@
 #    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 13:19:25 by yismaili          #+#    #+#              #
-#    Updated: 2022/11/08 12:27:06 by yismaili         ###   ########.fr        #
+#    Updated: 2022/11/11 12:12:16 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ_FILES= $(FILES:.c=.o)
 
 MSG = Everything is fcleaned!
 HEADER = ./include/cub3D.h
-CREATER = yismaili && souchen
+CREATER = #yismaili && souchen
 LIBFT = libft/libft.a
 NAME = cub3D
 
