@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/12 14:25:08 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/12 20:05:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ void    ft_draw_map(t_struct *cub)
         while (data[y][x])
         {
             if ((y  == cub->player.position_y / cub->scaleHeight) && (x == cub->player.position_x / cub->scaleWidth)){
-                draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff);   
+                draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
+                drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFF00000);   
             }
             else if (data[y][x] == '1')
                 draw_cub(cub, x, y, 0xFF00000);
@@ -107,6 +108,7 @@ void player_position(t_struct *cub){
    
     cub->scaleHeight = W_HEIGHT/ height;
     cub->scaleWidth = W_WIDTH/ cub->width;
+    castRays(cub);
    while (data[i])
    {
         j = 0;
@@ -180,6 +182,17 @@ void draw_player(t_struct *cub, int x, int y, int color)
    // printf("x-->%d\n", x);
 	x_1 = x + cos(cub->player.rottAngle) * 42;
     y_1 = y + sin(cub->player.rottAngle) * 42;
+   // printf("x_1-->%d\n", x_1);
+    ddaForLine(cub, x, y, x_1, y_1, color);  
+}
+
+void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
+{
+    int 	x_1;
+	int 	y_1;
+   // printf("x-->%d\n", x);
+	x_1 = x + cos(cub->rayAngle) * 42;
+    y_1 = y + sin(cub->rayAngle) * 42;
    // printf("x_1-->%d\n", x_1);
     ddaForLine(cub, x, y, x_1, y_1, color);  
 }
