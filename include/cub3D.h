@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/12 20:04:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/12 22:45:11 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ typedef struct s_struct
 	int 		scaleHeight;
 	int 		scaleWidth;
 	t_player 	player;
-	int 		numOfRays;
-	int			fovAngle;
+	float		numOfRays;
+	float			fovAngle;
 	float 		rayAngle;
-	int			rays[];
+	float		rays[100000];
 }	t_struct;
 
 

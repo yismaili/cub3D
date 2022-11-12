@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/12 20:05:51 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/12 22:38:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void    ft_draw_map(t_struct *cub)
     y = 0;
     len = 0;
     data = ft_jump_lines(cub);
+        castRays(cub);
     while (data[y])
     {
         x = 0;
@@ -108,7 +109,6 @@ void player_position(t_struct *cub){
    
     cub->scaleHeight = W_HEIGHT/ height;
     cub->scaleWidth = W_WIDTH/ cub->width;
-    castRays(cub);
    while (data[i])
    {
         j = 0;
@@ -190,11 +190,18 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 {
     int 	x_1;
 	int 	y_1;
+    int i = 0;
    // printf("x-->%d\n", x);
-	x_1 = x + cos(cub->rayAngle) * 42;
-    y_1 = y + sin(cub->rayAngle) * 42;
+      //  printf("hey %d\n", cub->rays[i]);
+   while (cub->rays[i])
+   {
+	x_1 = x + cos(cub->rays[i]) * 42;
+    y_1 = y + sin(cub->rays[i]) * 42;
    // printf("x_1-->%d\n", x_1);
     ddaForLine(cub, x, y, x_1, y_1, color);  
+    i++;
+   }
+   
 }
 
 // Function for finding absolute value
