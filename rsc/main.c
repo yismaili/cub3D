@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/12 22:39:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/13 12:32:01 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int main(int ac, char **av)
 	cub.addr = mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
     player_position(&cub);
     directionOfPlayer(&cub);
-    cub.fovAngle = 60 * (M_PI / 180);
-    cub.numOfRays = W_WIDTH / 4;
-    cub.rayAngle = cub.player.rottAngle - (cub.fovAngle / 2);
+    // cub.fovAngle = 60 * (M_PI / 180);
+    // cub.numOfRays = W_WIDTH / 4;
+    // cub.rayAngle = cub.player.rottAngle - (cub.fovAngle / 2);
     ft_draw_map(&cub);
     mlx_key_hook(cub.win_ptr, player_move, &cub);
     mlx_loop(cub.mlx_ptr);
