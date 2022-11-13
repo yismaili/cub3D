@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/12 22:43:50 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/13 12:22:36 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ int castRays(t_struct *cub)
     {
        cub->rays[i] = cub->rayAngle;
        cub->rayAngle += cub->fovAngle / cub->numOfRays;
-          printf("hey %f\n",cub->fovAngle);
+        //  printf("hey %f\n",cub->rays[i]);
        i++;
-    
     }
     return (0);
 }

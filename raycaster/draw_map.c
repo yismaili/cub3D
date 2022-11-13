@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/12 22:38:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/13 12:39:52 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,28 @@ void    ft_draw_map(t_struct *cub)
     y = 0;
     len = 0;
     data = ft_jump_lines(cub);
-        castRays(cub);
+     cub->fovAngle = 60 * (M_PI / 180);
+    cub->numOfRays = W_WIDTH / 4;
+    cub->rayAngle = cub->player.rottAngle - (cub->fovAngle );
+      castRays(cub);
+    printf("hey\n");
     while (data[y])
     {
         x = 0;
         while (data[y][x])
         {
-            if ((y  == cub->player.position_y / cub->scaleHeight) && (x == cub->player.position_x / cub->scaleWidth)){
-                draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
-                drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFF00000);   
-            }
-            else if (data[y][x] == '1')
-                draw_cub(cub, x, y, 0xFF00000);
-            else
+            if (data[y][x] == '1')
+                draw_cub(cub, x, y, 0xFFF0000);
+            else if (data[y][x] == '0')
                 draw_cub(cub, x, y, 0);
             x++;
         }
         y++;
     }
+    // else if ((y  == cub->player.position_y / cub->scaleHeight) && (x == cub->player.position_x / cub->scaleWidth)){
+        draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
+        drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF00);   
+    // }
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
 
@@ -193,13 +197,14 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
     int i = 0;
    // printf("x-->%d\n", x);
       //  printf("hey %d\n", cub->rays[i]);
+      castRays(cub);
    while (cub->rays[i])
    {
-	x_1 = x + cos(cub->rays[i]) * 42;
-    y_1 = y + sin(cub->rays[i]) * 42;
-   // printf("x_1-->%d\n", x_1);
-    ddaForLine(cub, x, y, x_1, y_1, color);  
-    i++;
+        x_1 = x + cos(cub->rays[i]) * 100;
+        y_1 = y + sin(cub->rays[i]) * 100;
+    // printf("x_1-->%d\n", x_1);
+        ddaForLine(cub, x, y, x_1, y_1, color);  
+        i++;
    }
    
 }
