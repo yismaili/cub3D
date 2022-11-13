@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/13 12:39:52 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/13 13:31:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,10 @@ void    ft_draw_map(t_struct *cub)
     y = 0;
     len = 0;
     data = ft_jump_lines(cub);
-     cub->fovAngle = 60 * (M_PI / 180);
+    cub->fovAngle = 60 * (M_PI / 180);
     cub->numOfRays = W_WIDTH / 4;
-    cub->rayAngle = cub->player.rottAngle - (cub->fovAngle );
-      castRays(cub);
-    printf("hey\n");
+    cub->rayAngle = cub->player.rottAngle - (cub->fovAngle + 0.5);
+    castRays(cub);
     while (data[y])
     {
         x = 0;
@@ -99,8 +98,8 @@ void    ft_draw_map(t_struct *cub)
         y++;
     }
     // else if ((y  == cub->player.position_y / cub->scaleHeight) && (x == cub->player.position_x / cub->scaleWidth)){
+        drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
         draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
-        drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF00);   
     // }
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
