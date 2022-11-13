@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/13 19:05:28 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/13 23:41:54 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void    ft_draw_map(t_struct *cub)
         y++;
     }
     // else if ((y  == cub->player.position_y / cub->scaleHeight) && (x == cub->player.position_x / cub->scaleWidth)){
-    //  drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
+      drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
         draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
     // }
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
@@ -131,20 +131,25 @@ void player_position(t_struct *cub){
 
 int	player_move(int key, t_struct *cub)
 { 
-    int gred_x = cub->player.position_x;
-    int gred_y = cub->player.position_y;
+    int turnDrctn = 0;
+    int walkDrctn = 0;
+    int k = 0;
 	if (key == 1){
-		 gred_y += 3;
+		  walkDrctn = -1;
+         k = 1;
     }
 	else if (key == 13)
     {
-		 gred_y -= 3;
+		  walkDrctn = 1;
+         k = 1;
     }
 	else if (key == 2){
-		 gred_x += 3;
+		turnDrctn = 1;
+         k = 1;
     }
 	else if (key == 0){
-		 gred_x -= 3;
+		turnDrctn = -1;
+         k = 1;
     }
     else if (key == 124)
     {
@@ -154,12 +159,17 @@ int	player_move(int key, t_struct *cub)
 		cub->player.rottAngle -= M_PI / 6;
     }
     else {return (0);}
-    if (check_wall(cub, gred_x, gred_y) != 1)
-    {
-        float new_x = gred_x + (cos(cub->player.rottAngle) * cub->scaleWidth);
-    float new_y = gred_y + (sin(cub->player.rottAngle) * cub->scaleHeight);
-        cub->player.position_x = new_x;
-        cub->player.position_y = new_y;
+    if(k != 0){
+         cub->player.rottAngle += turnDrctn * rotationSpeed;
+        float  new_x = cub->player.position_x + (cos(cub->player.rottAngle) * cub->scaleWidth) * walkDrctn;
+        float  new_y = cub->player.position_y + (sin(cub->player.rottAngle) * cub->scaleHeight) * walkDrctn;
+        // printf("position x ---> %f\n",new_x);
+        // printf("position y--> %f", new_y);
+        if (check_wall(cub, new_x, new_y) != 1)
+        {
+            cub->player.position_x = new_x;
+            cub->player.position_y = new_y;
+        }   
     }
     mlx_destroy_image(cub->mlx_ptr, cub->img);
     cub->img = mlx_new_image(cub->mlx_ptr, W_WIDTH, W_HEIGHT);
@@ -171,9 +181,9 @@ void directionOfPlayer(t_struct *cub){
     
     char** data = ft_jump_lines(cub);
     if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'N')
-        cub->player.rottAngle = M_PI * 3 / 2;
-    if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'S')
         cub->player.rottAngle = M_PI / 2;
+    if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'S')
+        cub->player.rottAngle = M_PI * (3/ 2);
     if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'W')
         cub->player.rottAngle = M_PI;
     if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'E')
