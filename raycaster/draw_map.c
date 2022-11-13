@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/13 13:31:13 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:05:28 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void    ft_draw_map(t_struct *cub)
         y++;
     }
     // else if ((y  == cub->player.position_y / cub->scaleHeight) && (x == cub->player.position_x / cub->scaleWidth)){
-        drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
+    //  drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
         draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
     // }
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
@@ -156,8 +156,10 @@ int	player_move(int key, t_struct *cub)
     else {return (0);}
     if (check_wall(cub, gred_x, gred_y) != 1)
     {
-        cub->player.position_x = gred_x;
-        cub->player.position_y = gred_y;
+        float new_x = gred_x + (cos(cub->player.rottAngle) * cub->scaleWidth);
+    float new_y = gred_y + (sin(cub->player.rottAngle) * cub->scaleHeight);
+        cub->player.position_x = new_x;
+        cub->player.position_y = new_y;
     }
     mlx_destroy_image(cub->mlx_ptr, cub->img);
     cub->img = mlx_new_image(cub->mlx_ptr, W_WIDTH, W_HEIGHT);
@@ -169,9 +171,9 @@ void directionOfPlayer(t_struct *cub){
     
     char** data = ft_jump_lines(cub);
     if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'N')
-        cub->player.rottAngle = M_PI / 2;
+        cub->player.rottAngle = M_PI * 3 / 2;
     if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'S')
-        cub->player.rottAngle = M_PI *(3/2);
+        cub->player.rottAngle = M_PI / 2;
     if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'W')
         cub->player.rottAngle = M_PI;
     if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'E')
@@ -182,10 +184,15 @@ void draw_player(t_struct *cub, int x, int y, int color)
 {
     int 	x_1;
 	int 	y_1;
-   // printf("x-->%d\n", x);
+    // printf("x-->%d\n", x);
+    // printf("y-->%d\n", y);
+   	// // float new_x = x + cos(cub->player.rottAngle) * 3;
+    // // float new_y = y + sin(cub->player.rottAngle) * 3;
+    
+    // printf("new_x-->%f\n", new_x);
+    //   printf("new_y-->%f\n", new_y);
 	x_1 = x + cos(cub->player.rottAngle) * 42;
     y_1 = y + sin(cub->player.rottAngle) * 42;
-   // printf("x_1-->%d\n", x_1);
     ddaForLine(cub, x, y, x_1, y_1, color);  
 }
 
