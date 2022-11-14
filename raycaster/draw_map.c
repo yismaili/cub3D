@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/14 21:35:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/14 22:34:34 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void player_position(t_struct *cub){
 
 int	player_move(int key, t_struct *cub)
 { 
+    cub->player.walkDrctn = 0;
 	if (key == 1){
         cub->player.walkDrctn = -1;
 		check_nextSteep(cub);
@@ -141,11 +142,11 @@ int	player_move(int key, t_struct *cub)
     }
 	else if (key == 2){
         cub->player.walkDown = 1;
-		check_nextSteep(cub);
+		check_downSteep(cub);
     }
 	else if (key == 0){
         cub->player.walkDown= -1;
-		check_nextSteep(cub);
+		check_downSteep(cub);
     }
     else if (key == 124)
         cub->player.rottAngle += cub->player.rottSpeed;
@@ -171,9 +172,22 @@ void check_nextSteep(t_struct *cub)
     }   
 }
 
+void check_downSteep(t_struct *cub)
+{
+  double  new_x;
+  double  new_y;
+
+    new_x = cub->player.position_x + (cos(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown * 4));
+    new_y = cub->player.position_y + (sin(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown * 4));
+    if (check_wall(cub, new_x, new_y) != 1)
+    {
+        cub->player.position_x = new_x;
+        cub->player.position_y = new_y;
+    }   
+}
+
 void directionOfPlayer(t_struct *cub)
 {
-    
     char** data = ft_jump_lines(cub);
     int gred_y = floor(cub->player.position_y/cub->scaleHeight);
     int gred_x = floor(cub->player.position_x/cub->scaleWidth);
