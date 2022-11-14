@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/14 16:39:38 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/14 21:06:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,14 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     }
 }
  
- int check_wall(t_struct *cub, int gred_x, int gred_y)
+ int check_wall(t_struct *cub, double x, double y)
  {
     char **map;
 
     map = ft_jump_lines(cub);
-    if (map[gred_y/cub->scaleHeight][gred_x/cub->scaleWidth] == '1')
+    int gred_y = floor(y/cub->scaleHeight);
+    int gred_x = floor(x/cub->scaleWidth);
+    if (map[gred_y][gred_x] == '1')
         return (1);
     return (0);
  }

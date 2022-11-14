@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/14 16:38:21 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/14 21:06:58 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void player_position(t_struct *cub){
    
     cub->scaleHeight = W_HEIGHT/ height;
     cub->scaleWidth = W_WIDTH/ cub->width;
+    cub->player.rottSpeed = M_PI / 6;
+    cub->player.walkDrctn = 0;
    while (data[i])
    {
         j = 0;
@@ -129,32 +131,35 @@ void player_position(t_struct *cub){
 
 int	player_move(int key, t_struct *cub)
 { 
-	if (key == 1)   
-		check_nextSteep(cub, -1);
-	else if (key == 13)
-        check_nextSteep(cub, 1);
-	else if (key == 2)
-		check_nextSteep(cub, 1);
-	else if (key == 0)
-		check_nextSteep(cub, -1);
+	if (key == 1){
+        cub->player.walkDrctn = -1;
+		check_nextSteep(cub);
+    }
+	else if (key == 13){
+        cub->player.walkDrctn = 1;
+       check_nextSteep(cub);
+    }
+	// else if (key == 2)
+	// 	check_nextSteep(cub, 1);
+	// else if (key == 0)
+	// 	check_nextSteep(cub, -1);
     else if (key == 124)
-		cub->player.rottAngle += M_PI / 6;
+        cub->player.rottAngle += cub->player.rottSpeed;
 	else if (key == 123)
-		cub->player.rottAngle -= M_PI / 6;
-    else {return (0);}
+        cub->player.rottAngle += cub->player.rottSpeed * (-1);
     mlx_destroy_image(cub->mlx_ptr, cub->img);
     cub->img = mlx_new_image(cub->mlx_ptr, W_WIDTH, W_HEIGHT);
     ft_draw_map(cub);
     return (0);
 }
 
-void check_nextSteep(t_struct *cub, int derection)
+void check_nextSteep(t_struct *cub)
 {
-    float  new_x;
-    float  new_y;
-    
-    new_x = cub->player.position_x + (cos(cub->player.rottAngle) * cub->scaleWidth) * derection;
-    new_y = cub->player.position_y + (sin(cub->player.rottAngle) * cub->scaleHeight) * derection;
+  double  new_x;
+  double  new_y;
+
+    new_x = cub->player.position_x + (cos(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 4));
+    new_y = cub->player.position_y + (sin(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 4));
     if (check_wall(cub, new_x, new_y) != 1)
     {
         cub->player.position_x = new_x;
@@ -166,13 +171,14 @@ void directionOfPlayer(t_struct *cub)
 {
     
     char** data = ft_jump_lines(cub);
-    if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'N')
+    int gred_y = floor(cub->player.position_y/cub->scaleHeight);
+    int gred_x = floor(cub->player.position_x/cub->scaleWidth);
+    if (data[gred_y][gred_x] == 'N')
         cub->player.rottAngle = M_PI / 2;
-    if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'S')
+    if (data[gred_y][gred_x] == 'S')
         cub->player.rottAngle = M_PI * (3/ 2);
-    if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'W')
+    if (data[gred_y][gred_x] == 'W')
         cub->player.rottAngle = M_PI;
-    if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'E')
+    if (data[gred_y][gred_x] == 'E')
         cub->player.rottAngle = 0;
 }
-

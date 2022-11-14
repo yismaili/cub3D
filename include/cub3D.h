@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/14 16:40:46 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/14 18:42:17 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ typedef struct s_dirct
 	char 	*east_path;
 }	t_dirct;
 typedef struct  s_player{
-	int 	position_x;
-	int 	position_y;
-	float 	rottAngle;
+	double	position_x;
+	double 	position_y;
+	double 	rottAngle;
+	double   rottSpeed;
+	int 	walkDrctn;
 }  t_player;
 
 typedef struct s_struct
@@ -99,10 +101,10 @@ int		player_move(int key, t_struct *p);
 void 	directionOfPlayer(t_struct *cub);
 void 	draw_player(t_struct *cub, int x, int y, int color);
 void 	ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
-int 	check_wall(t_struct *cub, int gred_x, int gred_y);
+ int 	check_wall(t_struct *cub, double x, double y);
 void 	drawRaysOfplyer(t_struct *cub, int x, int y, int color);
 int		castRays(t_struct *cub);
-void 	check_nextSteep(t_struct *cub, int derection);
+void 	check_nextSteep(t_struct *cub);
 void	my_mlx_pixel_put(t_struct *ptr, int x, int y, long color);
 void print(char **str);
 #endif
