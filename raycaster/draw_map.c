@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/13 23:41:54 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:38:21 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,8 @@ void    ft_draw_map(t_struct *cub)
         }
         y++;
     }
-    // else if ((y  == cub->player.position_y / cub->scaleHeight) && (x == cub->player.position_x / cub->scaleWidth)){
-      drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
-        draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
-    // }
+    drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
+    draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
 
@@ -131,53 +129,41 @@ void player_position(t_struct *cub){
 
 int	player_move(int key, t_struct *cub)
 { 
-    int turnDrctn = 0;
-    int walkDrctn = 0;
-    int k = 0;
-	if (key == 1){
-		  walkDrctn = -1;
-         k = 1;
-    }
+	if (key == 1)   
+		check_nextSteep(cub, -1);
 	else if (key == 13)
-    {
-		  walkDrctn = 1;
-         k = 1;
-    }
-	else if (key == 2){
-		turnDrctn = 1;
-         k = 1;
-    }
-	else if (key == 0){
-		turnDrctn = -1;
-         k = 1;
-    }
+        check_nextSteep(cub, 1);
+	else if (key == 2)
+		check_nextSteep(cub, 1);
+	else if (key == 0)
+		check_nextSteep(cub, -1);
     else if (key == 124)
-    {
 		cub->player.rottAngle += M_PI / 6;
-    }
-	else if (key == 123){
+	else if (key == 123)
 		cub->player.rottAngle -= M_PI / 6;
-    }
     else {return (0);}
-    if(k != 0){
-         cub->player.rottAngle += turnDrctn * rotationSpeed;
-        float  new_x = cub->player.position_x + (cos(cub->player.rottAngle) * cub->scaleWidth) * walkDrctn;
-        float  new_y = cub->player.position_y + (sin(cub->player.rottAngle) * cub->scaleHeight) * walkDrctn;
-        // printf("position x ---> %f\n",new_x);
-        // printf("position y--> %f", new_y);
-        if (check_wall(cub, new_x, new_y) != 1)
-        {
-            cub->player.position_x = new_x;
-            cub->player.position_y = new_y;
-        }   
-    }
     mlx_destroy_image(cub->mlx_ptr, cub->img);
     cub->img = mlx_new_image(cub->mlx_ptr, W_WIDTH, W_HEIGHT);
     ft_draw_map(cub);
     return (0);
 }
 
-void directionOfPlayer(t_struct *cub){
+void check_nextSteep(t_struct *cub, int derection)
+{
+    float  new_x;
+    float  new_y;
+    
+    new_x = cub->player.position_x + (cos(cub->player.rottAngle) * cub->scaleWidth) * derection;
+    new_y = cub->player.position_y + (sin(cub->player.rottAngle) * cub->scaleHeight) * derection;
+    if (check_wall(cub, new_x, new_y) != 1)
+    {
+        cub->player.position_x = new_x;
+        cub->player.position_y = new_y;
+    }   
+}
+
+void directionOfPlayer(t_struct *cub)
+{
     
     char** data = ft_jump_lines(cub);
     if (data[cub->player.position_y/cub->scaleHeight][cub->player.position_x/cub->scaleWidth] == 'N')
@@ -190,87 +176,3 @@ void directionOfPlayer(t_struct *cub){
         cub->player.rottAngle = 0;
 }
 
-void draw_player(t_struct *cub, int x, int y, int color)
-{
-    int 	x_1;
-	int 	y_1;
-    // printf("x-->%d\n", x);
-    // printf("y-->%d\n", y);
-   	// // float new_x = x + cos(cub->player.rottAngle) * 3;
-    // // float new_y = y + sin(cub->player.rottAngle) * 3;
-    
-    // printf("new_x-->%f\n", new_x);
-    //   printf("new_y-->%f\n", new_y);
-	x_1 = x + cos(cub->player.rottAngle) * 42;
-    y_1 = y + sin(cub->player.rottAngle) * 42;
-    ddaForLine(cub, x, y, x_1, y_1, color);  
-}
-
-void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
-{
-    int 	x_1;
-	int 	y_1;
-    int i = 0;
-   // printf("x-->%d\n", x);
-      //  printf("hey %d\n", cub->rays[i]);
-      castRays(cub);
-   while (cub->rays[i])
-   {
-        x_1 = x + cos(cub->rays[i]) * 100;
-        y_1 = y + sin(cub->rays[i]) * 100;
-    // printf("x_1-->%d\n", x_1);
-        ddaForLine(cub, x, y, x_1, y_1, color);  
-        i++;
-   }
-   
-}
-
-// Function for finding absolute value
-int abs(int n) 
-{ 
-    if (n > 0){
-        return (n);
-    }
-    else {
-        return (n *(-1));
-    }
-}
-// DDA Function for line generation
-void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
-{
-    // calculate dstnc_x & dstnc_y
-    int dstnc_x = x_1 - x_0;
-    int dstnc_y = y_1 - y_0;
- 
-    // calculate steps required for generating pixels
-    int steps;
-    if (abs(dstnc_x) > abs(dstnc_y))
-        steps = abs(dstnc_x);
-    else
-        steps = abs(dstnc_y);
-    // calculate increment in x & y for each steps
-    float x_inc = dstnc_x / (float)steps;
-    float y_inc = dstnc_y / (float)steps;
-    // Put pixel for each step
-    float x = x_0;
-    float y = y_0;
-    int i = 0;
-    while (i <= steps)
-    {
-       my_mlx_pixel_put(cub, x, y, color);
-       x += x_inc; // increment in x at each step
-       y += y_inc; // increment in y at each step
-       i++;
-    }
-}
- 
- int check_wall(t_struct *cub, int gred_x, int gred_y)
- {
-    char **map;
-
-    map = ft_jump_lines(cub);
-   /// printf("---> %cC\n",map[gred_y/cub->scaleHeight][gred_x/cub->scaleWidth]);
-    if (map[gred_y/cub->scaleHeight][gred_x/cub->scaleWidth] == '1')
-        return (1);
-    return (0);
- }
