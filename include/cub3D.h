@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/13 23:36:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:40:46 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include "../libft/libft.h"
 # define W_WIDTH 1020
 # define W_HEIGHT 510
-# define rotationSpeed  2 * (M_PI / 180)
-# define moveSpeed  2.0
 
 typedef struct s_floor
 {
@@ -71,7 +69,7 @@ typedef struct s_struct
 	int 		scaleWidth;
 	t_player 	player;
 	float		numOfRays;
-	float			fovAngle;
+	float		fovAngle;
 	float 		rayAngle;
 	float		rays[100000];
 }	t_struct;
@@ -104,5 +102,7 @@ void 	ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
 int 	check_wall(t_struct *cub, int gred_x, int gred_y);
 void 	drawRaysOfplyer(t_struct *cub, int x, int y, int color);
 int		castRays(t_struct *cub);
+void 	check_nextSteep(t_struct *cub, int derection);
+void	my_mlx_pixel_put(t_struct *ptr, int x, int y, long color);
 void print(char **str);
 #endif
