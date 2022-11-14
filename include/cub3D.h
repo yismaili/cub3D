@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/14 21:31:40 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/14 22:09:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ void 	drawRaysOfplyer(t_struct *cub, int x, int y, int color);
 int		castRays(t_struct *cub);
 void 	check_nextSteep(t_struct *cub);
 void	my_mlx_pixel_put(t_struct *ptr, int x, int y, long color);
+void	check_downSteep(t_struct *cub);
 void print(char **str);
 #endif
