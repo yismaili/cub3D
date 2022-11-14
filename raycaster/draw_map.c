@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/14 21:06:58 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/14 21:35:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void player_position(t_struct *cub){
    
     cub->scaleHeight = W_HEIGHT/ height;
     cub->scaleWidth = W_WIDTH/ cub->width;
-    cub->player.rottSpeed = M_PI / 6;
+    cub->player.rottSpeed = (2 * M_PI)/ 180;
     cub->player.walkDrctn = 0;
    while (data[i])
    {
@@ -139,10 +139,14 @@ int	player_move(int key, t_struct *cub)
         cub->player.walkDrctn = 1;
        check_nextSteep(cub);
     }
-	// else if (key == 2)
-	// 	check_nextSteep(cub, 1);
-	// else if (key == 0)
-	// 	check_nextSteep(cub, -1);
+	else if (key == 2){
+        cub->player.walkDown = 1;
+		check_nextSteep(cub);
+    }
+	else if (key == 0){
+        cub->player.walkDown= -1;
+		check_nextSteep(cub);
+    }
     else if (key == 124)
         cub->player.rottAngle += cub->player.rottSpeed;
 	else if (key == 123)

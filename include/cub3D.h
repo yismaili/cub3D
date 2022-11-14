@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/14 18:42:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/14 21:31:40 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct  s_player{
 	double 	rottAngle;
 	double   rottSpeed;
 	int 	walkDrctn;
+	int		walkDown;
 }  t_player;
 
 typedef struct s_struct
