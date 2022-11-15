@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/14 22:34:34 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/15 23:21:47 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,23 @@ void player_position(t_struct *cub){
     cub->scaleWidth = W_WIDTH/ cub->width;
     cub->player.rottSpeed = (2 * M_PI)/ 180;
     cub->player.walkDrctn = 0;
+    cub->ray.rayAngle = normalizeAngle(cub->rayAngle);
+    cub->ray.wallHit_x = 0;
+    cub->ray.wallHit_y = 0;
+    cub->ray.Distance = 0;
+    cub->ray.hitVertucal = 0;
+    if (cub->ray.rayAngle > 0 && cub->ray.rayAngle < M_PI){
+            cub->ray.rayFacingDown =  cub->ray.rayAngle;
+     }
+     else {
+        cub->ray.rayFacingUp = cub->ray.rayAngle;
+     }
+    if (cub->ray.rayAngle < ((1/2)*M_PI) || cub->ray.rayAngle > ((3/2)*M_PI)){
+            cub->ray.rayFacingRight =  cub->ray.rayAngle;
+     }
+     else {
+        cub->ray.rayFacingLeft = cub->ray.rayAngle;
+     }
    while (data[i])
    {
         j = 0;
