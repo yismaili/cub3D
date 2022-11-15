@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/15 23:47:10 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/16 00:13:08 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,16 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
      double y_nextHrzntal = y_incrmnt;
      if (cub->ray.rayFacingUp)
         y_nextHrzntal--;
-    
+     while (x_nextHrzntal >= 0 && x_nextHrzntal <= W_WIDTH && y_nextHrzntal >= 0 && y_nextHrzntal <= W_HEIGHT ){
+        if (check_wall(cub, x_nextHrzntal, y_nextHrzntal))
+        {
+            foundHorzWallHit = 1;
+            horzWallHitX = x_nextHrzntal;
+            horzWallHitY = y_nextHrzntal;
+            break;
+        }else {
+            x_nextHrzntal += x_incrmnt;
+            y_nextHrzntal += y_incrmnt;
+        }
+     }
     }
