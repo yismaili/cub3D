@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/14 21:06:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/15 23:47:10 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,63 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     char **map;
 
     map = ft_jump_lines(cub);
-    int gred_y = floor(y/cub->scaleHeight);
+    int gred_y = floor(y/cub->scaleHeight); /*The value to round down to the nearest integer*/
     int gred_x = floor(x/cub->scaleWidth);
     if (map[gred_y][gred_x] == '1')
         return (1);
     return (0);
  }
+
+ double normalizeAngle(double angle)
+ {
+    angle = (int)angle % (int)(2 * M_PI);
+    if (angle < 0) 
+        angle = (2 * M_PI);
+    return (angle);
+ }
+ 
+ void castRays(t_struct *cub)
+ { 
+    int  foundHorzWallHit = 0;
+    int  horzWallHitX = 0;
+    int  horzWallHitY = 0;
+
+    double y_hrzntlIntrsctn =  floor(cub->player.position_y / cub->scaleHeight) * cub->scaleHeight;
+    if (y_hrzntlIntrsctn == cub->ray.rayFacingDown)
+    {
+        y_hrzntlIntrsctn += cub->ray.rayFacingDown;
+    }
+    else if (y_hrzntlIntrsctn == cub->scaleHeight)
+    {
+         y_hrzntlIntrsctn += 0;
+    }
+     double x_hrzntlIntrsctn = cub->player.position_x + (y_hrzntlIntrsctn - cub->player.position_y) / tan(cub->ray.rayAngle);
+     double y_incrmnt = cub->scaleHeight;
+     if (y_incrmnt == cub->ray.rayFacingUp)
+     {
+        y_incrmnt *= -1;
+     }
+     else {
+        y_incrmnt *= 1;
+     }
+     double x_incrmnt = cub->scaleWidth / tan(cub->ray.rayAngle);
+      if (x_incrmnt == cub->ray.rayFacingLeft && x_incrmnt > 0)
+        {
+            x_incrmnt *= -1;
+        }
+     else {
+        x_incrmnt *= 1;
+     }
+      if (x_incrmnt == cub->ray.rayFacingRight && x_incrmnt < 0)
+        {
+            x_incrmnt *= -1;
+        }
+     else {
+        x_incrmnt *= 1;
+     }
+     double x_nextHrzntal = x_incrmnt;
+     double y_nextHrzntal = y_incrmnt;
+     if (cub->ray.rayFacingUp)
+        y_nextHrzntal--;
+    
+    }

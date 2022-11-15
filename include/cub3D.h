@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/14 22:09:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/15 23:21:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,18 @@ typedef struct  s_player{
 	int		walkDown;
 }  t_player;
 
+typedef struct  s_ray{
+	double rayAngle;
+	int 	wallHit_x;
+	int 	wallHit_y;
+	double 	Distance;
+	int		hitVertucal;
+	double  rayFacingDown;
+	double	rayFacingUp;
+	double  rayFacingRight;
+	double	rayFacingLeft;
+}  t_ray;
+
 typedef struct s_struct
 {
 	char		**map;
@@ -71,10 +83,11 @@ typedef struct s_struct
 	int 		scaleHeight;
 	int 		scaleWidth;
 	t_player 	player;
-	float		numOfRays;
-	float		fovAngle;
-	float 		rayAngle;
-	float		rays[100000];
+	double		numOfRays;
+	double		fovAngle;
+	double 		rayAngle;
+	t_ray       ray;
+	double		rays[100000];
 }	t_struct;
 
 
@@ -108,5 +121,6 @@ int		castRays(t_struct *cub);
 void 	check_nextSteep(t_struct *cub);
 void	my_mlx_pixel_put(t_struct *ptr, int x, int y, long color);
 void	check_downSteep(t_struct *cub);
+double	normalizeAngle(double angle);
 void print(char **str);
 #endif
