@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/16 12:35:45 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/16 12:59:38 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,16 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
             x_nextVrtcl += x_incrmntVrtcl;
             y_nextVrtcl += y_incrmntVrtcl;
         }
+     }
+     double hrzntlDstnc = 0;
+     if (foundHorzWallHit == 1)
+     {
+        hrzntlDstnc = calculDistance(horzWallHitX, horzWallHitY, cub->player.position_x, cub->player.position_y);
+     }
+     double vrtclDstnc = 0;
+     if (foundvrtclWallHit == 1)
+     {
+        vrtclDstnc = calculDistance(vrtclWallHitY, vrtclWallHitY, cub->player.position_x, cub->player.position_y);
      }
      
     }
