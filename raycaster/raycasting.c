@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/16 00:13:08 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/16 12:35:45 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     return (angle);
  }
  
- void castRays(t_struct *cub)
+ void cast_Rays(t_struct *cub)
  { 
     int  foundHorzWallHit = 0;
     int  horzWallHitX = 0;
@@ -165,4 +165,63 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
             y_nextHrzntal += y_incrmnt;
         }
      }
+
+
+     /******vertical code *******/
+      int  foundvrtclWallHit = 0;
+    int  vrticlWallHitX = 0;
+    int  vrtclWallHitY = 0;
+
+    double x_vrticallIntrsctn =  floor(cub->player.position_x / cub->scaleWidth) * cub->scaleWidth;
+    if (x_vrticallIntrsctn == cub->ray.rayFacingDown)
+    {
+        x_vrticallIntrsctn += cub->ray.rayFacingDown;
+    }
+    else if (x_vrticallIntrsctn == cub->scaleHeight)
+    {
+         x_vrticallIntrsctn += 0;
+    }
+     double y_vrtclIntrsctn = cub->player.position_y + (x_vrticallIntrsctn - cub->player.position_x) / tan(cub->ray.rayAngle);
+     double x_incrmntVrtcl = cub->scaleWidth;
+     
+     if (x_incrmntVrtcl == cub->ray.rayFacingLeft)
+     {
+        x_incrmntVrtcl *= -1;
+     }
+     else {
+        x_incrmntVrtcl *= 1;
+     }
+     
+     double y_incrmntVrtcl = cub->scaleHeight / tan(cub->ray.rayAngle);
+      if (y_incrmntVrtcl == cub->ray.rayFacingUp && y_incrmntVrtcl > 0)
+        {
+            y_incrmntVrtcl *= -1;
+        }
+     else {
+        y_incrmntVrtcl *= 1;
+     }
+      if (y_incrmntVrtcl == cub->ray.rayFacingDown && y_incrmntVrtcl < 0)
+        {
+            y_incrmntVrtcl *= -1;
+        }
+     else {
+        y_incrmntVrtcl *= 1;
+     }
+     double x_nextVrtcl = x_incrmntVrtcl;
+     double y_nextVrtcl = y_incrmntVrtcl;
+     if (cub->ray.rayFacingUp)
+        x_nextVrtcl--;
+     while (x_nextHrzntal >= 0 && x_nextVrtcl <= W_WIDTH && y_nextVrtcl >= 0 && y_nextVrtcl <= W_HEIGHT ){
+        if (check_wall(cub, x_nextVrtcl, y_nextVrtcl))
+        {
+            foundvrtclWallHit = 1;
+            vrticlWallHitX = x_nextVrtcl;
+            vrtclWallHitY = y_nextVrtcl;
+            break;
+        }else {
+            x_nextVrtcl += x_incrmntVrtcl;
+            y_nextVrtcl += y_incrmntVrtcl;
+        }
+     }
+     
     }
