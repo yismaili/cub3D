@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/15 23:21:13 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/16 12:22:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,6 @@ void 	check_nextSteep(t_struct *cub);
 void	my_mlx_pixel_put(t_struct *ptr, int x, int y, long color);
 void	check_downSteep(t_struct *cub);
 double	normalizeAngle(double angle);
+ void 	cast_Rays(t_struct *cub);
 void print(char **str);
 #endif
