@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/16 12:59:38 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/16 13:19:53 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     {
          y_hrzntlIntrsctn += 0;
     }
-     double x_hrzntlIntrsctn = cub->player.position_x + (y_hrzntlIntrsctn - cub->player.position_y) / tan(cub->ray.rayAngle);
+  //   double x_hrzntlIntrsctn = cub->player.position_x + (y_hrzntlIntrsctn - cub->player.position_y) / tan(cub->ray.rayAngle);
      double y_incrmnt = cub->scaleHeight;
      if (y_incrmnt == cub->ray.rayFacingUp)
      {
@@ -181,7 +181,7 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     {
          x_vrticallIntrsctn += 0;
     }
-     double y_vrtclIntrsctn = cub->player.position_y + (x_vrticallIntrsctn - cub->player.position_x) / tan(cub->ray.rayAngle);
+  //   double y_vrtclIntrsctn = cub->player.position_y + (x_vrticallIntrsctn - cub->player.position_x) / tan(cub->ray.rayAngle);
      double x_incrmntVrtcl = cub->scaleWidth;
      
      if (x_incrmntVrtcl == cub->ray.rayFacingLeft)
@@ -233,5 +233,27 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
      {
         vrtclDstnc = calculDistance(vrtclWallHitY, vrtclWallHitY, cub->player.position_x, cub->player.position_y);
      }
-     
+     if (hrzntlDstnc < vrtclDstnc){
+        cub->ray.wallHit_x  = horzWallHitX;
+     }
+     else {
+         cub->ray.wallHit_x  = vrticlWallHitX;
+     }
+     if (hrzntlDstnc < vrtclDstnc){
+        cub->ray.wallHit_y  = horzWallHitY;
+     }
+     else {
+         cub->ray.wallHit_y  = vrtclWallHitY;
+     }
+     if (hrzntlDstnc < vrtclDstnc){
+        cub->ray.Distance  = hrzntlDstnc;
+     }
+     else {
+          cub->ray.Distance  = vrtclDstnc;
+     }
+    }
+
+    double calculDistance(double wallHit_X, double wallHit_y, double x, double y)
+    {
+        return (sqrt(x - wallHit_X) * (x - wallHit_X) + (y - wallHit_y) * (y - wallHit_y));
     }
