@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/15 23:21:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/16 21:51:27 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,35 +83,6 @@ void    ft_draw_map(t_struct *cub)
     cub->fovAngle = 60 * (M_PI / 180);
     cub->numOfRays = W_WIDTH / 4;
     cub->rayAngle = cub->player.rottAngle - (cub->fovAngle + 0.5);
-    castRays(cub);
-    while (data[y])
-    {
-        x = 0;
-        while (data[y][x])
-        {
-            if (data[y][x] == '1')
-                draw_cub(cub, x, y, 0xFFF0000);
-            else if (data[y][x] == '0')
-                draw_cub(cub, x, y, 0);
-            x++;
-        }
-        y++;
-    }
-    drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
-    draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
-    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
-}
-
-void player_position(t_struct *cub){
-    int i = 0;
-    int j = 0;
-   char** data = ft_jump_lines(cub);
-   int  height = ft_count_height(data);
-   
-    cub->scaleHeight = W_HEIGHT/ height;
-    cub->scaleWidth = W_WIDTH/ cub->width;
-    cub->player.rottSpeed = (2 * M_PI)/ 180;
-    cub->player.walkDrctn = 0;
     cub->ray.rayAngle = normalizeAngle(cub->rayAngle);
     cub->ray.wallHit_x = 0;
     cub->ray.wallHit_y = 0;
@@ -129,6 +100,38 @@ void player_position(t_struct *cub){
      else {
         cub->ray.rayFacingLeft = cub->ray.rayAngle;
      }
+    // castRays(cub);
+    // cast_Rays(cub);
+    // printf("%f\n", cub->ray.Distance);
+    while (data[y])
+    {
+        x = 0;
+        while (data[y][x])
+        {
+            if (data[y][x] == '1')
+                draw_cub(cub, x, y, 0xFFF0000);
+            else if (data[y][x] == '0')
+                draw_cub(cub, x, y, 0);
+            x++;
+        }
+        y++;
+    }
+    drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
+   // draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
+    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
+}
+
+void player_position(t_struct *cub){
+    int i = 0;
+    int j = 0;
+   char** data = ft_jump_lines(cub);
+   int  height = ft_count_height(data);
+   
+    cub->scaleHeight = W_HEIGHT/ height;
+    cub->scaleWidth = W_WIDTH/ cub->width;
+    cub->player.rottSpeed = (2 * M_PI)/ 180;
+    cub->player.walkDrctn = 0;
+   
    while (data[i])
    {
         j = 0;
@@ -168,7 +171,7 @@ int	player_move(int key, t_struct *cub)
     else if (key == 124)
         cub->player.rottAngle += cub->player.rottSpeed;
 	else if (key == 123)
-        cub->player.rottAngle += cub->player.rottSpeed * (-1);
+        cub->player.rottAngle -= cub->player.rottSpeed;
     mlx_destroy_image(cub->mlx_ptr, cub->img);
     cub->img = mlx_new_image(cub->mlx_ptr, W_WIDTH, W_HEIGHT);
     ft_draw_map(cub);

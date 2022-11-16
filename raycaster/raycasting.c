@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/16 13:19:53 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/16 22:16:37 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,25 @@ void draw_player(t_struct *cub, int x, int y, int color)
 
 void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 {
-    int 	x_1;
-	int 	y_1;
-    int i = 0;
+    // int 	x_1;
+	// int 	y_1;
+    //int i = 0;
     
-    castRays(cub);
-    while (cub->rays[i])
-    {
-            x_1 = x + cos(cub->rays[i]) * 100;
-            y_1 = y + sin(cub->rays[i]) * 100;
-            ddaForLine(cub, x, y, x_1, y_1, color);  
-            i++;
-    } 
+    // // castRays(cub);
+    // cub->ray.rayAngle = cub->player.rottAngle - M_PI/6;
+    // cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
+    // double increment_angle = (M_PI / 3) / 500;
+    // while (i < 500)
+    // {
+            
+            cast_Rays(cub);
+            // x_1 = x + cos(cub->rays[i]) * cub->ray.wallHit_x;
+            // y_1 = y + sin(cub->rays[i]) *  cub->ray.wallHit_y;
+            ddaForLine(cub, x, y, cub->ray.wallHit_x, cub->ray.wallHit_y,color);
+            // cub->ray.rayAngle += increment_angle;
+            // cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
+           // i++;
+   // } 
 }
 
 // Function for finding absolute value
@@ -104,18 +111,18 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
 
  double normalizeAngle(double angle)
  {
-    angle = (int)angle % (int)(2 * M_PI);
-    if (angle < 0) 
-        angle = (2 * M_PI);
+    angle =  fmod(angle,2 * M_PI);
+    if (angle < 0)
+        angle += (2 * M_PI);
     return (angle);
  }
  
  void cast_Rays(t_struct *cub)
  { 
     int  foundHorzWallHit = 0;
-    int  horzWallHitX = 0;
-    int  horzWallHitY = 0;
-
+    double  horzWallHitX = 0;
+    double  horzWallHitY = 0;
+    
     double y_hrzntlIntrsctn =  floor(cub->player.position_y / cub->scaleHeight) * cub->scaleHeight;
     if (y_hrzntlIntrsctn == cub->ray.rayFacingDown)
     {
@@ -125,7 +132,8 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     {
          y_hrzntlIntrsctn += 0;
     }
-  //   double x_hrzntlIntrsctn = cub->player.position_x + (y_hrzntlIntrsctn - cub->player.position_y) / tan(cub->ray.rayAngle);
+     double x_hrzntlIntrsctn = cub->player.position_x + (y_hrzntlIntrsctn - cub->player.position_y) ;// tan(cub->ray.rayAngle);
+    //    printf("%f\n",x_hrzntlIntrsctn);
      double y_incrmnt = cub->scaleHeight;
      if (y_incrmnt == cub->ray.rayFacingUp)
      {
@@ -134,7 +142,9 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
      else {
         y_incrmnt *= 1;
      }
-     double x_incrmnt = cub->scaleWidth / tan(cub->ray.rayAngle);
+     double x_incrmnt = cub->scaleWidth / (tan(cub->ray.rayAngle));
+     if (x_incrmnt == INFINITY)
+            x_incrmnt = cub->scaleWidth;
       if (x_incrmnt == cub->ray.rayFacingLeft && x_incrmnt > 0)
         {
             x_incrmnt *= -1;
@@ -149,13 +159,16 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
      else {
         x_incrmnt *= 1;
      }
-     double x_nextHrzntal = x_incrmnt;
-     double y_nextHrzntal = y_incrmnt;
+    //  printf("%f\n",y_hrzntlIntrsctn);
+     double x_nextHrzntal = x_hrzntlIntrsctn;
+     double y_nextHrzntal = y_hrzntlIntrsctn;
      if (cub->ray.rayFacingUp)
         y_nextHrzntal--;
      while (x_nextHrzntal >= 0 && x_nextHrzntal <= W_WIDTH && y_nextHrzntal >= 0 && y_nextHrzntal <= W_HEIGHT ){
         if (check_wall(cub, x_nextHrzntal, y_nextHrzntal))
         {
+            // printf("hrzntal x ---> %f\n", x_nextHrzntal);
+            //  printf("hrzntal x ---> %f\n", y_nextHrzntal);
             foundHorzWallHit = 1;
             horzWallHitX = x_nextHrzntal;
             horzWallHitY = y_nextHrzntal;
@@ -168,9 +181,9 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
 
 
      /******vertical code *******/
-      int  foundvrtclWallHit = 0;
-    int  vrticlWallHitX = 0;
-    int  vrtclWallHitY = 0;
+    int  foundvrtclWallHit = 0;
+    double  vrticlWallHitX = 0;
+    double  vrtclWallHitY = 0;
 
     double x_vrticallIntrsctn =  floor(cub->player.position_x / cub->scaleWidth) * cub->scaleWidth;
     if (x_vrticallIntrsctn == cub->ray.rayFacingDown)
@@ -181,9 +194,9 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     {
          x_vrticallIntrsctn += 0;
     }
-  //   double y_vrtclIntrsctn = cub->player.position_y + (x_vrticallIntrsctn - cub->player.position_x) / tan(cub->ray.rayAngle);
+     double y_vrtclIntrsctn = cub->player.position_y + (x_vrticallIntrsctn - cub->player.position_x);// / tan(cub->ray.rayAngle);
+    //  printf("%f\n",y_vrtclIntrsctn);
      double x_incrmntVrtcl = cub->scaleWidth;
-     
      if (x_incrmntVrtcl == cub->ray.rayFacingLeft)
      {
         x_incrmntVrtcl *= -1;
@@ -193,6 +206,8 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
      }
      
      double y_incrmntVrtcl = cub->scaleHeight / tan(cub->ray.rayAngle);
+     if (y_incrmntVrtcl == INFINITY)
+        y_incrmntVrtcl = cub->scaleHeight;
       if (y_incrmntVrtcl == cub->ray.rayFacingUp && y_incrmntVrtcl > 0)
         {
             y_incrmntVrtcl *= -1;
@@ -207,13 +222,16 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
      else {
         y_incrmntVrtcl *= 1;
      }
-     double x_nextVrtcl = x_incrmntVrtcl;
-     double y_nextVrtcl = y_incrmntVrtcl;
+    //  printf("%f\n",x_vrticallIntrsctn);
+     double x_nextVrtcl = x_vrticallIntrsctn;
+     double y_nextVrtcl = y_vrtclIntrsctn;
      if (cub->ray.rayFacingUp)
         x_nextVrtcl--;
-     while (x_nextHrzntal >= 0 && x_nextVrtcl <= W_WIDTH && y_nextVrtcl >= 0 && y_nextVrtcl <= W_HEIGHT ){
+     while (x_nextVrtcl >= 0 && x_nextVrtcl <= W_WIDTH && y_nextVrtcl >= 0 && y_nextVrtcl <= W_HEIGHT ){
         if (check_wall(cub, x_nextVrtcl, y_nextVrtcl))
         {
+            // printf("vrtcal x ---> %f\n", x_nextVrtcl);
+            //  printf("vrtcal y ---> %f\n", y_nextVrtcl);
             foundvrtclWallHit = 1;
             vrticlWallHitX = x_nextVrtcl;
             vrtclWallHitY = y_nextVrtcl;
@@ -224,14 +242,17 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
         }
      }
      double hrzntlDstnc = 0;
+    //     printf("*****>%f\n",  horzWallHitX);
+    //   printf("---->%f\n", cub->player.position_x );
      if (foundHorzWallHit == 1)
      {
-        hrzntlDstnc = calculDistance(horzWallHitX, horzWallHitY, cub->player.position_x, cub->player.position_y);
+        hrzntlDstnc = calculDistance(horzWallHitX/ cub->scaleWidth, horzWallHitY, cub->player.position_x, cub->player.position_y);
+       // printf("destace ---> %f\n", hrzntlDstnc);
      }
      double vrtclDstnc = 0;
      if (foundvrtclWallHit == 1)
      {
-        vrtclDstnc = calculDistance(vrtclWallHitY, vrtclWallHitY, cub->player.position_x, cub->player.position_y);
+        vrtclDstnc = calculDistance(vrticlWallHitX/cub->scaleWidth, vrtclWallHitY, cub->player.position_x, cub->player.position_y);
      }
      if (hrzntlDstnc < vrtclDstnc){
         cub->ray.wallHit_x  = horzWallHitX;
@@ -251,9 +272,11 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
      else {
           cub->ray.Distance  = vrtclDstnc;
      }
+    //   printf("%f\n",  cub->ray.wallHit_x);
+    //   printf("%f\n",  cub->ray.wallHit_y);
+    //  printf("---> %f\n",cub->ray.Distance);
     }
-
-    double calculDistance(double wallHit_X, double wallHit_y, double x, double y)
+    double calculDistance(double wallHit_x, double wallHit_y, double x, double y)
     {
-        return (sqrt(x - wallHit_X) * (x - wallHit_X) + (y - wallHit_y) * (y - wallHit_y));
+        return (sqrt(x - wallHit_x) * (x - wallHit_x) + (y - wallHit_y) * (y - wallHit_y));
     }
