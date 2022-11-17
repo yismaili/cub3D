@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/16 23:21:50 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/17 15:38:45 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
     while (cub->rays[i])
     {  
         cub->ray.rayAngle = normalizeAngle(cub->rays[i]);
-        cast_Rays(cub);
+        castAllRays(cub);
         ddaForLine(cub, x, y, cub->ray.wallHit_x, cub->ray.wallHit_y,color);
         i++;
    } 
@@ -108,11 +108,17 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     return (angle);
  }
  
- void  cast_Rays(t_struct *cub)
- { 
-    int  foundHorzWallHit = 0;
-    double  horzWallHitX = 0;
-    double  horzWallHitY = 0;
+
+double calculDistance(double wallHit_x, double wallHit_y, double x, double y)
+{
+    return (sqrt(x - wallHit_x) * (x - wallHit_x) + (y - wallHit_y) * (y - wallHit_y));
+}
+    
+void castHrzntalRays(t_struct *cub)
+{
+    cub->ray.horzWallHitX = 0;
+    cub->ray.horzWallHitY = 0;
+    cub->ray.foundHorzWallHit = 0;
     
     double y_hrzntlIntrsctn =  floor(cub->player.position_y / cub->scaleHeight) * cub->scaleHeight;
     if (y_hrzntlIntrsctn == cub->ray.rayFacingDown)
@@ -160,21 +166,22 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
         {
             // printf("hrzntal x ---> %f\n", x_nextHrzntal);
             //  printf("hrzntal x ---> %f\n", y_nextHrzntal);
-            foundHorzWallHit = 1;
-            horzWallHitX = x_nextHrzntal;
-            horzWallHitY = y_nextHrzntal;
+            cub->ray.foundHorzWallHit = 1;
+            cub->ray.horzWallHitX = x_nextHrzntal;
+            cub->ray.horzWallHitY = y_nextHrzntal;
             break;
         }else {
             x_nextHrzntal += x_incrmnt;
             y_nextHrzntal += y_incrmnt;
         }
      }
+}
 
-
-     /******vertical code *******/
-    int  foundvrtclWallHit = 0;
-    double  vrticlWallHitX = 0;
-    double  vrtclWallHitY = 0;
+void castVrtcalRays(t_struct *cub)
+{
+   cub->ray.vrticlWallHitX = 0;
+    cub->ray.vrtclWallHitY = 0;
+    cub->ray.foundvrtclWallHit = 0;
 
     double x_vrticallIntrsctn =  floor(cub->player.position_x / cub->scaleWidth) * cub->scaleWidth;
     if (x_vrticallIntrsctn == cub->ray.rayFacingDown)
@@ -223,39 +230,46 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
         {
             // printf("vrtcal x ---> %f\n", x_nextVrtcl);
             //  printf("vrtcal y ---> %f\n", y_nextVrtcl);
-            foundvrtclWallHit = 1;
-            vrticlWallHitX = x_nextVrtcl;
-            vrtclWallHitY = y_nextVrtcl;
+            cub->ray.foundvrtclWallHit = 1;
+           cub->ray.vrticlWallHitX = x_nextVrtcl;
+            cub->ray.vrtclWallHitY = y_nextVrtcl;
             break;
         }else {
             x_nextVrtcl += x_incrmntVrtcl;
             y_nextVrtcl += y_incrmntVrtcl;
         }
      }
-     double hrzntlDstnc = 0;
-    //     printf("*****>%f\n",  horzWallHitX);
+}
+
+void castAllRays(t_struct *cub)
+{
+      double hrzntlDstnc = 0;
+
+      castVrtcalRays(cub);
+      castHrzntalRays(cub);
+    //     printf("*****>%f\n",  cub->ray.horzWallHitX);
     //   printf("---->%f\n", cub->player.position_x );
-     if (foundHorzWallHit == 1)
+     if (cub->ray.foundHorzWallHit == 1)
      {
-        hrzntlDstnc = 0;//calculDistance(horzWallHitX/ cub->scaleWidth, horzWallHitY, cub->player.position_x, cub->player.position_y);
+        hrzntlDstnc = 0;//calculDistance(cub->ray.horzWallHitX/ cub->scaleWidth, cub->ray.horzWallHitY, cub->player.position_x, cub->player.position_y);
        // printf("destace ---> %f\n", hrzntlDstnc);
      }
      double vrtclDstnc = 0;
-     if (foundvrtclWallHit == 1)
+     if (cub->ray.foundvrtclWallHit == 1)
      {
-        vrtclDstnc = 0;//calculDistance(vrticlWallHitX/cub->scaleWidth, vrtclWallHitY, cub->player.position_x, cub->player.position_y);
+        vrtclDstnc = 0;//calculDistance(vrticlWallHitX/cub->scaleWidth, cub->ray.vrtclWallHitY, cub->player.position_x, cub->player.position_y);
      }
      if (hrzntlDstnc < vrtclDstnc){
-        cub->ray.wallHit_x  = horzWallHitX;
+        cub->ray.wallHit_x  = cub->ray.horzWallHitX;
      }
      else {
-         cub->ray.wallHit_x  = vrticlWallHitX;
+         cub->ray.wallHit_x  =cub->ray.vrticlWallHitX;
      }
      if (hrzntlDstnc < vrtclDstnc){
-        cub->ray.wallHit_y  = horzWallHitY;
+        cub->ray.wallHit_y  = cub->ray.horzWallHitY;
      }
      else {
-         cub->ray.wallHit_y  = vrtclWallHitY;
+         cub->ray.wallHit_y  = cub->ray.vrtclWallHitY;
      }
      if (hrzntlDstnc < vrtclDstnc){
         cub->ray.Distance  = hrzntlDstnc;
@@ -266,8 +280,4 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     //   printf("%f\n",  cub->ray.wallHit_x);
     //   printf("%f\n",  cub->ray.wallHit_y);
     //  printf("---> %f\n",cub->ray.Distance);
-    }
-    double calculDistance(double wallHit_x, double wallHit_y, double x, double y)
-    {
-        return (sqrt(x - wallHit_x) * (x - wallHit_x) + (y - wallHit_y) * (y - wallHit_y));
-    }
+}

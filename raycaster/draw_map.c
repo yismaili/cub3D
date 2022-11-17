@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/16 23:22:22 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/17 15:27:35 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void    ft_draw_map(t_struct *cub)
     data = ft_jump_lines(cub);
     cub->fovAngle = 60 * (M_PI / 180);
     cub->numOfRays = W_WIDTH / 4;
-     cub->rayAngle = cub->player.rottAngle - (cub->fovAngle + 0.5);
-   // cub->ray.rayAngle = normalizeAngle(cub->rayAngle);
+    //  cub->rayAngle = cub->player.rottAngle - (cub->fovAngle + 0.5);
+    // cub->ray.rayAngle = normalizeAngle(cub->rayAngle);
     cub->ray.wallHit_x = 0;
     cub->ray.wallHit_y = 0;
     cub->ray.Distance = 0;
@@ -100,6 +100,7 @@ void    ft_draw_map(t_struct *cub)
      else {
         cub->ray.rayFacingLeft = cub->ray.rayAngle;
      }
+     castAllRays(cub);
     while (data[y])
     {
         x = 0;
