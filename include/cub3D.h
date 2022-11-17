@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/17 15:34:19 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/17 15:43:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,22 @@ typedef struct s_dirct
 	char 	*south_path;
 	char 	*west_path;
 	char 	*east_path;
+	
 }	t_dirct;
 typedef struct  s_player{
+	
 	double	position_x;
 	double 	position_y;
 	double 	rottAngle;
-	double   rottSpeed;
+	double  rottSpeed;
 	int 	walkDrctn;
 	int		walkDown;
+	
 }  t_player;
 
 typedef struct  s_ray{
-	double rayAngle;
+	
+	double 	rayAngle;
 	double 	wallHit_x;
 	double	wallHit_y;
 	double 	Distance;
@@ -65,8 +69,9 @@ typedef struct  s_ray{
 	int		foundvrtclWallHit;
 	double  horzWallHitX;
     double  horzWallHitY;
-	 double  vrticlWallHitX;
+	double  vrticlWallHitX;
     double  vrtclWallHitY;
+	
 }  t_ray;
 
 typedef struct s_struct
@@ -94,6 +99,7 @@ typedef struct s_struct
 	double 		rayAngle;
 	t_ray       ray;
 	double		rays[100000];
+	
 }	t_struct;
 
 
@@ -121,16 +127,16 @@ int		player_move(int key, t_struct *p);
 void 	directionOfPlayer(t_struct *cub);
 void 	draw_player(t_struct *cub, int x, int y, int color);
 void 	ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
- int 	check_wall(t_struct *cub, double x, double y);
+int 	check_wall(t_struct *cub, double x, double y);
 void 	drawRaysOfplyer(t_struct *cub, int x, int y, int color);
 int		castRays(t_struct *cub);
 void 	check_nextSteep(t_struct *cub);
 void	my_mlx_pixel_put(t_struct *ptr, int x, int y, long color);
 void	check_downSteep(t_struct *cub);
 double	normalizeAngle(double angle);
- double calculDistance(double wallHit_X, double wallHit_y, double x, double y);
-void castHrzntalRays(t_struct *cub);
-void castVrtcalRays(t_struct *cub);
-void castAllRays(t_struct *cub);
+double 	calculDistance(double wallHit_X, double wallHit_y, double x, double y);
+void 	castHrzntalRays(t_struct *cub);
+void 	castVrtcalRays(t_struct *cub);
+void 	castAllRays(t_struct *cub);
 void print(char **str);
 #endif
