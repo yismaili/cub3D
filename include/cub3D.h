@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/16 18:14:50 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/17 15:34:19 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ typedef struct  s_ray{
 	double	rayFacingUp;
 	double  rayFacingRight;
 	double	rayFacingLeft;
+	int		foundHorzWallHit;
+	int		foundvrtclWallHit;
+	double  horzWallHitX;
+    double  horzWallHitY;
+	 double  vrticlWallHitX;
+    double  vrtclWallHitY;
 }  t_ray;
 
 typedef struct s_struct
@@ -123,6 +129,8 @@ void	my_mlx_pixel_put(t_struct *ptr, int x, int y, long color);
 void	check_downSteep(t_struct *cub);
 double	normalizeAngle(double angle);
  double calculDistance(double wallHit_X, double wallHit_y, double x, double y);
- void 	cast_Rays(t_struct *cub);
+void castHrzntalRays(t_struct *cub);
+void castVrtcalRays(t_struct *cub);
+void castAllRays(t_struct *cub);
 void print(char **str);
 #endif
