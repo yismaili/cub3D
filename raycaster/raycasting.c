@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/17 16:00:37 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/17 22:32:34 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,22 @@ void castAllRays(t_struct *cub)
     double hrzntlDstnc = 0;
     double vrtclDstnc = 0;
 
+    cub->ray.wallHit_x = 0;
+    cub->ray.wallHit_y = 0;
+    cub->ray.Distance = 0;
+    cub->ray.hitVertucal = 0;
+    if (cub->ray.rayAngle > 0 && cub->ray.rayAngle < M_PI){
+            cub->ray.rayFacingDown =  cub->ray.rayAngle;
+     }
+     else {
+        cub->ray.rayFacingUp = cub->ray.rayAngle;
+     }
+    if (cub->ray.rayAngle < ((1/2)*M_PI) || cub->ray.rayAngle > ((3/2)*M_PI)){
+            cub->ray.rayFacingRight =  cub->ray.rayAngle;
+     }
+     else {
+        cub->ray.rayFacingLeft = cub->ray.rayAngle;
+     }
     castVrtcalRays(cub);
     castHrzntalRays(cub);
     //   printf("*****>%f\n",  cub->ray.horzWallHitX);
