@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/17 15:50:27 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:00:37 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,23 +116,29 @@ double calculDistance(double wallHit_x, double wallHit_y, double x, double y)
     
 void castHrzntalRays(t_struct *cub)
 {
+    double x_hrzntlIntrsctn;
+    double y_hrzntlIntrsctn;
+    double y_incrmnt;
+    double x_incrmnt;
+    double x_nextHrzntal;
+    double y_nextHrzntal;
+
     cub->ray.horzWallHitX = 0;
     cub->ray.horzWallHitY = 0;
     cub->ray.foundHorzWallHit = 0;
-    
-    double y_hrzntlIntrsctn =  floor(cub->player.position_y / cub->scaleHeight) * cub->scaleHeight;
+    y_hrzntlIntrsctn =  floor(cub->player.position_y / cub->scaleHeight) * cub->scaleHeight;
     if (y_hrzntlIntrsctn == cub->ray.rayFacingDown)
         y_hrzntlIntrsctn += cub->ray.rayFacingDown;
     else if (y_hrzntlIntrsctn == cub->scaleHeight)
-         y_hrzntlIntrsctn += 0;
-    double x_hrzntlIntrsctn = cub->player.position_x + (y_hrzntlIntrsctn - cub->player.position_y) / tan(cub->ray.rayAngle);
+        y_hrzntlIntrsctn += 0;
+    x_hrzntlIntrsctn = cub->player.position_x + (y_hrzntlIntrsctn - cub->player.position_y) / tan(cub->ray.rayAngle);
     //    printf("%f\n",x_hrzntlIntrsctn);
-    double y_incrmnt = cub->scaleHeight;
+    y_incrmnt = cub->scaleHeight;
     if (y_incrmnt == cub->ray.rayFacingUp)
         y_incrmnt *= -1;
     else
         y_incrmnt *= 1;
-    double x_incrmnt = cub->scaleWidth / (tan(cub->ray.rayAngle));
+    x_incrmnt = cub->scaleWidth / (tan(cub->ray.rayAngle));
     if (x_incrmnt == INFINITY)
         x_incrmnt = cub->scaleWidth;
     if (x_incrmnt == cub->ray.rayFacingLeft && x_incrmnt > 0)
@@ -144,8 +150,8 @@ void castHrzntalRays(t_struct *cub)
     else
         x_incrmnt *= 1;
     //  printf("%f\n",y_hrzntlIntrsctn);
-    double x_nextHrzntal = x_hrzntlIntrsctn;
-    double y_nextHrzntal = y_hrzntlIntrsctn;
+    x_nextHrzntal = x_hrzntlIntrsctn;
+    y_nextHrzntal = y_hrzntlIntrsctn;
     if (cub->ray.rayFacingUp)
         y_nextHrzntal--;
     while (x_nextHrzntal >= 0 && x_nextHrzntal <= W_WIDTH && y_nextHrzntal >= 0 && y_nextHrzntal <= W_HEIGHT )
@@ -166,23 +172,29 @@ void castHrzntalRays(t_struct *cub)
 
 void castVrtcalRays(t_struct *cub)
 {
+    double y_vrtclIntrsctn;
+    double x_vrticallIntrsctn;
+    double x_incrmntVrtcl;
+    double y_incrmntVrtcl;
+    double x_nextVrtcl;
+    double y_nextVrtcl;
+     
     cub->ray.vrticlWallHitX = 0;
     cub->ray.vrtclWallHitY = 0;
     cub->ray.foundvrtclWallHit = 0;
-
-    double x_vrticallIntrsctn =  floor(cub->player.position_x / cub->scaleWidth) * cub->scaleWidth;
+    x_vrticallIntrsctn =  floor(cub->player.position_x / cub->scaleWidth) * cub->scaleWidth;
     if (x_vrticallIntrsctn == cub->ray.rayFacingDown)
         x_vrticallIntrsctn += cub->ray.rayFacingDown;
     else if (x_vrticallIntrsctn == cub->scaleHeight)
-         x_vrticallIntrsctn += 0;
-    double y_vrtclIntrsctn = cub->player.position_y + (x_vrticallIntrsctn - cub->player.position_x)/ tan(cub->ray.rayAngle);
+        x_vrticallIntrsctn += 0;
+    y_vrtclIntrsctn = cub->player.position_y + (x_vrticallIntrsctn - cub->player.position_x)/ tan(cub->ray.rayAngle);
     //  printf("%f\n",y_vrtclIntrsctn);
-    double x_incrmntVrtcl = cub->scaleWidth;
+    x_incrmntVrtcl = cub->scaleWidth;
     if (x_incrmntVrtcl == cub->ray.rayFacingLeft)
         x_incrmntVrtcl *= -1;
     else
         x_incrmntVrtcl *= 1;
-    double y_incrmntVrtcl = cub->scaleHeight / tan(cub->ray.rayAngle);
+    y_incrmntVrtcl = cub->scaleHeight / tan(cub->ray.rayAngle);
     if (y_incrmntVrtcl == INFINITY)
         y_incrmntVrtcl = cub->scaleHeight;
     if (y_incrmntVrtcl == cub->ray.rayFacingUp && y_incrmntVrtcl > 0)
@@ -193,9 +205,9 @@ void castVrtcalRays(t_struct *cub)
         y_incrmntVrtcl *= -1;
     else
         y_incrmntVrtcl *= 1;
-    //  printf("%f\n",x_vrticallIntrsctn);
-    double x_nextVrtcl = x_vrticallIntrsctn;
-    double y_nextVrtcl = y_vrtclIntrsctn;
+    //printf("%f\n",x_vrticallIntrsctn);
+    x_nextVrtcl = x_vrticallIntrsctn;
+    y_nextVrtcl = y_vrtclIntrsctn;
     if (cub->ray.rayFacingUp)
         x_nextVrtcl--;
     while (x_nextVrtcl >= 0 && x_nextVrtcl <= W_WIDTH && y_nextVrtcl >= 0 && y_nextVrtcl <= W_HEIGHT )
@@ -217,15 +229,15 @@ void castVrtcalRays(t_struct *cub)
 void castAllRays(t_struct *cub)
 {
     double hrzntlDstnc = 0;
+    double vrtclDstnc = 0;
 
     castVrtcalRays(cub);
     castHrzntalRays(cub);
-    //     printf("*****>%f\n",  cub->ray.horzWallHitX);
+    //   printf("*****>%f\n",  cub->ray.horzWallHitX);
     //   printf("---->%f\n", cub->player.position_x );
     if (cub->ray.foundHorzWallHit == 1)
         hrzntlDstnc = 0;//calculDistance(cub->ray.horzWallHitX/ cub->scaleWidth, cub->ray.horzWallHitY, cub->player.position_x, cub->player.position_y);
     // printf("destace ---> %f\n", hrzntlDstnc);
-    double vrtclDstnc = 0;
     if (cub->ray.foundvrtclWallHit == 1)
         vrtclDstnc = 0;//calculDistance(vrticlWallHitX/cub->scaleWidth, cub->ray.vrtclWallHitY, cub->player.position_x, cub->player.position_y);
     if (hrzntlDstnc < vrtclDstnc)
