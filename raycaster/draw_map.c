@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/18 15:21:22 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/18 18:53:14 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void    ft_draw_map(t_struct *cub)
     y = 0;
     len = 0;
     data = ft_jump_lines(cub);
-    cub->fovAngle = 60 * (M_PI / 180);
+    //cub->fovAngle = 60 * (M_PI / 180);
     cub->numOfRays = W_WIDTH;
     // cub->rayAngle = cub->player.rottAngle;
     while (data[y])
