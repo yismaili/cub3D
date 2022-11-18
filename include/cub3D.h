@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/17 22:37:51 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/18 19:35:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct  s_ray{
 	double 	wallHit_x;
 	double	wallHit_y;
 	double 	Distance;
-	int		hitVertucal;
 	double  rayFacingDown;
 	double	rayFacingUp;
 	double  rayFacingRight;
@@ -95,7 +94,7 @@ typedef struct s_struct
 	int 		scaleWidth;
 	t_player 	player;
 	double		numOfRays;
-	double		fovAngle;
+	//double		fovAngle;
 	double 		rayAngle;
 	t_ray       ray;
 	double		rays[100000];
