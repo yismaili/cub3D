@@ -6,26 +6,13 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/18 12:50:41 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/18 14:36:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
 /* cast all rays */
-
-int castRays(t_struct *cub)
-{
-    int i;
-    i = 0;
-    while (i < cub->numOfRays)
-    {
-       cub->rays[i] = cub->rayAngle;
-       cub->rayAngle += cub->fovAngle / cub->numOfRays;
-       i++;
-    }
-    return (0);
-}
 void draw_player(t_struct *cub, int x, int y, int color)
 {
     int 	x_1;
@@ -39,14 +26,12 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 {
     int i = 0;
     
-    castRays(cub);
-    while (cub->rays[i])
+    while (i < cub->numOfRays )
     {  
-        cub->ray.rayAngle = normalizeAngle(cub->rays[i]);
-       
+        cub->ray.rayAngle = normalizeAngle(cub->rayAngle);
         castAllRays(cub);
-    
         ddaForLine(cub, x, y, cub->ray.wallHit_x, cub->ray.wallHit_y,color);
+        cub->rayAngle += cub->fovAngle / cub->numOfRays;
         i++;
    } 
 }
@@ -93,23 +78,13 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
  int check_wall(t_struct *cub, double x, double y)
  {
     char **map;
-//puts("ana");
     map = ft_jump_lines(cub);
     int gred_y = (int)(y/cub->scaleHeight); /*The value to round down to the nearest integer*/
     int gred_x = (int)(x/cub->scaleWidth);
-    // if((size_t)(gred_x) < ft_strlen(map[gred_y]))
-    //     return(1);
-    // printf("------------------------------------------------------\n");
-    // printf("%s\n",  map[gred_y]);
-    // printf("------------------------------------------------------\n");
-      if (!map[gred_y])
-    {
+    if (!map[gred_y])
         return (1);
-    }
     if ( map[gred_y][gred_x] == '1' ||  !map[gred_y])
-    {
         return (1);
-    }
     return (0);
  }
 
@@ -200,7 +175,7 @@ void castVrtcalRays(t_struct *cub)
         x_vrticallIntrsctn += cub->ray.rayFacingDown;
     else if (x_vrticallIntrsctn == cub->scaleHeight)
         x_vrticallIntrsctn += 0;
-    y_vrtclIntrsctn = cub->player.position_y + (x_vrticallIntrsctn - cub->player.position_x)* tan(cub->ray.rayAngle);
+    y_vrtclIntrsctn = cub->player.position_y + (x_vrticallIntrsctn - cub->player.position_x) * tan(cub->ray.rayAngle);
     //  printf("%f\n",y_vrtclIntrsctn);
     x_incrmntVrtcl = cub->scaleWidth;
     if (x_incrmntVrtcl == cub->ray.rayFacingLeft)
@@ -244,7 +219,6 @@ void castAllRays(t_struct *cub)
 {
     double hrzntlDstnc = 0;
     double vrtclDstnc = 0;
-
     cub->ray.wallHit_x = 0;
     cub->ray.wallHit_y = 0;
     cub->ray.Distance = 0;
@@ -284,7 +258,9 @@ void castAllRays(t_struct *cub)
         cub->ray.Distance  = hrzntlDstnc;
     else
         cub->ray.Distance  = vrtclDstnc;
-    //   printf("%f\n",  cub->ray.wallHit_x);
-    //   printf("%f\n",  cub->ray.wallHit_y);
-    //  printf("---> %f\n",cub->ray.Distance);
+    //  printf("old x -->%f\n",  cub->player.position_x);
+    //   printf("old y%f\n",  cub->player.position_y);
+    //   printf("new x %f\n",  cub->ray.wallHit_x);
+    //   printf("nse y %f\n",  cub->ray.wallHit_y);
+  //   printf("---> %f\n",cub->ray.Distance);
 }
