@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/18 14:36:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/18 15:23:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ void draw_player(t_struct *cub, int x, int y, int color)
 void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 {
     int i = 0;
-    
-    while (i < cub->numOfRays )
+
+    double angleIncrem = (M_PI / 3) / cub->numOfRays;
+    cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6);
+    while (i < cub->numOfRays)
     {  
-        cub->ray.rayAngle = normalizeAngle(cub->rayAngle);
+        cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
         castAllRays(cub);
         ddaForLine(cub, x, y, cub->ray.wallHit_x, cub->ray.wallHit_y,color);
-        cub->rayAngle += cub->fovAngle / cub->numOfRays;
+        cub->ray.rayAngle += angleIncrem;
         i++;
    } 
 }
