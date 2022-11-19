@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/18 18:53:14 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/19 18:24:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void    ft_draw_map(t_struct *cub)
         y++;
     }
     drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
-    draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
+    //draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
 
