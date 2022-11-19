@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/18 19:35:09 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/19 15:33:40 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,5 @@ double 	calculDistance(double wallHit_X, double wallHit_y, double x, double y);
 void 	castHrzntalRays(t_struct *cub);
 void 	castVrtcalRays(t_struct *cub);
 void 	castAllRays(t_struct *cub);
-void print(char **str);
+void	print(char **str);
 #endif
