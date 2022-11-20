@@ -86,7 +86,7 @@ typedef struct s_struct
 	void		*mlx_ptr;
     void		*win_ptr;
 	void		*img;
-	char		*addr;
+	int			*addr;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
@@ -97,12 +97,16 @@ typedef struct s_struct
 	double		numOfRays;
 	//double		fovAngle;
 	double 		rayAngle;
-	int **color_buffer;
+	unsigned int 		*color_buffer;
 	t_ray       ray;
 	double		rays[100000];
 	int FOV;
+	int check;
 	
 }	t_struct;
+
+
+
 
 
 int     get_height(char *map_file);
@@ -141,4 +145,9 @@ void 	castHrzntalRays(t_struct *cub);
 void 	castVrtcalRays(t_struct *cub);
 void 	castAllRays(t_struct *cub);
 void	print(char **str);
+void	lets_do_raycast(t_struct *cub, int j);
+void 	ft_colorBuffer(t_struct *cub);
+double	degrees_to_radians(double a);
+
+
 #endif
