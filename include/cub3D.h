@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/19 15:33:40 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:36:47 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <mlx.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include <math.h>
 # include "../libft/libft.h"
 # define W_WIDTH 1020
