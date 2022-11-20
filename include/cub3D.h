@@ -97,8 +97,10 @@ typedef struct s_struct
 	double		numOfRays;
 	//double		fovAngle;
 	double 		rayAngle;
+	int **color_buffer;
 	t_ray       ray;
 	double		rays[100000];
+	int FOV;
 	
 }	t_struct;
 
