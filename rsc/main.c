@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/18 15:08:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:22:43 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,6 @@ void print(char **str)
         i++;
     }
 }
-
-/*void ft_colorBuffer(t_struct *cub)
-{
-    int i;
-    int k;
-    i = 0;
-	while (i < W_HEIGHT)
-	{
-		k = 0;
-		while (k < W_WIDTH)
-        {
-            cub->color_buffer[i][k] = 0;
-            k++;
-        }
-        i++;
-	}
-    cub->check = 0;
-}*/
 
 int main(int ac, char **av)
 {
@@ -57,18 +39,7 @@ int main(int ac, char **av)
     cub.mlx_ptr = mlx_init();
 	cub.win_ptr = mlx_new_window(cub.mlx_ptr, W_WIDTH, W_HEIGHT, "cub3D");
     cub.img = mlx_new_image(cub.mlx_ptr, W_WIDTH, W_HEIGHT);
-	cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
-    //int i = 0;
-    //how much memory do we have to allocate to store this long buffer of colors
-    // i will use w_width * w_height pixels
-    cub.color_buffer = (unsigned int *)malloc((unsigned int) W_HEIGHT * (unsigned int ) W_WIDTH * sizeof(unsigned int *));
-    /*while (i < W_HEIGHT)
-    {
-        cub.color_buffer[i] = (unsigned int *)malloc(W_WIDTH * sizeof(unsigned int));
-        i++;
-
-    }*/
-    //ft_colorBuffer(&cub);
+	cub.addr = mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
     player_position(&cub);
     directionOfPlayer(&cub);
     ft_draw_map(&cub);

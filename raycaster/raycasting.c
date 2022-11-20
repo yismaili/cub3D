@@ -6,75 +6,11 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/20 14:51:33 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:27:01 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
-
-
-void	lets_do_raycast(t_struct *cub, int j)
-{
-    (void) j;
-    /*cub->FOV = 60;
-	double	sostra;
-	int		i;
-	int		wallBottomPixel ;
-	int		wallTopPixel;
-
-
-	sostra = degrees_to_radians(cub->player.rottAngle) - cub->ray.rayAngle;
-	//printf("hadi = %f\n", raycast->ray_looking_angle);
-	//printf("soustra = %f\n", sostra);
-	if (sostra > degrees_to_radians(360))
-		sostra -= degrees_to_radians(360);
-	else if (sostra < degrees_to_radians(0.00))
-		sostra += degrees_to_radians(360.00);
-	 cub->ray.Distance =  cub->ray.Distance * cos(sostra);
-	double wallStripHeight= (int)(cub->scaleHeight * (1.00 * W_HEIGHT)) /  cub->ray.Distance;
-	if (wallStripHeight> (1.00 * W_HEIGHT))
-		wallStripHeight= (1.00 * W_HEIGHT);
-	//wallTopPixel is the top of the wall
-	wallTopPixel = (W_HEIGHT/ 2) - (int)(wallStripHeight/ 2.00);
-	if (wallTopPixel < 0)
-		wallTopPixel = 0; // the minimum we can have is 0
-		//wallBottomPixel is the Bottom or end of the wall
-	wallBottomPixel = (W_HEIGHT/ 2) + (int)(wallStripHeight/ 2.00);
-	if (wallBottomPixel >= W_HEIGHT)
-		wallBottomPixel = W_HEIGHT - 1;
-	i = (wallTopPixel - 1);*/
-	//render the wall from wallTopPixel to wallBottomPixel
-	/*while (i < wallBottomPixel)
-	{
-		//copy all the color buffer to an sdl texture
-		cub->colorBuffer[i][j] = 0xFFF0000;
-		cub->check = 1;
-		i++;
-	}*/
-    // i have a top wall pixel and then i render my wall and i heve the buttom pixel then the floor
-    // so from the top wall to the bottom wall i going to render my wall (that is the wall height)
-    double distanceProjPlane = (W_WIDTH / 2) / tan( 60/ 2) ; 
-    double projectedWallHeight = cub->scaleHeight / cub->ray.Distance * distanceProjPlane;
-    int wallStripHeight = (int) projectedWallHeight;
-    int wallTopPixel = (W_HEIGHT / 2) - (wallStripHeight) / 2;
-    if(wallTopPixel < 0)
-    {
-        wallTopPixel = 0;
-    }
-    int wallBottomPixel = (W_HEIGHT / 2) + (wallStripHeight / 2);
-    if(wallBottomPixel > W_HEIGHT)
-        wallBottomPixel = W_HEIGHT;
-    /*int i = 0;
-    while(i < wallBottomPixel)
-    {
-        cub->color_buffer[i] =  0xFFF0000;
-        i++;
-    }*/
-    // so now we should render the wall from wallTopPixel to wallBottomPixel
-
-}
-
-
 
 /* cast all rays */
 void draw_player(t_struct *cub, int x, int y, int color)
@@ -90,66 +26,16 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 {
     int i = 0;
     double angleIncrem = (M_PI / 3) / cub->numOfRays;
-    cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6); 
+    cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6);  
     while (i < cub->numOfRays)
     {  
         cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
         castAllRays(cub);
         ddaForLine(cub, x, y, cub->ray.wallHit_x, cub->ray.wallHit_y,color);
-        double distanceProjPlane = (W_WIDTH / 2) / tan( M_PI / 6) ; 
-        double projectedWallHeight = cub->scaleHeight / cub->ray.Distance * distanceProjPlane;
-        int wallStripHeight = (int) projectedWallHeight;
-        int wallTopPixel = (W_HEIGHT / 2) - (wallStripHeight) / 2;
-        if(wallTopPixel < 0)
-        {
-            wallTopPixel = 0;
-        }
-        int wallBottomPixel = (W_HEIGHT / 2) + (wallStripHeight / 2);
-        if(wallBottomPixel > W_HEIGHT)
-            wallBottomPixel = W_HEIGHT;
-        int y = 0;
-        while(y < wallBottomPixel)
-        {
-            //w_width * y means : how many rows 
-            // i how is the shift in horizontal
-            cub->addr[(W_WIDTH * y) + (i)] =  0xFFF0000;
-            y++;
-        }
-            //lets_do_raycast(cub, i);
-            cub->ray.rayAngle += angleIncrem;
-            i++;
-   } 
-   /*for(int x = 0; x < W_WIDTH; x++)
-   {
-        for(int y = 0; y < W_HEIGHT; y++)
-        {
-            cub->addr[(W_WIDTH * y) + x] = cub->color_buffer[x][y];
-        }
-
-   }
-   
-   	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr ,cub->img, 0, 0);*/
-    /*int j;	
-	i = 0;
-	while (i < W_HEIGHT)
-	{
-		j = 0;
-		while (j < W_WIDTH)
-        {
-            cub->addr[i * W_WIDTH + j] = cub->color_buffer[i][j];
-			// i: how many pixels and colones i have
-			//j is how many rays i have
-			//i * W_Width + j to get the dimension in one dimensional array
-			//printf("array[%d] = %d \n", i * W_WIDTH + j , cub->array[i * W_WIDTH + j]);
-            j++;
-        }
+        cub->ray.rayAngle += angleIncrem;
         i++;
-	}*/
-	    mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,cub->img, 0, 0);
-
+   } 
 }
-
-
 
 // Function for finding absolute value
 int abs(int n) 
@@ -351,6 +237,10 @@ void castAllRays(t_struct *cub)
         hrzntlDstnc = calculDistance(cub->ray.horzWallHitX, cub->ray.horzWallHitY, cub->player.position_x, cub->player.position_y);
     if (cub->ray.horzWallHitX != 1e9 && cub->ray.horzWallHitY != 1e9)
         vrtclDstnc = calculDistance(cub->ray.vrticlWallHitX, cub->ray.vrtclWallHitY, cub->player.position_x, cub->player.position_y);
+    // printf("vrtcal y >%f\n", cub->ray.vrtclWallHitY);
+    // printf("vrtcal x >%f\n", cub->ray.vrticlWallHitX);
+    // printf("hrzntal --  y >%f\n", cub->ray.horzWallHitY);
+    // printf("hrzntal -- x >%f\n", cub->ray.horzWallHitX);
     if (hrzntlDstnc >= vrtclDstnc)
     {
         cub->ray.wallHit_x = cub->ray.vrticlWallHitX;
