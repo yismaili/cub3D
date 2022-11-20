@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/19 22:14:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/20 14:51:33 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,15 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
 
  double normalizeAngle(double angle)
  {
-    if (angle > 0)
-        angle = fmod(angle, 2 * M_PI);
-    else
-        angle += 2*M_PI;
-    // angle = fmod(angle, 2 * M_PI);
-    // if (angle < 0)
-    //     angle += (2 * M_PI);
-    // if (angle == M_PI || angle == 0)
-    //     angle += 0.000000000001;
+    // if (angle > 0)
+    //     angle = fmod(angle, 2 * M_PI);
+    // else
+    //     angle += 2*M_PI;
+    angle = fmod(angle, 2 * M_PI);
+    if (angle < 0)
+        angle += (2 * M_PI);
+    if (angle == M_PI || angle == 0)
+        angle += 0.000000000001;
     return (angle);
  }
  
@@ -122,6 +122,8 @@ void castHrzntalRays(t_struct *cub)
     cub->ray.horzWallHitY = cub->player.position_y;
     cub->ray.foundHorzWallHit = 0;
     y_hrzntlIntrsctn =  floor(cub->player.position_y / cub->scaleHeight) * cub->scaleHeight;
+    if (cub->ray.rayFacingDown)
+        y_hrzntlIntrsctn += cub->scaleHeight;
     x_hrzntlIntrsctn = cub->player.position_x + (y_hrzntlIntrsctn - cub->player.position_y) / tan(cub->ray.rayAngle);
     //    printf("%f\n",x_hrzntlIntrsctn);
     y_incrmnt = cub->scaleHeight;
@@ -129,7 +131,7 @@ void castHrzntalRays(t_struct *cub)
         y_incrmnt *= -1;
     if (cub->ray.rayFacingUp)
         y_hrzntlIntrsctn -= 1;
-    x_incrmnt = cub->scaleHeight / (tan(cub->ray.rayAngle));
+    x_incrmnt =  y_incrmnt / (tan(cub->ray.rayAngle));
     if (cub->ray.rayFacingLeft && x_incrmnt > 0)
         x_incrmnt *= -1;
     if (cub->ray.rayFacingRight && x_incrmnt < 0)
@@ -171,6 +173,8 @@ void castVrtcalRays(t_struct *cub)
     cub->ray.vrtclWallHitY = 0;
     cub->ray.foundvrtclWallHit = 0;
     x_vrticlIntrsctn =  floor(cub->player.position_x / cub->scaleWidth) * cub->scaleWidth;
+    if (cub->ray.rayFacingRight)
+        x_vrticlIntrsctn += cub->scaleWidth;
     y_vrtclIntrsctn = cub->player.position_y + ((x_vrticlIntrsctn - cub->player.position_x) * tan(cub->ray.rayAngle));
       //printf("%f\n",y_vrtclIntrsctn);
     x_incrmntVrtcl = cub->scaleWidth;
@@ -178,7 +182,7 @@ void castVrtcalRays(t_struct *cub)
         x_incrmntVrtcl *= -1;
     if (cub->ray.rayFacingLeft)
         x_vrticlIntrsctn -= 1;
-    y_incrmntVrtcl =  cub->scaleWidth * tan(cub->ray.rayAngle);
+    y_incrmntVrtcl =  x_incrmntVrtcl  * tan(cub->ray.rayAngle);
     if (cub->ray.rayFacingUp && y_incrmntVrtcl > 0)
         y_incrmntVrtcl *= -1;
     if (cub->ray.rayFacingDown && y_incrmntVrtcl < 0)
@@ -233,18 +237,20 @@ void castAllRays(t_struct *cub)
         hrzntlDstnc = calculDistance(cub->ray.horzWallHitX, cub->ray.horzWallHitY, cub->player.position_x, cub->player.position_y);
     if (cub->ray.horzWallHitX != 1e9 && cub->ray.horzWallHitY != 1e9)
         vrtclDstnc = calculDistance(cub->ray.vrticlWallHitX, cub->ray.vrtclWallHitY, cub->player.position_x, cub->player.position_y);
+    printf("vrtcal y >%f\n", cub->ray.vrtclWallHitY);
+    printf("vrtcal x >%f\n", cub->ray.vrticlWallHitX);
+    printf("hrzntal --  y >%f\n", cub->ray.horzWallHitY);
+    printf("hrzntal -- x >%f\n", cub->ray.horzWallHitX);
     if (hrzntlDstnc >= vrtclDstnc)
     {
         cub->ray.wallHit_x = cub->ray.vrticlWallHitX;
         cub->ray.wallHit_y = cub->ray.vrtclWallHitY;
-        printf("%f -------- %f\n", cub->ray.wallHit_x, cub->ray.wallHit_y);
         cub->ray.Distance  = vrtclDstnc;
     }
     else
     {
         cub->ray.wallHit_x = cub->ray.horzWallHitX;
         cub->ray.wallHit_y = cub->ray.horzWallHitY;
-        printf("%f -------- %f\n", cub->ray.wallHit_x, cub->ray.wallHit_y);
         cub->ray.Distance  = hrzntlDstnc;
     }
 }
