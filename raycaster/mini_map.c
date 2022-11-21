@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:47:10 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 19:53:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 20:11:18 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void castHrzntalRays_mini(t_struct *cub)
     if (cub->ray.rayFacingRight && x_incrmnt < 0)
         x_incrmnt *= -1;
     bool check = false;
-    while (x_hrzntlIntrsctn >= 0 && x_hrzntlIntrsctn < (W_WIDTH / 3) && y_hrzntlIntrsctn >= 0 &&y_hrzntlIntrsctn < (W_HEIGHT / 3))
+    while (x_hrzntlIntrsctn >= 0 && x_hrzntlIntrsctn < (W_WIDTH / 4) && y_hrzntlIntrsctn >= 0 &&y_hrzntlIntrsctn < (W_HEIGHT / 4))
     {
         if (check_wall_mini(cub, x_hrzntlIntrsctn,y_hrzntlIntrsctn))
         {
@@ -90,7 +90,7 @@ void castVrtcalRays_mini(t_struct *cub)
     if (cub->ray.rayFacingDown && y_incrmntVrtcl < 0)
         y_incrmntVrtcl *= -1;
     bool check = false;
-    while (x_vrticlIntrsctn >= 0 && x_vrticlIntrsctn < (W_WIDTH / 3) && y_vrtclIntrsctn >= 0 && y_vrtclIntrsctn < (W_HEIGHT / 3))
+    while (x_vrticlIntrsctn >= 0 && x_vrticlIntrsctn < (W_WIDTH / 4) && y_vrtclIntrsctn >= 0 && y_vrtclIntrsctn < (W_HEIGHT / 4))
     {
         if (check_wall_mini(cub, x_vrticlIntrsctn, y_vrtclIntrsctn))
         {
@@ -169,8 +169,8 @@ int check_wall_mini(t_struct *cub, double x, double y)
   double  new_x;
   double  new_y;
 
-    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.5));
-    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.5));
+    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.2));
+    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.2));
     if (check_wall_mini(cub, new_x, new_y) != 1)
     {
         cub->mini_map.mini_x = new_x;
@@ -183,8 +183,8 @@ void check_downSteep_mini(t_struct *cub)
   double  new_x;
   double  new_y;
 
-    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown * 1.5));
-    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown * 1.5));
+    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown));
+    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown));
     if (check_wall_mini(cub, new_x, new_y) != 1)
     {
         cub->mini_map.mini_x = new_x;

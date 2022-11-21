@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 19:52:57 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 20:07:58 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void    ft_draw_map(t_struct *cub)
     }
     drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F); 
     drawRaysOfplyer_mini(cub, cub->mini_map.mini_x , cub->mini_map.mini_y , 0xFFFF0F);     
-    draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
 
@@ -120,8 +119,8 @@ void player_position(t_struct *cub){
             {
                 cub->player.position_x = j * cub->scaleWidth;
                 cub->player.position_y = i * cub->scaleHeight;
-                cub->mini_map.mini_scaleWidth = (cub->scaleWidth / 3);
-                cub->mini_map.mini_scaleHeight = (cub->scaleHeight / 3);
+                cub->mini_map.mini_scaleWidth = (cub->scaleWidth / 4);
+                cub->mini_map.mini_scaleHeight = (cub->scaleHeight / 4);
                 cub->mini_map.mini_x = j * cub->mini_map.mini_scaleWidth;
                 cub->mini_map.mini_y = i * cub->mini_map.mini_scaleHeight;
                 return ;
