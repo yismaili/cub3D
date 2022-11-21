@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:47:10 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 22:50:53 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 23:56:37 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color)
     {  
         cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
         castAllRays_mini(cub);
+        // cub->ray.wallHit_x = (cub->ray.wallHit_x /cub->scaleWidth) * cub->mini_map.mini_scaleWidth;
+        // cub->ray.wallHit_y = (cub->ray.wallHit_y / cub->scaleHeight) * cub->mini_map.mini_scaleHeight;
         ddaForLine(cub, x, y, cub->ray.wallHit_x , cub->ray.wallHit_y ,color);
         cub->ray.rayAngle += angleIncrem;
         i++;
@@ -167,8 +169,8 @@ int check_wall_mini(t_struct *cub, double x, double y)
   double  new_x;
   double  new_y;
 
-    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.2));
-    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.2));
+    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle) * ((double)cub->player.walkDrctn));
+    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle) * ((double)cub->player.walkDrctn));
     if (check_wall_mini(cub, new_x, new_y) != 1)
     {
         cub->mini_map.mini_x = new_x;

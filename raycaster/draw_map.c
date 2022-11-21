@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 22:56:02 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 23:43:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int ft_count_height(t_struct *cub)
 
     i = 0;
     len = 0;
-    print(cub->my_map);
     while (cub->my_map[i])
     {
         j = 0;
@@ -77,7 +76,6 @@ void    ft_draw_map(t_struct *cub)
 
     y = 0;
     len = 0;
-    cub->numOfRays = W_WIDTH;
     while (cub->my_map[y])
     {
         x = 0;
@@ -104,7 +102,7 @@ void player_position(t_struct *cub){
     cub->scaleWidth = W_WIDTH/ cub->width;
     cub->player.rottSpeed = 0.174533;
     cub->player.walkDrctn = 0;
-   
+    cub->numOfRays = W_WIDTH;
    while (cub->my_map[i])
    {
         j = 0;
