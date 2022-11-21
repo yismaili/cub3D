@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:47:10 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 20:11:18 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 22:50:53 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,14 +153,12 @@ void castAllRays_mini(t_struct *cub)
 
 int check_wall_mini(t_struct *cub, double x, double y)
  {
-    char **map;
-    map = ft_jump_lines(cub);
     int gred_y = (int)(y/cub->mini_map.mini_scaleHeight); /*The value to round down to the nearest integer*/
     int gred_x = (int)(x/cub->mini_map.mini_scaleWidth);
-    if (!map[gred_y])
-        return (1);
-    if ( map[gred_y][gred_x] == '1')
-        return (1);
+    if (gred_y < cub->heightof_minimap  && gred_x <  cub->widthof_minimap){
+        if (cub->my_map[gred_y][gred_x] == '1')
+            return (1);   
+    }
     return (0);
  }
 

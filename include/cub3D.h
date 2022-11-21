@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 20:05:53 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 22:58:35 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ typedef struct s_struct
 	double		numOfRays;
 	t_ray       ray;
 	t_minimap	mini_map;
+	int			heightof_minimap;
+	int			widthof_minimap;
+	char		**my_map;
 }	t_struct;
 
 
@@ -116,7 +119,6 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len);
 int		ft_check_rgb(t_struct *cub);
 int		ft_check_double(t_struct *cub, char *dirct, int len);
 int		ft_check_alldouble(t_struct *cub);
-char    **ft_jump_lines(t_struct *cub);
 int 	ft_check_bgnend(char *data);
 char	*ft_strdup_map(const char *s1, int len);
 int		ft_check_openmap(char **data);
@@ -131,7 +133,7 @@ int 	check_wall(t_struct *cub, double x, double y);
 void 	drawRaysOfplyer(t_struct *cub, int x, int y, int color);
 int		castRays(t_struct *cub);
 void 	check_nextSteep(t_struct *cub);
-void	my_mlx_pixel_put(t_struct *ptr, int x, int y, long color);
+// void	my_mlx_pixel_put(t_struct *ptr, int x, int y, long color);
 void	check_downSteep(t_struct *cub);
 double	normalizeAngle(double angle);
 double 	calculDistance(double wallHit_X, double wallHit_y, double x, double y);
@@ -146,5 +148,8 @@ void 	drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color);
 int 	check_wall_mini(t_struct *cub, double x, double y);
 void 	check_nextSteep_mini(t_struct *cub);
 void 	check_downSteep_mini(t_struct *cub);
+int ft_count_height(t_struct *cub);
+void	my_mlx_pixel_put(t_struct *ptr, int x, int y, unsigned int color);
+void    ft_jump_lines(t_struct *cub);
 void print(char **str);
 #endif
