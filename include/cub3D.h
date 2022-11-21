@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/20 20:21:46 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:36:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ typedef struct  s_player{
 	int		walkDown;
 	
 }  t_player;
+typedef struct  s_minimap{
+	
+	double	mini_x;
+	double 	mini_y;
+	int 		mini_scaleHeight;
+	int 		mini_scaleWidth;
+}  t_minimap;
 
 typedef struct  s_ray{
 	
@@ -65,8 +72,6 @@ typedef struct  s_ray{
 	double	rayFacingUp;
 	double  rayFacingRight;
 	double	rayFacingLeft;
-	int		foundHorzWallHit;
-	int		foundvrtclWallHit;
 	double  horzWallHitX;
     double  horzWallHitY;
 	double  vrticlWallHitX;
@@ -95,11 +100,9 @@ typedef struct s_struct
 	int 		scaleWidth;
 	t_player 	player;
 	double		numOfRays;
-	//double		fovAngle;
 	double 		rayAngle;
 	t_ray       ray;
-	double		rays[100000];
-	
+	t_minimap	mini_map;
 }	t_struct;
 
 
@@ -138,5 +141,13 @@ double 	calculDistance(double wallHit_X, double wallHit_y, double x, double y);
 void 	castHrzntalRays(t_struct *cub);
 void 	castVrtcalRays(t_struct *cub);
 void 	castAllRays(t_struct *cub);
+void    ft_draw_minimap(t_struct *cub);
+void 	castHrzntalRays_mini(t_struct *cub);
+void castVrtcalRays_mini(t_struct *cub);
+void castAllRays_mini(t_struct *cub);
+void drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color);
+int check_wall_mini(t_struct *cub, double x, double y);
+void check_nextSteep_mini(t_struct *cub);
+void check_downSteep_mini(t_struct *cub);
 void	print(char **str);
 #endif

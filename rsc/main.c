@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/20 20:22:43 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:41:47 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int main(int ac, char **av)
     directionOfPlayer(&cub);
     ft_draw_map(&cub);
     mlx_key_hook(cub.win_ptr, player_move, &cub);
-    //mlx_hook(cub.win_ptr,124, 125, player_move, &cub);
+   // mlx_loop_hook(cub.win_ptr, player_move, &cub);
     mlx_loop(cub.mlx_ptr);
     return (0);
 }
