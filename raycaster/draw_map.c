@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 17:44:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 19:52:57 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,34 +190,6 @@ void check_downSteep(t_struct *cub)
     {
         cub->player.position_x = new_x;
         cub->player.position_y = new_y;
-    }   
-}
-
-void check_nextSteep_mini(t_struct *cub)
-{
-  double  new_x;
-  double  new_y;
-
-    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.5));
-    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.5));
-    if (check_wall_mini(cub, new_x, new_y) != 1)
-    {
-        cub->mini_map.mini_x = new_x;
-        cub->mini_map.mini_y = new_y;
-    }   
-}
-
-void check_downSteep_mini(t_struct *cub)
-{
-  double  new_x;
-  double  new_y;
-
-    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown * 1.5));
-    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown * 1.5));
-    if (check_wall_mini(cub, new_x, new_y) != 1)
-    {
-        cub->mini_map.mini_x = new_x;
-        cub->mini_map.mini_y = new_y;
     }   
 }
 

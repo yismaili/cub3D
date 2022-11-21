@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 19:50:35 by yismaili         ###   ########.fr       */
+/*   Created: 2022/11/21 19:47:10 by yismaili          #+#    #+#             */
+/*   Updated: 2022/11/21 19:53:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-/* cast all rays */
-void draw_player(t_struct *cub, int x, int y, int color)
-{
-    int 	x_1;
-	int 	y_1;
-	x_1 = x + cos(cub->player.rottAngle) * 42;
-    y_1 = y + sin(cub->player.rottAngle) * 42;
-    ddaForLine(cub, x, y, x_1, y_1, color);  
-}
-
-void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
+void drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color)
 {
     int i = 0;
     double angleIncrem = (M_PI / 3) / cub->numOfRays;
@@ -30,92 +20,25 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
     while (i < cub->numOfRays)
     {  
         cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
-        castAllRays(cub);
+        castAllRays_mini(cub);
         ddaForLine(cub, x, y, cub->ray.wallHit_x , cub->ray.wallHit_y ,color);
         cub->ray.rayAngle += angleIncrem;
         i++;
    } 
 }
-// Function for finding absolute value
-int abs(int n) 
-{ 
-    if (n > 0){
-        return (n);
-    }
-    else {
-        return (n *(-1));
-    }
-}
-// DDA Function for line generation
-void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
-{
-    // calculate dstnc_x & dstnc_y
-    int dstnc_x = x_1 - x_0;
-    int dstnc_y = y_1 - y_0;
- 
-    // calculate steps required for generating pixels
-    int steps;
-    if (abs(dstnc_x) > abs(dstnc_y))
-        steps = abs(dstnc_x);
-    else
-        steps = abs(dstnc_y);
-    // calculate increment in x & y for each steps
-    float x_inc = dstnc_x / (float)steps;
-    float y_inc = dstnc_y / (float)steps;
-    // Put pixel for each step
-    float x = x_0;
-    float y = y_0;
-    int i = 0;
-    while (i <= steps)
-    {
-       my_mlx_pixel_put(cub, x, y, color);
-       x += x_inc; // increment in x at each step
-       y += y_inc; // increment in y at each step
-       i++;
-    }
-}
- 
- int check_wall(t_struct *cub, double x, double y)
- {
-    char **map;
-    map = ft_jump_lines(cub);
-    int gred_y = (int)(y/cub->scaleHeight); /*The value to round down to the nearest integer*/
-    int gred_x = (int)(x/cub->scaleWidth);
-    if (!map[gred_y])
-        return (1);
-    if ( map[gred_y][gred_x] == '1')
-        return (1);
-    return (0);
- }
 
- double normalizeAngle(double angle)
- {
-    angle = fmod(angle, 2 * M_PI);
-    if (angle < 0)
-        angle += (2 * M_PI);
-    if (angle == M_PI || angle == 0)
-        angle += 0.000000000001;
-    return (angle);
- }
- 
-
-double calculDistance(double wallHit_x, double wallHit_y, double x, double y)
-{
-    return (sqrt(pow((x - wallHit_x ),2) + pow((y - wallHit_y),2)));  
-}
-    
-void castHrzntalRays(t_struct *cub)
+void castHrzntalRays_mini(t_struct *cub)
 {
     double x_hrzntlIntrsctn;
     double y_hrzntlIntrsctn;
     double y_incrmnt;
     double x_incrmnt;
     
-    y_hrzntlIntrsctn =  floor(cub->player.position_y / cub->scaleHeight) * cub->scaleHeight;
+    y_hrzntlIntrsctn =  floor(cub->mini_map.mini_y / cub->mini_map.mini_scaleHeight) * cub->mini_map.mini_scaleHeight;
     if (cub->ray.rayFacingDown)
-        y_hrzntlIntrsctn += cub->scaleHeight;
-    x_hrzntlIntrsctn = cub->player.position_x + (y_hrzntlIntrsctn - cub->player.position_y) / tan(cub->ray.rayAngle);
-    y_incrmnt = cub->scaleHeight;
+        y_hrzntlIntrsctn += cub->mini_map.mini_scaleHeight;
+    x_hrzntlIntrsctn = cub->mini_map.mini_x + (y_hrzntlIntrsctn - cub->mini_map.mini_y) / tan(cub->ray.rayAngle);
+    y_incrmnt = cub->mini_map.mini_scaleHeight;
     if (cub->ray.rayFacingUp)
         y_incrmnt *= -1;
     if (cub->ray.rayFacingUp)
@@ -126,9 +49,9 @@ void castHrzntalRays(t_struct *cub)
     if (cub->ray.rayFacingRight && x_incrmnt < 0)
         x_incrmnt *= -1;
     bool check = false;
-    while (x_hrzntlIntrsctn >= 0 && x_hrzntlIntrsctn < W_WIDTH && y_hrzntlIntrsctn >= 0 &&y_hrzntlIntrsctn < W_HEIGHT )
+    while (x_hrzntlIntrsctn >= 0 && x_hrzntlIntrsctn < (W_WIDTH / 3) && y_hrzntlIntrsctn >= 0 &&y_hrzntlIntrsctn < (W_HEIGHT / 3))
     {
-        if (check_wall(cub, x_hrzntlIntrsctn,y_hrzntlIntrsctn))
+        if (check_wall_mini(cub, x_hrzntlIntrsctn,y_hrzntlIntrsctn))
         {
             cub->ray.horzWallHitX = x_hrzntlIntrsctn;
             cub->ray.horzWallHitY =y_hrzntlIntrsctn;
@@ -145,18 +68,18 @@ void castHrzntalRays(t_struct *cub)
      }
 }
 
-void castVrtcalRays(t_struct *cub)
+void castVrtcalRays_mini(t_struct *cub)
 {
     double y_vrtclIntrsctn;
     double x_vrticlIntrsctn;
     double x_incrmntVrtcl;
     double y_incrmntVrtcl;
     
-    x_vrticlIntrsctn =  floor(cub->player.position_x / cub->scaleWidth) * cub->scaleWidth;
+    x_vrticlIntrsctn =  floor(cub->mini_map.mini_x / cub->mini_map.mini_scaleWidth) * cub->mini_map.mini_scaleWidth;
     if (cub->ray.rayFacingRight)
-        x_vrticlIntrsctn += cub->scaleWidth;
-    y_vrtclIntrsctn = cub->player.position_y + ((x_vrticlIntrsctn - cub->player.position_x) * tan(cub->ray.rayAngle));
-    x_incrmntVrtcl = cub->scaleWidth;
+        x_vrticlIntrsctn += cub->mini_map.mini_scaleWidth;
+    y_vrtclIntrsctn = cub->mini_map.mini_y + ((x_vrticlIntrsctn - cub->mini_map.mini_x) * tan(cub->ray.rayAngle));
+    x_incrmntVrtcl = cub->mini_map.mini_scaleWidth;
     if (cub->ray.rayFacingLeft)
         x_incrmntVrtcl *= -1;
     if (cub->ray.rayFacingLeft)
@@ -167,9 +90,9 @@ void castVrtcalRays(t_struct *cub)
     if (cub->ray.rayFacingDown && y_incrmntVrtcl < 0)
         y_incrmntVrtcl *= -1;
     bool check = false;
-    while (x_vrticlIntrsctn >= 0 && x_vrticlIntrsctn < W_WIDTH && y_vrtclIntrsctn >= 0 && y_vrtclIntrsctn < W_HEIGHT)
+    while (x_vrticlIntrsctn >= 0 && x_vrticlIntrsctn < (W_WIDTH / 3) && y_vrtclIntrsctn >= 0 && y_vrtclIntrsctn < (W_HEIGHT / 3))
     {
-        if (check_wall(cub, x_vrticlIntrsctn, y_vrtclIntrsctn))
+        if (check_wall_mini(cub, x_vrticlIntrsctn, y_vrtclIntrsctn))
         {
             cub->ray.vrticlWallHitX = x_vrticlIntrsctn;
             cub->ray.vrtclWallHitY = y_vrtclIntrsctn;
@@ -186,7 +109,7 @@ void castVrtcalRays(t_struct *cub)
      }
 }
 
-void castAllRays(t_struct *cub)
+void castAllRays_mini(t_struct *cub)
 {
     double hrzntlDstnc = 0;
     double vrtclDstnc = 0;
@@ -210,30 +133,61 @@ void castAllRays(t_struct *cub)
         cub->ray.rayFacingRight = 1;
     else
         cub->ray.rayFacingLeft = 1;
-    castVrtcalRays(cub);
-    castHrzntalRays(cub);
+    castVrtcalRays_mini(cub);
+    castHrzntalRays_mini(cub);
     if (cub->ray.vrtclWallHitY != 1e9 && cub->ray.vrticlWallHitX != 1e9)
-        hrzntlDstnc = calculDistance(cub->ray.horzWallHitX, cub->ray.horzWallHitY, cub->player.position_x, cub->player.position_y);
+        hrzntlDstnc = calculDistance(cub->ray.horzWallHitX, cub->ray.horzWallHitY, cub->mini_map.mini_x, cub->mini_map.mini_y);
     if (cub->ray.horzWallHitX != 1e9 && cub->ray.horzWallHitY != 1e9)
-        vrtclDstnc = calculDistance(cub->ray.vrticlWallHitX, cub->ray.vrtclWallHitY, cub->player.position_x, cub->player.position_y);
+        vrtclDstnc = calculDistance(cub->ray.vrticlWallHitX, cub->ray.vrtclWallHitY, cub->mini_map.mini_x, cub->mini_map.mini_y);
     if (hrzntlDstnc >= vrtclDstnc)
     {
         cub->ray.wallHit_x = cub->ray.vrticlWallHitX;
         cub->ray.wallHit_y = cub->ray.vrtclWallHitY;
-        cub->ray.Distance  = vrtclDstnc;
     }
     else
     {
         cub->ray.wallHit_x = cub->ray.horzWallHitX;
         cub->ray.wallHit_y = cub->ray.horzWallHitY;
-        cub->ray.Distance  = hrzntlDstnc;
     }
-    //  if (hrzntlDstnc >= vrtclDstnc && vrtclDstnc != 0)
-    // {
-    //     printf("dstance >%f\n",   vrtclDstnc);
-    // }
-    // else
-    // {
-    //      printf("dstance >%f\n",  hrzntlDstnc);
-    // }
+}
+
+int check_wall_mini(t_struct *cub, double x, double y)
+ {
+    char **map;
+    map = ft_jump_lines(cub);
+    int gred_y = (int)(y/cub->mini_map.mini_scaleHeight); /*The value to round down to the nearest integer*/
+    int gred_x = (int)(x/cub->mini_map.mini_scaleWidth);
+    if (!map[gred_y])
+        return (1);
+    if ( map[gred_y][gred_x] == '1')
+        return (1);
+    return (0);
+ }
+
+ void check_nextSteep_mini(t_struct *cub)
+{
+  double  new_x;
+  double  new_y;
+
+    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.5));
+    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.5));
+    if (check_wall_mini(cub, new_x, new_y) != 1)
+    {
+        cub->mini_map.mini_x = new_x;
+        cub->mini_map.mini_y = new_y;
+    }   
+}
+
+void check_downSteep_mini(t_struct *cub)
+{
+  double  new_x;
+  double  new_y;
+
+    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown * 1.5));
+    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown * 1.5));
+    if (check_wall_mini(cub, new_x, new_y) != 1)
+    {
+        cub->mini_map.mini_x = new_x;
+        cub->mini_map.mini_y = new_y;
+    }   
 }
