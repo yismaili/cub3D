@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 22:46:34 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 23:52:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
         i++;
    } 
 }
-// Function for finding absolute value
+
 int abs(int n) 
 { 
     if (n > 0){
