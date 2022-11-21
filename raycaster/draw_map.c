@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/20 20:20:18 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:44:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,18 @@ void    draw_cub(t_struct *ptr, int x, int y, int color)
     int     j;
 
         
-        start_x = x * ptr->scaleWidth;
-        start_y = y * ptr->scaleHeight;
+        start_x =  x * ptr->mini_map.mini_scaleWidth;
+        start_y =  y * ptr->mini_map.mini_scaleHeight;
         i = start_y;
         j = start_x;
-        while (i < start_y + ptr->scaleHeight)
+        while (i < start_y + ptr->mini_map.mini_scaleHeight)
         {
-        j =  start_x;
-        while (j < start_x + ptr->scaleWidth)
-        {
-            my_mlx_pixel_put(ptr, j, i, color);
-            j++;
-         }
+            j =  start_x;
+            while (j < start_x + ptr->mini_map.mini_scaleWidth)
+            {
+                my_mlx_pixel_put(ptr, j, i, color);
+                j++;
+            }
         i++;
     }
 }
@@ -80,24 +80,23 @@ void    ft_draw_map(t_struct *cub)
     y = 0;
     len = 0;
     data = ft_jump_lines(cub);
-    //cub->fovAngle = 60 * (M_PI / 180);
     cub->numOfRays = W_WIDTH;
-    // cub->rayAngle = cub->player.rottAngle;
     while (data[y])
     {
         x = 0;
         while (data[y][x])
         {
-            if (data[y][x] == '1')
-                draw_cub(cub, x, y, 0xFFF0000);
-            else if (data[y][x] == '0')
+           if (data[y][x] == '1')
+               draw_cub(cub, x, y, 0xFFF0000);
+            if (data[y][x] == '0')
                 draw_cub(cub, x, y, 0);
             x++;
         }
         y++;
     }
-    drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F);   
-    //draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
+    drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F); 
+    drawRaysOfplyer_mini(cub, cub->mini_map.mini_x , cub->mini_map.mini_y , 0xFFFF0F);     
+    draw_player(cub, cub->player.position_x, cub->player.position_y , 0xfffff); 
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
 
@@ -121,6 +120,10 @@ void player_position(t_struct *cub){
             {
                 cub->player.position_x = j * cub->scaleWidth;
                 cub->player.position_y = i * cub->scaleHeight;
+                cub->mini_map.mini_scaleWidth = (cub->scaleWidth / 3);
+                cub->mini_map.mini_scaleHeight = (cub->scaleHeight / 3);
+                cub->mini_map.mini_x = j * cub->mini_map.mini_scaleWidth;
+                cub->mini_map.mini_y = i * cub->mini_map.mini_scaleHeight;
                 return ;
             }
             j++;
@@ -135,18 +138,22 @@ int	player_move(int key, t_struct *cub)
 	if (key == 1){
         cub->player.walkDrctn = -1;
 		check_nextSteep(cub);
+        check_nextSteep_mini(cub);
     }
 	else if (key == 13){
         cub->player.walkDrctn = 1;
        check_nextSteep(cub);
+       check_nextSteep_mini(cub);
     }
 	else if (key == 2){
         cub->player.walkDown = 1;
 		check_downSteep(cub);
+        check_downSteep_mini(cub);
     }
 	else if (key == 0){
         cub->player.walkDown= -1;
 		check_downSteep(cub);
+        check_downSteep_mini(cub);
     }
     else if (key == 124)
         cub->player.rottAngle += cub->player.rottSpeed;
@@ -183,6 +190,34 @@ void check_downSteep(t_struct *cub)
     {
         cub->player.position_x = new_x;
         cub->player.position_y = new_y;
+    }   
+}
+
+void check_nextSteep_mini(t_struct *cub)
+{
+  double  new_x;
+  double  new_y;
+
+    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.5));
+    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 1.5));
+    if (check_wall_mini(cub, new_x, new_y) != 1)
+    {
+        cub->mini_map.mini_x = new_x;
+        cub->mini_map.mini_y = new_y;
+    }   
+}
+
+void check_downSteep_mini(t_struct *cub)
+{
+  double  new_x;
+  double  new_y;
+
+    new_x = cub->mini_map.mini_x + (cos(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown * 1.5));
+    new_y = cub->mini_map.mini_y + (sin(cub->player.rottAngle + (M_PI/2)) * ((double)cub->player.walkDown * 1.5));
+    if (check_wall_mini(cub, new_x, new_y) != 1)
+    {
+        cub->mini_map.mini_x = new_x;
+        cub->mini_map.mini_y = new_y;
     }   
 }
 
