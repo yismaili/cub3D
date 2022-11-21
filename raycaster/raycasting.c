@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 23:52:51 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/22 00:34:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
     {  
         cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
         castAllRays(cub);
+        ddaForLine(cub, x, y, cub->ray.wallHit_x , cub->ray.wallHit_y ,color);
+        cub->ray.rayAngle += angleIncrem;
+        i++;
+   } 
+}
+
+void drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color)
+{
+    int i = 0;
+    double angleIncrem = (M_PI / 3) / cub->numOfRays;
+    cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6);  
+    while (i < cub->numOfRays)
+    {  
+        cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
+        castAllRays(cub);
+        cub->ray.wallHit_x = (cub->ray.wallHit_x / cub->scaleWidth) * cub->mini_map.mini_scaleWidth;
+        cub->ray.wallHit_y = (cub->ray.wallHit_y / cub->scaleHeight) * cub->mini_map.mini_scaleHeight;
         ddaForLine(cub, x, y, cub->ray.wallHit_x , cub->ray.wallHit_y ,color);
         cub->ray.rayAngle += angleIncrem;
         i++;
