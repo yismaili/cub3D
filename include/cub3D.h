@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 19:59:13 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 20:05:53 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void    ft_draw_map(t_struct *cub);
 void 	player_position(t_struct *cub);
 int		player_move(int key, t_struct *p);
 void 	directionOfPlayer(t_struct *cub);
-void 	draw_player(t_struct *cub, int x, int y, int color);
 void 	ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
 int 	check_wall(t_struct *cub, double x, double y);
 void 	drawRaysOfplyer(t_struct *cub, int x, int y, int color);

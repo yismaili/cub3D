@@ -6,22 +6,13 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 19:50:35 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 20:05:17 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
 /* cast all rays */
-void draw_player(t_struct *cub, int x, int y, int color)
-{
-    int 	x_1;
-	int 	y_1;
-	x_1 = x + cos(cub->player.rottAngle) * 42;
-    y_1 = y + sin(cub->player.rottAngle) * 42;
-    ddaForLine(cub, x, y, x_1, y_1, color);  
-}
-
 void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 {
     int i = 0;
