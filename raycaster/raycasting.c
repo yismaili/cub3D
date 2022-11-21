@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 20:05:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/21 22:46:34 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,12 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
  
  int check_wall(t_struct *cub, double x, double y)
  {
-    char **map;
-    map = ft_jump_lines(cub);
     int gred_y = (int)(y/cub->scaleHeight); /*The value to round down to the nearest integer*/
     int gred_x = (int)(x/cub->scaleWidth);
-    if (!map[gred_y])
-        return (1);
-    if ( map[gred_y][gred_x] == '1')
-        return (1);
+    if (gred_y < cub->heightof_minimap  && gred_x <  cub->widthof_minimap){
+        if ( cub->my_map[gred_y][gred_x] == '1')
+            return (1);   
+    }
     return (0);
  }
 
