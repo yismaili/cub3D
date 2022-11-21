@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 23:43:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/22 00:31:30 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,10 @@ void    ft_draw_map(t_struct *cub)
         }
         y++;
     }
+     int xx = (cub->player.position_x/ cub->scaleWidth) * cub->mini_map.mini_scaleWidth;
+    int yy = (cub->player.position_y / cub->scaleHeight) * cub->mini_map.mini_scaleHeight;
     drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F); 
-    drawRaysOfplyer_mini(cub, cub->mini_map.mini_x , cub->mini_map.mini_y , 0xFFFF0F);     
+    drawRaysOfplyer_mini(cub, xx, yy , 0xFFFF0F);     
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
 
@@ -114,8 +116,8 @@ void player_position(t_struct *cub){
                 cub->player.position_y = i * cub->scaleHeight;
                 cub->mini_map.mini_scaleWidth = (cub->scaleWidth / 4);
                 cub->mini_map.mini_scaleHeight = (cub->scaleHeight / 4);
-                cub->mini_map.mini_x = j * cub->mini_map.mini_scaleWidth;
-                cub->mini_map.mini_y = i * cub->mini_map.mini_scaleHeight;
+                // cub->mini_map.mini_x = j * cub->mini_map.mini_scaleWidth;
+                // cub->mini_map.mini_y = i * cub->mini_map.mini_scaleHeight;
                 return ;
             }
             j++;
@@ -130,22 +132,22 @@ int	player_move(int key, t_struct *cub)
 	if (key == 1){
         cub->player.walkDrctn = -1;
 		check_nextSteep(cub);
-        check_nextSteep_mini(cub);
+        //check_nextSteep_mini(cub);
     }
 	else if (key == 13){
         cub->player.walkDrctn = 1;
        check_nextSteep(cub);
-       check_nextSteep_mini(cub);
+       //check_nextSteep_mini(cub);
     }
 	else if (key == 2){
         cub->player.walkDown = 1;
 		check_downSteep(cub);
-        check_downSteep_mini(cub);
+      //  check_downSteep_mini(cub);
     }
 	else if (key == 0){
         cub->player.walkDown= -1;
 		check_downSteep(cub);
-        check_downSteep_mini(cub);
+       // check_downSteep_mini(cub);
     }
     else if (key == 124)
         cub->player.rottAngle += cub->player.rottSpeed;
