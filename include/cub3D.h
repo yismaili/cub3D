@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/22 00:35:00 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/22 19:32:48 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_struct
 	void		*mlx_ptr;
     void		*win_ptr;
 	void		*img;
-	char		*addr;
+	int 		*addr;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
@@ -101,6 +101,9 @@ typedef struct s_struct
 	int			heightof_minimap;
 	int			widthof_minimap;
 	char		**my_map;
+	double		wallStripHeight;
+	int			check_test;
+	unsigned int **color_buffer;
 }	t_struct;
 
 
@@ -140,5 +143,6 @@ void 	drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color);
 int 	ft_count_height(t_struct *cub);
 void	my_mlx_pixel_put(t_struct *ptr, int x, int y, unsigned int color);
 void    ft_jump_lines(t_struct *cub);
+void 	ft_colorBuffer(t_struct *cub);
 void print(char **str);
 #endif
