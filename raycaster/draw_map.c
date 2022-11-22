@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/22 19:34:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/22 19:43:01 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void    ft_draw_map(t_struct *cub)
 
     y = 0;
     len = 0;
+     int xx = (cub->player.position_x/ cub->scaleWidth) * cub->mini_map.mini_scaleWidth;
+    int yy = (cub->player.position_y / cub->scaleHeight) * cub->mini_map.mini_scaleHeight;
+    drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F); 
     while (cub->my_map[y])
     {
         x = 0;
@@ -91,9 +94,6 @@ void    ft_draw_map(t_struct *cub)
         }
         y++;
     }
-     int xx = (cub->player.position_x/ cub->scaleWidth) * cub->mini_map.mini_scaleWidth;
-    int yy = (cub->player.position_y / cub->scaleHeight) * cub->mini_map.mini_scaleHeight;
-    drawRaysOfplyer(cub, cub->player.position_x, cub->player.position_y , 0xFFFF0F); 
     drawRaysOfplyer_mini(cub, xx, yy , 0xFFFF0F);     
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 }
