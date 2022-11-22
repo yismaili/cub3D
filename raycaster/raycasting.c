@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/22 00:34:12 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/22 17:57:53 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,10 +218,8 @@ void castAllRays(t_struct *cub)
         cub->ray.rayFacingLeft = 1;
     castVrtcalRays(cub);
     castHrzntalRays(cub);
-    if (cub->ray.vrtclWallHitY != 1e9 && cub->ray.vrticlWallHitX != 1e9)
-        hrzntlDstnc = calculDistance(cub->ray.horzWallHitX, cub->ray.horzWallHitY, cub->player.position_x, cub->player.position_y);
-    if (cub->ray.horzWallHitX != 1e9 && cub->ray.horzWallHitY != 1e9)
-        vrtclDstnc = calculDistance(cub->ray.vrticlWallHitX, cub->ray.vrtclWallHitY, cub->player.position_x, cub->player.position_y);
+    hrzntlDstnc = calculDistance(cub->ray.horzWallHitX, cub->ray.horzWallHitY, cub->player.position_x, cub->player.position_y);
+    vrtclDstnc = calculDistance(cub->ray.vrticlWallHitX, cub->ray.vrtclWallHitY, cub->player.position_x, cub->player.position_y);
     if (hrzntlDstnc >= vrtclDstnc)
     {
         cub->ray.wallHit_x = cub->ray.vrticlWallHitX;
@@ -234,12 +232,5 @@ void castAllRays(t_struct *cub)
         cub->ray.wallHit_y = cub->ray.horzWallHitY;
         cub->ray.Distance  = hrzntlDstnc;
     }
-    //  if (hrzntlDstnc >= vrtclDstnc && vrtclDstnc != 0)
-    // {
-    //     printf("dstance >%f\n",   vrtclDstnc);
-    // }
-    // else
-    // {
-    //      printf("dstance >%f\n",  hrzntlDstnc);
-    // }
+    //printf("dstance  >  %f\n",  cub->ray.Distance);
 }
