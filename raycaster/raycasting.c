@@ -6,28 +6,128 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/22 17:57:53 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/22 19:35:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
 /* cast all rays */
+double	degrees_to_radians(double a)
+{
+	return ((a * 3.14159265359) / 180);
+}
+int	is_ceiling(unsigned int **buffer, int i, int k)
+{
+	if (i == 0)
+		return (1);
+	while (--i > -1)
+	{
+		if (buffer[i][k] != 0)
+			return (0);
+	}
+	return (1);
+}
+
+int	is_floor(unsigned int **buffer, int i, int k)
+{
+	if (i == 0)
+		return (1);
+	while (++i < W_HEIGHT)
+	{
+		if (buffer[i][k] != 0)
+			return (0);
+	}
+	return (1);
+}
+
+void ft_colorBuffer(t_struct *cub)
+{
+    int i;
+    int k;
+    i = 0;
+	while (i < W_HEIGHT)
+	{
+		k = 0;
+		while (k < W_WIDTH)
+        {
+            cub->color_buffer[i][k] = 0;
+            k++;
+        }
+        i++;
+	}
+    cub->check_test = 0;
+}
+
 void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 {
-    int i = 0;
+    int i = -1;
+    double	sostra;
+	int		wallBottomPixel ;
+	int		wallTopPixel;
+    int k;
+    int o;
+    o = 0;
+    (void) x;
+    (void) y;
+    (void) color;
+    cub->wallStripHeight= 0;
     double angleIncrem = (M_PI / 3) / cub->numOfRays;
-    cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6);  
-    while (i < cub->numOfRays)
+    cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6); 
+    if(cub->check_test == 1)
+    {
+        ft_colorBuffer(cub);
+    }
+    while (++i < cub->numOfRays)
     {  
         cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
         castAllRays(cub);
-        ddaForLine(cub, x, y, cub->ray.wallHit_x , cub->ray.wallHit_y ,color);
+	    sostra = (cub->player.rottAngle) - cub->ray.rayAngle;
+	    if (sostra > degrees_to_radians(360))
+		    sostra -= degrees_to_radians(360);
+	    else if (sostra < degrees_to_radians(0.00))
+		    sostra += degrees_to_radians(360.00);
+	    cub->ray.Distance = cub->ray.Distance * cos(sostra);
+	    cub->wallStripHeight= (int)((cub->scaleHeight) * (1.00 * W_HEIGHT)) / cub->ray.Distance;
+	    if (cub->wallStripHeight> (1.00 * W_HEIGHT))
+		    cub->wallStripHeight= (1.00 * W_HEIGHT);
+	        //wallTopPixel is the top of the wall
+	    wallTopPixel = (W_HEIGHT/ 2) - (int)(cub->wallStripHeight/ 2.00);
+	     if (wallTopPixel < 0)
+		    wallTopPixel = 0; // the minimum we can have is 0
+		        //wallBottomPixel is the Bottom or end of the wall
+	    wallBottomPixel = (W_HEIGHT/ 2) + (int)(cub->wallStripHeight/ 2.00);
+	    if (wallBottomPixel >= W_HEIGHT)
+		    wallBottomPixel = W_HEIGHT - 1;
+	    o = (wallTopPixel - 1);
+	    //render the wall from wallTopPixel to wallBottomPixel
+	    while (++o < wallBottomPixel)
+	     {
+		    //copy all the color buffer to an sdl texture
+            if ((o > -1 && o < W_HEIGHT) && (i > -1 && i < W_WIDTH))
+                cub->color_buffer[o][i] = 0xFFF0000;
+            cub->check_test = 1;
+	    }
         cub->ray.rayAngle += angleIncrem;
-        i++;
-   } 
-}
-
+     }
+    //lets_do_raycast(cub, i);
+    i = -1;
+	while (++i < W_HEIGHT)
+	{
+		k = -1;
+		while (++k < W_WIDTH)
+		{
+			if (is_ceiling(cub->color_buffer, i, k))
+				cub->addr[i * W_WIDTH + k] = 0xadd8e6;
+			else if (is_floor(cub->color_buffer, i, k))
+				cub->addr[i * W_WIDTH + k] = 0x4B6C57;
+			else
+				cub->addr[i * W_WIDTH + k] = cub->color_buffer[i][k];
+		}
+	}
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
+            
+} 
 void drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color)
 {
     int i = 0;
@@ -232,5 +332,4 @@ void castAllRays(t_struct *cub)
         cub->ray.wallHit_y = cub->ray.horzWallHitY;
         cub->ray.Distance  = hrzntlDstnc;
     }
-    //printf("dstance  >  %f\n",  cub->ray.Distance);
 }

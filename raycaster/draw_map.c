@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/22 00:31:30 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/22 19:34:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 void	my_mlx_pixel_put(t_struct *ptr, int x, int y, unsigned int color)
 {
 	char	*dst;
+
 	if (x > 0 && y > 0 && x < W_WIDTH && y < W_HEIGHT)
 	{
-		dst = ptr->addr + (y * ptr->line_length + x * (ptr->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
+		dst = (char *)ptr->addr + (y * ptr->line_length + x
+				* (ptr->bits_per_pixel / 8));
+		*(int *)dst = color;
 	}
 }
 
@@ -116,8 +118,6 @@ void player_position(t_struct *cub){
                 cub->player.position_y = i * cub->scaleHeight;
                 cub->mini_map.mini_scaleWidth = (cub->scaleWidth / 4);
                 cub->mini_map.mini_scaleHeight = (cub->scaleHeight / 4);
-                // cub->mini_map.mini_x = j * cub->mini_map.mini_scaleWidth;
-                // cub->mini_map.mini_y = i * cub->mini_map.mini_scaleHeight;
                 return ;
             }
             j++;
@@ -132,22 +132,18 @@ int	player_move(int key, t_struct *cub)
 	if (key == 1){
         cub->player.walkDrctn = -1;
 		check_nextSteep(cub);
-        //check_nextSteep_mini(cub);
     }
 	else if (key == 13){
         cub->player.walkDrctn = 1;
        check_nextSteep(cub);
-       //check_nextSteep_mini(cub);
     }
 	else if (key == 2){
         cub->player.walkDown = 1;
 		check_downSteep(cub);
-      //  check_downSteep_mini(cub);
     }
 	else if (key == 0){
         cub->player.walkDown= -1;
 		check_downSteep(cub);
-       // check_downSteep_mini(cub);
     }
     else if (key == 124)
         cub->player.rottAngle += cub->player.rottSpeed;
