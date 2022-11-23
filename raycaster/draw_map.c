@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/23 22:23:48 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/23 22:59:16 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int	player_move(int key, t_struct *cub)
         cub->player.rottAngle -= cub->player.rottSpeed;
     mlx_destroy_image(cub->mlx_ptr, cub->img);
     cub->img = mlx_new_image(cub->mlx_ptr, W_WIDTH, W_HEIGHT);
-    cub->addr = (int *)mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
+    //cub->addr = (int *)mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
     ft_draw_map(cub);
     return (0);
 }
