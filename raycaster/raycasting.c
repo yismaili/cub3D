@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/22 20:02:35 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:32:47 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
     int i = -1;
     double	sostra;
 	int		wallBottomPixel ;
-	int		wallTopPixel;
+	double		wallTopPixel;
     int k;
     int o;
     o = 0;
     (void) x;
     (void) y;
     (void) color;
-    cub->wallStripHeight= 0;
+    cub->wallStripHeight = 0;
     double angleIncrem = (M_PI / 3) / cub->numOfRays;
     cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6); 
     if(cub->check_test == 1)
@@ -43,15 +43,15 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 	    else if (sostra < degrees_to_radians(0.00))
 		    sostra += degrees_to_radians(360.00);
 	    cub->ray.Distance = cub->ray.Distance * cos(sostra);
-	    cub->wallStripHeight= (int)((cub->scaleHeight) * (1.00 * W_HEIGHT)) / cub->ray.Distance;
-	    if (cub->wallStripHeight> (1.00 * W_HEIGHT))
-		    cub->wallStripHeight= (1.00 * W_HEIGHT);
+	    cub->wallStripHeight = (cub->scaleHeight * W_HEIGHT) / cub->ray.Distance;
+	    if ((int)cub->wallStripHeight > W_HEIGHT)
+		    cub->wallStripHeight = W_HEIGHT;
 	        //wallTopPixel is the top of the wall
-	    wallTopPixel = (W_HEIGHT/ 2) - (int)(cub->wallStripHeight/ 2.00);
-	     if (wallTopPixel < 0)
+	    wallTopPixel = (W_HEIGHT/ 2) - ( cub->wallStripHeight/ 2);
+	    if (wallTopPixel < 0)
 		    wallTopPixel = 0; // the minimum we can have is 0
 		        //wallBottomPixel is the Bottom or end of the wall
-	    wallBottomPixel = (W_HEIGHT/ 2) + (int)(cub->wallStripHeight/ 2.00);
+	    wallBottomPixel = (W_HEIGHT / 2) + (cub->wallStripHeight / 2);
 	    if (wallBottomPixel >= W_HEIGHT)
 		    wallBottomPixel = W_HEIGHT - 1;
 	    o = (wallTopPixel - 1);
@@ -73,9 +73,9 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 		while (++k < W_WIDTH)
 		{
 			if (is_ceiling(cub->color_buffer, i, k))
-				cub->addr[i * W_WIDTH + k] = 0xadd8e6;
+				cub->addr[i * W_WIDTH + k] = (cub->clg.r << 16) + (cub->clg.g << 8) + (cub->clg.b);
 			else if (is_floor(cub->color_buffer, i, k))
-				cub->addr[i * W_WIDTH + k] = 0x4B6C57;
+				cub->addr[i * W_WIDTH + k] = (cub->flr.r << 16) + (cub->flr.g << 8) + (cub->flr.b);
 			else
 				cub->addr[i * W_WIDTH + k] = cub->color_buffer[i][k];
 		}
@@ -191,8 +191,11 @@ void castHrzntalRays(t_struct *cub)
     {
         if (check_wall(cub, x_hrzntlIntrsctn,y_hrzntlIntrsctn))
         {
+            // if (cub->ray.rayFacingUp)
+            //     cub->ray.horzWallHitY = y_hrzntlIntrsctn + 1;
+            // else
+                cub->ray.horzWallHitY = y_hrzntlIntrsctn;
             cub->ray.horzWallHitX = x_hrzntlIntrsctn;
-            cub->ray.horzWallHitY =y_hrzntlIntrsctn;
             check = true;
             break;
         }
@@ -232,7 +235,10 @@ void castVrtcalRays(t_struct *cub)
     {
         if (check_wall(cub, x_vrticlIntrsctn, y_vrtclIntrsctn))
         {
-            cub->ray.vrticlWallHitX = x_vrticlIntrsctn;
+            if (cub->ray.rayFacingLeft)
+                cub->ray.vrticlWallHitX = x_vrticlIntrsctn + 1;
+            else
+                cub->ray.vrticlWallHitX = x_vrticlIntrsctn;
             cub->ray.vrtclWallHitY = y_vrtclIntrsctn;
             check = true;
             break;

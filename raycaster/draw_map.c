@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/22 19:47:37 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:26:50 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,8 +185,8 @@ void check_downSteep(t_struct *cub)
 
 void directionOfPlayer(t_struct *cub)
 {
-    int gred_y = floor(cub->player.position_y/cub->scaleHeight);
-    int gred_x = floor(cub->player.position_x/cub->scaleWidth);
+    int gred_y = floor(cub->player.position_y / cub->scaleHeight);
+    int gred_x = floor(cub->player.position_x / cub->scaleWidth);
     if (cub->my_map[gred_y][gred_x] == 'N')
         cub->player.rottAngle = M_PI / 2;
     if (cub->my_map[gred_y][gred_x] == 'S')
