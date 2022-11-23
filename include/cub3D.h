@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/22 20:02:53 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/23 22:48:37 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ typedef struct s_struct
 	double		wallStripHeight;
 	int			check_test;
 	unsigned int **color_buffer;
+	int			widthofmap;
+	int			heightofmap;
 }	t_struct;
 
 

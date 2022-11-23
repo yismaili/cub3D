@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/23 19:21:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/23 22:59:16 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_struct *ptr, int x, int y, unsigned int color)
 	{
 		dst = (char *)ptr->addr + (y * ptr->line_length + x
 				* (ptr->bits_per_pixel / 8));
-		*(int *)dst = color;
+		*( unsigned int *)dst = color;
 	}
 }
 
@@ -102,8 +102,8 @@ void player_position(t_struct *cub){
     int i = 0;
     int j = 0;
   
-    cub->scaleHeight = W_HEIGHT/ cub->heightof_minimap;
-    cub->scaleWidth = W_WIDTH/ cub->width;
+    cub->scaleHeight = 32;
+    cub->scaleWidth = 32;
     cub->player.rottSpeed = 0.174533;
     cub->player.walkDrctn = 0;
     cub->numOfRays = W_WIDTH;
@@ -116,8 +116,8 @@ void player_position(t_struct *cub){
             {
                 cub->player.position_x = j * cub->scaleWidth;
                 cub->player.position_y = i * cub->scaleHeight;
-                cub->mini_map.mini_scaleWidth = (cub->scaleWidth / 4);
-                cub->mini_map.mini_scaleHeight = (cub->scaleHeight / 4);
+                cub->mini_map.mini_scaleWidth = (W_WIDTH / cub->width)/ 4;
+                cub->mini_map.mini_scaleHeight = (W_HEIGHT / cub->heightof_minimap) / 4;
                 return ;
             }
             j++;
@@ -151,6 +151,7 @@ int	player_move(int key, t_struct *cub)
         cub->player.rottAngle -= cub->player.rottSpeed;
     mlx_destroy_image(cub->mlx_ptr, cub->img);
     cub->img = mlx_new_image(cub->mlx_ptr, W_WIDTH, W_HEIGHT);
+    //cub->addr = (int *)mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
     ft_draw_map(cub);
     return (0);
 }
