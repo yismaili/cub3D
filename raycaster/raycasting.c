@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/23 14:32:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:46:46 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 {
     int i = -1;
-    double	sostra;
+  //  double	sostra;
 	int		wallBottomPixel ;
 	double		wallTopPixel;
     int k;
@@ -37,13 +37,13 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
     {  
         cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
         castAllRays(cub);
-	    sostra = (cub->player.rottAngle) - cub->ray.rayAngle;
-	    if (sostra > degrees_to_radians(360))
-		    sostra -= degrees_to_radians(360);
-	    else if (sostra < degrees_to_radians(0.00))
-		    sostra += degrees_to_radians(360.00);
-	    cub->ray.Distance = cub->ray.Distance * cos(sostra);
-	    cub->wallStripHeight = (cub->scaleHeight * W_HEIGHT) / cub->ray.Distance;
+	   // sostra = cub->ray.rayAngle - cub->player.rottAngle;
+	    // if (sostra > degrees_to_radians(360))
+		//     sostra -= degrees_to_radians(360);
+	    // else if (sostra < degrees_to_radians(0.00))
+		//     sostra += degrees_to_radians(360.00);
+	    double distanceofwall = cub->ray.Distance * cos(cub->ray.rayAngle - cub->player.rottAngle);
+	    cub->wallStripHeight = (cub->scaleHeight * W_HEIGHT) / distanceofwall;
 	    if ((int)cub->wallStripHeight > W_HEIGHT)
 		    cub->wallStripHeight = W_HEIGHT;
 	        //wallTopPixel is the top of the wall
@@ -65,7 +65,6 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 	    }
         cub->ray.rayAngle += angleIncrem;
      }
-    //lets_do_raycast(cub, i);
     i = -1;
 	while (++i < W_HEIGHT)
 	{
@@ -191,9 +190,9 @@ void castHrzntalRays(t_struct *cub)
     {
         if (check_wall(cub, x_hrzntlIntrsctn,y_hrzntlIntrsctn))
         {
-            // if (cub->ray.rayFacingUp)
-            //     cub->ray.horzWallHitY = y_hrzntlIntrsctn + 1;
-            // else
+            if (cub->ray.rayFacingUp)
+                cub->ray.horzWallHitY = y_hrzntlIntrsctn + 1;
+            else
                 cub->ray.horzWallHitY = y_hrzntlIntrsctn;
             cub->ray.horzWallHitX = x_hrzntlIntrsctn;
             check = true;
