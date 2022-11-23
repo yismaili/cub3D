@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/23 18:53:55 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/23 22:43:44 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
     int gred_y = (int)(y/cub->scaleHeight); /*The value to round down to the nearest integer*/
     int gred_x = (int)(x/cub->scaleWidth);
     if (gred_y < cub->heightof_minimap  && gred_x <  cub->widthof_minimap){
-        if ( cub->my_map[gred_y][gred_x] == '1')
+        if (cub->my_map[gred_y][gred_x] == '1')
             return (1);   
     }
     return (0);
@@ -186,14 +186,13 @@ void castHrzntalRays(t_struct *cub)
     if (cub->ray.rayFacingRight && x_incrmnt < 0)
         x_incrmnt *= -1;
     bool check = false;
-    while (x_hrzntlIntrsctn >= 0 && x_hrzntlIntrsctn < W_WIDTH && y_hrzntlIntrsctn >= 0 &&y_hrzntlIntrsctn < W_HEIGHT )
+    while (x_hrzntlIntrsctn >= 0 && x_hrzntlIntrsctn < (cub->scaleWidth * cub->widthof_minimap) && y_hrzntlIntrsctn >= 0 &&y_hrzntlIntrsctn < (cub->scaleHeight * cub->heightof_minimap))
     {
         if (check_wall(cub, x_hrzntlIntrsctn,y_hrzntlIntrsctn))
         {
             if (cub->ray.rayFacingUp)
-                cub->ray.horzWallHitY = y_hrzntlIntrsctn + 1;
-            else
-                cub->ray.horzWallHitY = y_hrzntlIntrsctn;
+                y_hrzntlIntrsctn += 1;
+            cub->ray.horzWallHitY = y_hrzntlIntrsctn;
             cub->ray.horzWallHitX = x_hrzntlIntrsctn;
             check = true;
             break;
@@ -230,14 +229,13 @@ void castVrtcalRays(t_struct *cub)
     if (cub->ray.rayFacingDown && y_incrmntVrtcl < 0)
         y_incrmntVrtcl *= -1;
     bool check = false;
-    while (x_vrticlIntrsctn >= 0 && x_vrticlIntrsctn < W_WIDTH && y_vrtclIntrsctn >= 0 && y_vrtclIntrsctn < W_HEIGHT)
+    while (x_vrticlIntrsctn >= 0 && x_vrticlIntrsctn < (cub->scaleWidth * cub->widthof_minimap) && y_vrtclIntrsctn >= 0 && y_vrtclIntrsctn <  (cub->scaleHeight * cub->heightof_minimap))
     {
         if (check_wall(cub, x_vrticlIntrsctn, y_vrtclIntrsctn))
         {
             if (cub->ray.rayFacingLeft)
-                cub->ray.vrticlWallHitX = x_vrticlIntrsctn + 1;
-            else
-                cub->ray.vrticlWallHitX = x_vrticlIntrsctn;
+                 x_vrticlIntrsctn += 1;
+            cub->ray.vrticlWallHitX = x_vrticlIntrsctn;
             cub->ray.vrtclWallHitY = y_vrtclIntrsctn;
             check = true;
             break;
