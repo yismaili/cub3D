@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/23 22:43:44 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/23 22:53:03 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void castHrzntalRays(t_struct *cub)
     if (cub->ray.rayFacingRight && x_incrmnt < 0)
         x_incrmnt *= -1;
     bool check = false;
-    while (x_hrzntlIntrsctn >= 0 && x_hrzntlIntrsctn < (cub->scaleWidth * cub->widthof_minimap) && y_hrzntlIntrsctn >= 0 &&y_hrzntlIntrsctn < (cub->scaleHeight * cub->heightof_minimap))
+    while (x_hrzntlIntrsctn >= 0 && x_hrzntlIntrsctn < cub->widthofmap && y_hrzntlIntrsctn >= 0 &&y_hrzntlIntrsctn < cub->heightofmap)
     {
         if (check_wall(cub, x_hrzntlIntrsctn,y_hrzntlIntrsctn))
         {
@@ -229,7 +229,7 @@ void castVrtcalRays(t_struct *cub)
     if (cub->ray.rayFacingDown && y_incrmntVrtcl < 0)
         y_incrmntVrtcl *= -1;
     bool check = false;
-    while (x_vrticlIntrsctn >= 0 && x_vrticlIntrsctn < (cub->scaleWidth * cub->widthof_minimap) && y_vrtclIntrsctn >= 0 && y_vrtclIntrsctn <  (cub->scaleHeight * cub->heightof_minimap))
+    while (x_vrticlIntrsctn >= 0 && x_vrticlIntrsctn < cub->widthofmap && y_vrtclIntrsctn >= 0 && y_vrtclIntrsctn <  cub->heightofmap)
     {
         if (check_wall(cub, x_vrticlIntrsctn, y_vrtclIntrsctn))
         {
