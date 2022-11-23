@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/23 15:46:46 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:53:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 	    // else if (sostra < degrees_to_radians(0.00))
 		//     sostra += degrees_to_radians(360.00);
 	    double distanceofwall = cub->ray.Distance * cos(cub->ray.rayAngle - cub->player.rottAngle);
-	    cub->wallStripHeight = (cub->scaleHeight * W_HEIGHT) / distanceofwall;
-	    if ((int)cub->wallStripHeight > W_HEIGHT)
+	    cub->wallStripHeight = (cub->scaleHeight * W_HEIGHT) /  distanceofwall;
+	    if (cub->wallStripHeight > W_HEIGHT)
 		    cub->wallStripHeight = W_HEIGHT;
 	        //wallTopPixel is the top of the wall
 	    wallTopPixel = (W_HEIGHT/ 2) - ( cub->wallStripHeight/ 2);
@@ -272,7 +272,7 @@ void castAllRays(t_struct *cub)
         cub->ray.rayFacingDown = 1;
     else
         cub->ray.rayFacingUp = 1;
-    if (cub->ray.rayAngle < (M_PI/2) || cub->ray.rayAngle > ((3 * M_PI)/2))
+    if (cub->ray.rayAngle < (M_PI / 2) || cub->ray.rayAngle > ((3 * M_PI) / 2))
         cub->ray.rayFacingRight = 1;
     else
         cub->ray.rayFacingLeft = 1;
