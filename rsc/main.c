@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/23 22:52:00 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:04:02 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,18 @@ void print(char **str)
         i++;
     }
 }
-
+void hooking(t_struct *cub)
+{
+    mlx_hook(cub->win_ptr, 02, 0, KeyPress ,cub);
+    mlx_hook(cub->win_ptr, 03, 0, KeyRelease, cub);
+    mlx_loop_hook(cub->mlx_ptr, player_move, cub);
+    mlx_loop(cub->mlx_ptr);
+}
 int main(int ac, char **av)
 {
     t_struct cub;
     int i;
+    
     if (ac != 2)
 		return (ft_putstr_fd("Usage : ./cub3D path/to/map.cub", 0), 0);
 	if (ft_read_maps(av[1], &cub) == 0)
@@ -51,8 +58,6 @@ int main(int ac, char **av)
     cub.widthofmap = cub.scaleWidth * cub.widthof_minimap;
     cub.heightofmap = cub.scaleHeight * cub.heightof_minimap;
     ft_draw_map(&cub);
-    mlx_key_hook(cub.win_ptr, player_move, &cub);
-   // mlx_loop_hook(cub.win_ptr, player_move, &cub);
-    mlx_loop(cub.mlx_ptr);
+    hooking(&cub);
     return (0);
 }
