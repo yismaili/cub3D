@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/24 17:10:54 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/24 19:32:24 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void player_position(t_struct *cub){
     int i = 0;
     int j = 0;
   
-    cub->scaleHeight = 32;
-    cub->scaleWidth = 32;
+    cub->scaleHeight = 64;
+    cub->scaleWidth = 64;
     cub->player.rottSpeed = 0.174533;
     cub->player.walkDrctn = 0;
     cub->numOfRays = W_WIDTH;
@@ -131,7 +131,9 @@ int	player_move(t_struct *cub)
 { 
 	check_nextSteep(cub);
 	check_downSteep(cub);
-    cub->player.rottAngle += (cub->player.rottSpeed * cub->player.angle) ;
+    if (cub->player.angle == 1 || cub->player.angle == -1)
+        cub->player.rottAngle += (cub->player.rottSpeed * cub->player.angle);
+     cub->player.angle = 0;
     ft_draw_map(cub);
     return (0);
 }
@@ -146,27 +148,21 @@ int KeyPress(int key, t_struct *cub)
         cub->player.walkDown = 1;
 	else if (key == 0)
         cub->player.walkDown= -1;
-    else if (key != 124)
-        cub->player.angle = -1;
-    else if (key != 123)
+    else if (key == 124)
         cub->player.angle = 1;
+    else if (key == 123)
+        cub->player.angle = -1;
     return (0);
 }
 
 int	KeyRelease(int key, t_struct *cub)
 { 
-	if (key == 1)
-        cub->player.walkDrctn = 0;
-	else if (key == 13)
-        cub->player.walkDrctn = 0;
-	else if (key == 2)
-        cub->player.walkDown = 0;
-	else if (key == 0)
-        cub->player.walkDown= 0;
-    else if (key == 124)
-        cub->player.angle = 0;
-    else if (key == 123)
-        cub->player.angle = 0;
+    (void)key;
+    cub->player.walkDrctn = 0;
+    cub->player.walkDrctn = 0;
+    cub->player.walkDown = 0;
+    cub->player.walkDown= 0;
+    cub->player.angle = 0;
     return (0);
 }
 
