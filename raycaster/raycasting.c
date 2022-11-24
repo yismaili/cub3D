@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/24 17:13:10 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/24 19:31:19 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
   //  double	sostra;
 	int		wallBottomPixel ;
 	double		wallTopPixel;
-    int k;
+    //int k;
     int o;
     o = 0;
     (void) x;
@@ -37,11 +37,6 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
     {  
         cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
         castAllRays(cub);
-	   // sostra = cub->ray.rayAngle - cub->player.rottAngle;
-	    // if (sostra > degrees_to_radians(360))
-		//     sostra -= degrees_to_radians(360);
-	    // else if (sostra < degrees_to_radians(0.00))
-		//     sostra += degrees_to_radians(360.00);
 	    double distanceofwall = cub->ray.Distance * cos(cub->ray.rayAngle - cub->player.rottAngle);
 	    cub->wallStripHeight = (cub->scaleHeight * W_HEIGHT) /  distanceofwall;
 	    if (cub->wallStripHeight > W_HEIGHT)
@@ -56,32 +51,47 @@ void drawRaysOfplyer(t_struct *cub, int x, int y, int color)
 		    wallBottomPixel = W_HEIGHT - 1;
 	    o = (wallTopPixel - 1);
 	    //render the wall from wallTopPixel to wallBottomPixel
-	    while (++o < wallBottomPixel)
-	     {
-		    //copy all the color buffer to an sdl texture
-            if ((o > -1 && o < W_HEIGHT) && (i > -1 && i < W_WIDTH))
-                cub->color_buffer[o][i] = 0xFFF0000;
-            cub->check_test = 1;
-	    }
-        cub->ray.rayAngle += angleIncrem;
-     }
-    i = -1;
-	while (++i < W_HEIGHT)
-	{
-		k = -1;
-		while (++k < W_WIDTH)
-		{
-			if (is_ceiling(cub->color_buffer, i, k))
-				cub->addr[i * W_WIDTH + k] = (cub->clg.r << 16) + (cub->clg.g << 8) + (cub->clg.b);
-			else if (is_floor(cub->color_buffer, i, k))
-				cub->addr[i * W_WIDTH + k] = (cub->flr.r << 16) + (cub->flr.g << 8) + (cub->flr.b);
-			else
-				cub->addr[i * W_WIDTH + k] = cub->color_buffer[i][k];
-		}
-	}
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
-            
+        int textureOffsetX ;
+        int textureOffsetY;
+        
+            // calculate how much to navigate
+            // the texture offesetX it will going to be the same (how much i will going to x it will be the same for all of them)
+        if(cub->ray.check == 1)
+        {
+                textureOffsetX = (int)cub->ray.vrtclWallHitY % cub->scaleHeight;
+        }else{
+                textureOffsetX = (int)cub->ray.horzWallHitX % cub->scaleWidth;
+            }
+            int j = 0;
+            while(j < wallTopPixel)
+            {
+                cub->addr[(W_WIDTH * j) + i] = (cub->clg.r << 16) + (cub->clg.g << 8) + (cub->clg.b);
+                j++;
+            }
+	        //render the wall from wallTopPixel to wallBottomPixel
+            o = wallTopPixel;
+	        while (o < wallBottomPixel)
+	        {
+                // set the color of the wall based on the color from the texture
+                textureOffsetY = (o - wallTopPixel) * ((double)cub->scaleHeight / cub->wallStripHeight);
+                //offsetY means how much need to navigate (to y) to get my color
+                //offsetX means how much need to navigate (to x) to get my color
+                unsigned int texturecolor = cub->wallTexture[(cub->scaleWidth * textureOffsetY) + textureOffsetX];
+                cub->addr[(W_WIDTH * o) + i] = texturecolor;
+                cub->check_test = 1;
+                o++;
+	        }
+            int n = wallBottomPixel;
+            while(n < W_HEIGHT)
+            {
+                cub->addr[(W_WIDTH * n) + i] = (cub->flr.r << 16) + (cub->flr.g << 8) + (cub->flr.b);
+                n++;
+            }
+            cub->ray.rayAngle += angleIncrem;
+        }
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);         
 } 
+
 void drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color)
 {
     int i = 0;
@@ -283,11 +293,13 @@ void castAllRays(t_struct *cub)
         cub->ray.wallHit_x = cub->ray.vrticlWallHitX;
         cub->ray.wallHit_y = cub->ray.vrtclWallHitY;
         cub->ray.Distance  = vrtclDstnc;
+          cub->ray.check = 1;
     }
     else
     {
         cub->ray.wallHit_x = cub->ray.horzWallHitX;
         cub->ray.wallHit_y = cub->ray.horzWallHitY;
         cub->ray.Distance  = hrzntlDstnc;
+          cub->ray.check = 2;
     }
 }

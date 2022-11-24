@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/24 15:38:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:14:19 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct  s_ray{
     double  horzWallHitY;
 	double  vrticlWallHitX;
     double  vrtclWallHitY;
+	int check;
 	
 }  t_ray;
 
@@ -107,6 +108,7 @@ typedef struct s_struct
 	unsigned int **color_buffer;
 	int			widthofmap;
 	int			heightofmap;
+	unsigned int *wallTexture;
 }	t_struct;
 
 
