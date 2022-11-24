@@ -11,3 +11,5 @@ This project’s objectives are similar to all this first year’s objectives: R
 <img width="1010" alt="Screen Shot 2022-11-22 at 7 43 22 PM" src="https://user-images.githubusercontent.com/69278312/203396275-b405e87a-b000-4ddc-8204-2a330303ce17.png">
 <img width="1085" alt="Screen Shot 2022-11-24 at 6 43 47 PM" src="https://user-images.githubusercontent.com/69278312/203848733-23bddcf0-73ad-458e-9bee-b0481cba04fa.png">
 <img width="1253" alt="Screen Shot 2022-11-24 at 7 20 58 PM" src="https://user-images.githubusercontent.com/69278312/203848737-40db42ef-e272-40de-b876-bba6e0f7ef5e.png">
+<img width="699" alt="Screen Shot 2022-11-23 at 6 03 41 PM" src="https://user-images.githubusercontent.com/69278312/203848836-b6466283-c26f-4557-ab6a-b9640f38aa31.png">
+<img width="451" alt="Screen Shot 2022-11-23 at 6 06 23 PM" src="https://user-images.githubusercontent.com/69278312/203848844-40131d3a-835b-4cab-9ad1-809e96f32cc6.png">
