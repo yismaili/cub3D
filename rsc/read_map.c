@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/11 15:36:38 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:29:08 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char *get_next_line(int fd)
 	
 	i = 0;
     read_line = 0;
-	buff = (char *)malloc(sizeof(char) * 10000);
+	buff = (char *)ft_calloc(sizeof(char), BUFF);
     while ((read_line = read(fd, &c, 1)) > 0)
     {
         if (c == '\n')
@@ -95,7 +95,7 @@ int	ft_read_maps(char *map_file, t_struct *cub)
     }
     cub->height = get_height(map_file);
 	cub->width = get_width(map_file, cub->height);
-	cub->map = (char **) malloc(sizeof(char *) * (cub->height + 1));
+	cub->map = (char **)ft_calloc(sizeof(char *), (cub->height + 1));
 	while (i < cub->height)
 	{
 		get_line = get_next_line(fd);

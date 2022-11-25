@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/24 19:10:48 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:10:24 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ int main(int ac, char **av)
     int i;
     cub.scaleHeight = 64;
     cub.scaleWidth = 64;
+    cub.textute_height = 64;
+    cub.texture_width = 64;
+    
+    
     if (ac != 2)
 		return (ft_putstr_fd("Usage : ./cub3D path/to/map.cub", 0), 0);
 	if (ft_read_maps(av[1], &cub) == 0)
@@ -47,12 +51,12 @@ int main(int ac, char **av)
         return (0);
     cub.mlx_ptr = mlx_init();
 	cub.win_ptr = mlx_new_window(cub.mlx_ptr, W_WIDTH, W_HEIGHT, "cub3D");
-   cub.color_buffer = (unsigned int **)malloc(W_HEIGHT * sizeof(unsigned int *));
+   cub.color_buffer = (unsigned int **) ft_calloc(sizeof(unsigned int *), W_HEIGHT);
 	i = -1;
 	while (++i < W_HEIGHT)
-		cub.color_buffer[i] = (unsigned int *)malloc(W_WIDTH * sizeof(unsigned int));
+		cub.color_buffer[i] = (unsigned int *)ft_calloc(sizeof(unsigned int), W_WIDTH);
 	ft_colorBuffer(&cub);
-    cub.wallTexture = (unsigned int *) malloc (sizeof(unsigned int) * (unsigned int)cub.scaleWidth * (unsigned int)cub.scaleHeight);
+    cub.wallTexture = (unsigned int *) ft_calloc (sizeof(unsigned int), (unsigned int)cub.scaleWidth * (unsigned int)cub.scaleHeight);
     for(int x=0; x < cub.scaleWidth; x++)
     {
         for(int y = 0; y < cub.scaleHeight;y++)
