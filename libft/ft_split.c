@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:46:30 by yismaili          #+#    #+#             */
-/*   Updated: 2021/11/26 19:15:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:35:18 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	dest = (char **)malloc((ft_lenwrd(s, c) + 1) * sizeof(char *));
+	dest = (char **)ft_calloc(sizeof(char *), (ft_lenwrd(s, c) + 1));
 	if (!dest)
 		return (NULL);
 	dest = ft_checkalocc(dest, s, c);

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/24 18:14:19 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:29:27 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "../libft/libft.h"
 # define W_WIDTH 1020
 # define W_HEIGHT 510
+# define BUFF 1024
 
 typedef struct s_floor
 {
@@ -109,6 +110,8 @@ typedef struct s_struct
 	int			widthofmap;
 	int			heightofmap;
 	unsigned int *wallTexture;
+	int texture_width;
+	int textute_height;
 }	t_struct;
 
 

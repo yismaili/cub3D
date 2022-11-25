@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/21 22:55:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:31:21 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char    **ft_split_map(t_struct *cub)
     i = 0;
     k = 0;
     len = 0;
-    path = (char **)malloc(sizeof(char *) * cub->height + 1);
+    path = (char **)ft_calloc(sizeof(char *), cub->height + 1);
     while (cub->height > i)
     {
         j = 0;

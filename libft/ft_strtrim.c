@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 18:35:11 by yismaili          #+#    #+#             */
-/*   Updated: 2021/11/20 15:54:49 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:33:53 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(""));
 	while (s1[i] && ft_check(str[len - 1], start))
 		len--;
-	dst = (char *)malloc(((len - i) + 1) * sizeof(char));
+	dst = (char *)ft_calloc(sizeof(char), ((len - i) + 1));
 	if (!dst)
 		return (NULL);
 	ft_strlcpy(dst, &str[i], (len - i) + 1);
