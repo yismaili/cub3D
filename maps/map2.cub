@@ -3,8 +3,8 @@ SO ./texure/xpm/wood.xpm
 WE ./texure/xpm/wood.xpm
 EA ./texure/xpm/wood.xpm
 
-F 220,50,0
-C 225,200,220
+F 120,50,0
+C 0,50,100
 
                                                         111111
                                                         11000111111111

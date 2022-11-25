@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 20:34:39 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/25 21:36:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char    **ft_split_map(t_struct *cub)
     int     k;
     int     l;
     char    **path;
+    int check = 0;
 
     i = 0;
     k = 0;
@@ -80,8 +81,10 @@ char    **ft_split_map(t_struct *cub)
         path[k] = ft_calloc(sizeof(char), len + 1);
         while (cub->map[i][j])
         {
-            if (cub->map[i][j] != ' ')
+            if (cub->map[i][j] != ' ' && check < 7)
                path[k][l++] = cub->map[i][j];
+            if (cub->map[i][j] == ' ')
+                check++;
             j++;
         }
         path[k][l] = '\0';
@@ -154,7 +157,7 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len)
     if (!data)
         return (NULL);
     ptr = data;
-    data = ft_substr(data, len + 1, (ft_strlen(data) - (len + 1)));
+    data = ft_substr(data, len, (ft_strlen(data) - (len)));
     free(ptr);
     if(handling_rgb(data) != 2)
         return (NULL);
@@ -162,14 +165,29 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len)
     i = 0;
     while (splt_data[i])
     {
-        num = ft_atoi(splt_data[i]);
+        if (ft_check_isnum(splt_data[i]))
+            return (NULL); 
+        num = ft_atoi(splt_data[i]);     
         if (num == -45 || (num < 0 || num > 255))
-           return (NULL);
+            return (NULL);       
        i++ ;
     }
     if (i < 3 || i > 3)
         return (NULL);
     return (splt_data);
+}
+
+int ft_check_isnum(char *num)
+{
+    int i = 0;
+
+    while (num[i])
+    {
+         if (!ft_isdigit(num[i]))
+            return (1);
+        i++;
+    }
+    return (0); 
 }
 
 int handling_rgb(char *data)
