@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 15:29:08 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/25 20:27:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char *get_next_line(int fd)
     char 	*buff;
 	
 	i = 0;
-    read_line = 0;
+    read_line = 1;
 	buff = (char *)ft_calloc(sizeof(char), BUFF);
     while ((read_line = read(fd, &c, 1)) > 0)
     {
@@ -45,6 +45,11 @@ int	get_height(char *map_file)
 	char	*get_line;
 
 	fd = open(map_file, O_RDONLY);
+	if (fd < 0)
+    {
+		ft_putstr_fd("Error Open file\n", 1);
+        return (0);
+    }
 	height = 0;
 	get_line = get_next_line(fd);
 	while (get_line)
@@ -68,6 +73,11 @@ int	get_width(char *map_file, int height)
 	width = 0;
 	max = 0;
 	fd = open (map_file, O_RDONLY);
+	if (fd < 0)
+    {
+		ft_putstr_fd("Error Open file\n", 1);
+        exit (0);
+    }
 	while (i < height)
 	{
 		get_line = get_next_line(fd);

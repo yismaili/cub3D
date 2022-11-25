@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 15:31:21 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/25 20:34:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len)
     ptr = data;
     data = ft_substr(data, len + 1, (ft_strlen(data) - (len + 1)));
     free(ptr);
+    if(handling_rgb(data) != 2)
+        return (NULL);
     splt_data = ft_split(data, ',');
     i = 0;
     while (splt_data[i])
@@ -168,6 +170,19 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len)
     if (i < 3 || i > 3)
         return (NULL);
     return (splt_data);
+}
+
+int handling_rgb(char *data)
+{
+    int i = 0;
+    int len = 0;
+    while (data[i])
+    {
+       if (data[i] == ',')
+            len++;
+        i++;
+    }
+    return (len);
 }
 
 int ft_check_rgb(t_struct *cub)

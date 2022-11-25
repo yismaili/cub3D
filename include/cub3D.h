@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 15:29:27 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/25 19:26:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,6 @@ int		is_ceiling(unsigned int **buffer, int i, int k);
 int		is_floor(unsigned int **buffer, int i, int k);
 int		KeyRelease(int key, t_struct *cub);
 int		KeyPress(int key, t_struct *cub);
+int 	handling_rgb(char *data);
 void print(char **str);
 #endif
