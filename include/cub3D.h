@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/26 14:23:18 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/26 20:31:43 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,42 +81,42 @@ typedef struct  s_ray{
 
 typedef struct s_struct
 {
-	char		**map;
-	t_ceilling 	clg;
-	t_floor		flr;
-	t_dirct		drct;
-	int			height;
-	int			width;
-	int			len_ofmap;
-	void		*mlx_ptr;
-    void		*win_ptr;
-	void		*img;
-	int 		*addr;
-	int			bits_per_pixel;
-	int			bits_per_pixel2;
-	int			line_length;
-	int			size_line;
-	int			endian;
-		int			endian2;
-	int 		scaleHeight;
-	int 		scaleWidth;
-	t_player 	player;
-	double		numOfRays;
-	t_ray       ray;
-	t_minimap	mini_map;
-	int			heightof_minimap;
-	int			widthof_minimap;
-	char		**my_map;
-	double		wallStripHeight;
-	int			check_test;
-	unsigned int **color_buffer;
-	int			widthofmap;
-	int			heightofmap;
-	unsigned int *wallTexture;
-	int texture_width;
-	int texture_height ;
-	void *img2;
-	int *data;
+	char			**map;
+	t_ceilling 		clg;
+	t_floor			flr;
+	t_dirct			drct;
+	int				height;
+	int				width;
+	int				len_ofmap;
+	void			*mlx_ptr;
+    void			*win_ptr;
+	void			*img;
+	int 			*addr;
+	int				bits_per_pixel;
+	int				bits_per_pixel2;
+	int				line_length;
+	int				size_line;
+	int				endian;
+	int				endian2;
+	int 			scaleHeight;
+	int 			scaleWidth;
+	t_player 		player;
+	double			numOfRays;
+	t_ray       	ray;
+	t_minimap		mini_map;
+	int				heightof_minimap;
+	int				widthof_minimap;
+	char			**my_map;
+	double			wallStripHeight;
+	int				check_test;
+	unsigned int 	**color_buffer;
+	int				widthofmap;
+	int				heightofmap;
+	unsigned int 	*wallTexture;
+	int				texture_width;
+	int 			texture_height ;
+	void			*img2;
+	int 			*data;
 	
 }	t_struct;
 

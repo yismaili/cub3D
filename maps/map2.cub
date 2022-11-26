@@ -1,7 +1,7 @@
-NO ./texure/xpm/wood.xpm
+NO ./texure/xpm/1.xpm
 SO ./texure/xpm/wood.xpm
-WE ./texure/xpm/wood.xpm
-EA ./texure/xpm/wood.xpm
+WE ./texure/xpm/pillar.xpm
+EA ./texure/xpm/mossy.xpm
 
 F 120,50,0
 C 0,50,100
