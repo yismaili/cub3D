@@ -6,16 +6,13 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:51:18 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/22 20:02:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/26 14:15:36 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-double	degrees_to_radians(double a)
-{
-	return ((a * 3.14159265359) / 180);
-}
+
 int	is_ceiling(unsigned int **buffer, int i, int k)
 {
 	if (i == 0)
