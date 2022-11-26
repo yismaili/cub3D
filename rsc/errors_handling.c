@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/26 11:19:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/26 20:27:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,7 @@ char    *ft_check_texture(t_struct *cub, char *dirct, int len)
     else
     {
         if(typeofFile(path, ".xpm", 4) == -2)
-        {
             return (NULL);
-        }
         ptr = path;
         path = ft_substr(path, len + 1, (ft_strlen(path) - (len + 1)));
         free(ptr);
