@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 21:36:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/26 11:19:06 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ char    *ft_check_texture(t_struct *cub, char *dirct, int len)
     }
     else
     {
+        if(typeofFile(path, ".xpm", 4) == -2)
+        {
+            return (NULL);
+        }
         ptr = path;
         path = ft_substr(path, len + 1, (ft_strlen(path) - (len + 1)));
         free(ptr);
@@ -138,6 +142,25 @@ int ft_check_alltextures(t_struct *cub)
     if (cub->drct.east_path == NULL)
         return (ft_putstr_fd("East texure not fount\n",1), 0);
     return (1);
+}
+
+int typeofFile(char *path, char *type, int len)
+{
+    int i = 0;
+    int check = 0;
+   while (path[i])
+   {
+        if(path[i] == '.')
+        {
+            check++;
+            if (check == 2)
+                break;
+        }
+        i++;
+   }
+   if (ft_strncmp(path + i, type, len))
+        return (-2);
+    return (0);
 }
 
 char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len)
