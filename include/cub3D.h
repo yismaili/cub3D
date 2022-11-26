@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/26 11:09:01 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/26 14:23:18 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,11 @@ typedef struct s_struct
 	void		*img;
 	int 		*addr;
 	int			bits_per_pixel;
+	int			bits_per_pixel2;
 	int			line_length;
+	int			size_line;
 	int			endian;
+		int			endian2;
 	int 		scaleHeight;
 	int 		scaleWidth;
 	t_player 	player;
@@ -111,7 +114,10 @@ typedef struct s_struct
 	int			heightofmap;
 	unsigned int *wallTexture;
 	int texture_width;
-	int textute_height;
+	int texture_height ;
+	void *img2;
+	int *data;
+	
 }	t_struct;
 
 
@@ -161,4 +167,6 @@ int 	handling_rgb(char *data);
 int		ft_check_isnum(char *num);
 int typeofFile(char *path, char *type, int len);
 void print(char **str);
+void	loading_map(t_struct *cub);
+
 #endif

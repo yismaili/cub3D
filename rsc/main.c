@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/26 11:27:33 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/26 14:27:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int main(int ac, char **av)
     int i;
     cub.scaleHeight = 64;
     cub.scaleWidth = 64;
-    cub.textute_height = 64;
+    cub.texture_height = 64;
     cub.texture_width = 64;
     
     if (ac != 2)
@@ -60,8 +60,8 @@ int main(int ac, char **av)
 	if (ft_read_maps(av[1], &cub) == 0)
         return (0);
     ft_jump_lines(&cub);
-    if (!ft_check_alltextures(&cub))
-        return (0);
+    // if (!ft_check_alltextures(&cub))
+    //     return (0);
    if (!ft_check_rgb(&cub))
         return (0);
     if (!ft_check_map(&cub))
@@ -92,9 +92,21 @@ int main(int ac, char **av)
 	cub.addr = (int *)mlx_get_data_addr(cub.img, &cub.bits_per_pixel, &cub.line_length, &cub.endian);
     player_position(&cub);
     directionOfPlayer(&cub);
+    loading_map(&cub);
     cub.widthofmap = cub.scaleWidth * cub.widthof_minimap;
     cub.heightofmap = cub.scaleHeight * cub.heightof_minimap;
     ft_draw_map(&cub);
     hooking(&cub);
     return (0);
+}
+
+void	loading_map(t_struct *cub)
+{
+
+	cub->img2 = mlx_xpm_file_to_image(cub->mlx_ptr, "texture/xpm/1.xpm",&cub->texture_width, &cub->texture_height);
+	if (!cub->img2)
+		return ;
+	cub->data = (int *)mlx_get_data_addr(cub->img2, &cub->bits_per_pixel2, &cub->size_line, &cub->endian2);
+	if (!cub->data || cub->texture_width != cub->texture_height)
+		return ;
 }
