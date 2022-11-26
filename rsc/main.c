@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 20:43:18 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/26 11:27:33 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ void hooking(t_struct *cub)
     mlx_loop_hook(cub->mlx_ptr, player_move, cub);
     mlx_loop(cub->mlx_ptr);
 }
+
+int typeofmap(char *path, char *type, int len)
+{
+    int i = 0;
+   while (path[i])
+   {
+        if(path[i] == '.')
+        {
+            break;
+        }
+        i++;
+   }
+   if (ft_strncmp(path + i, type, len))
+        return (-2);
+    return (0);
+}
 int main(int ac, char **av)
 {
     t_struct cub;
@@ -39,6 +55,8 @@ int main(int ac, char **av)
     
     if (ac != 2)
 		return (ft_putstr_fd("Usage : ./cub3D path/to/map.cub", 0), 0);
+    if (typeofmap(av[1], ".cub", 4) == -2)
+        return (ft_putstr_fd("type of map incorrect\n", 0), 0);
 	if (ft_read_maps(av[1], &cub) == 0)
         return (0);
     ft_jump_lines(&cub);

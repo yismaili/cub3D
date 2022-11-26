@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 21:30:16 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/26 11:09:01 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,6 @@ int		KeyRelease(int key, t_struct *cub);
 int		KeyPress(int key, t_struct *cub);
 int 	handling_rgb(char *data);
 int		ft_check_isnum(char *num);
+int typeofFile(char *path, char *type, int len);
 void print(char **str);
 #endif
