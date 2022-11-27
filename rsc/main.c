@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/26 21:50:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 14:41:33 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,46 @@ void hooking(t_struct *cub)
     mlx_hook(cub->win_ptr, 02, 0, KeyPress ,cub);
     mlx_hook(cub->win_ptr, 03, 0, KeyRelease, cub);
     mlx_loop_hook(cub->mlx_ptr, player_move, cub);
+    mlx_hook(cub->win_ptr, 04, (1L<<6), ButtonPress ,cub);
+    mlx_hook(cub->win_ptr, 05, (1L<<6), ButtonRelease, cub);
+    mlx_hook(cub->win_ptr, 06, (1L<<8), MotionNotify, cub);
     mlx_loop(cub->mlx_ptr);
 }
 
+int ButtonPress(int button, int x, int y, t_struct *cub)
+{
+float angle;
+if (button)
+{
+    printf("hey\n");
+}
+    if (x > 0 && x < W_WIDTH && y > 0 && y < W_HEIGHT)
+    {
+        angle = (y - cub->player.position_y)/ (x - cub->player.position_x);
+         printf("in button press%f   -----\n", angle);
+         cub->player.rottAngle += angle;
+    }
+    return (0);
+}
+
+int ButtonRelease(int button, int x, int y, t_struct *cub)
+{(void)cub;
+   
+        printf("hey i` am in relese\n");
+    y = 0;
+    x = 0;
+    button = 0;
+    return (0);
+}
+
+int MotionNotify(int x, int y, t_struct *cub)
+{(void)cub;
+    if (x > 0 && x < W_WIDTH && y > 0 && y < W_HEIGHT)
+    {
+        printf("in moves of mouse%d   -----   %d\n", x, y);
+    }
+    return (0);
+}
 int typeofmap(char *path, char *type, int len)
 {
     int i = 0;
