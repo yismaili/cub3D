@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/27 15:55:36 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 17:51:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ typedef struct s_struct
 	void			*img2;
 	int 			*data;
 	int				med_x;
-	int				med_y;
 	
 }	t_struct;
 
