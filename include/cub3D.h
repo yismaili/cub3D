@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/27 17:51:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 17:56:47 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,11 +167,9 @@ int		KeyRelease(int key, t_struct *cub);
 int		KeyPress(int key, t_struct *cub);
 int 	handling_rgb(char *data);
 int		ft_check_isnum(char *num);
-int typeofFile(char *path, char *type, int len);
-int mouse_hook(int click, t_struct *cub);
-void print(char **str);
+int 	typeofFile(char *path, char *type, int len);
 void	loading_map(t_struct *cub);
-int ButtonPress(int button, int x, int y, t_struct *cub);
-int MotionNotify(int x, int y, t_struct *cub);
-int ButtonRelease(int button, int x, int y, t_struct *cub);
+int 	MotionNotify(int x, int y, t_struct *cub);
+int		ft_close(int keycode);
+void print(char **str);
 #endif

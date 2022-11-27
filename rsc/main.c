@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/27 17:50:08 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 17:58:53 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,23 @@ void print(char **str)
         i++;
     }
 }
+
+int	ft_close(int keycode)
+{
+	if (keycode)
+	{
+		exit(1);
+	}
+	return (0);
+}
+
 void hooking(t_struct *cub)
 {
     mlx_hook(cub->win_ptr, 02, 0, KeyPress ,cub);
     mlx_hook(cub->win_ptr, 03, 0, KeyRelease, cub);
     mlx_loop_hook(cub->mlx_ptr, player_move, cub);
     mlx_hook(cub->win_ptr, 06, (1L<<8), MotionNotify, cub);
+    mlx_hook(cub->win_ptr, 17, 0, ft_close, cub);
     mlx_loop(cub->mlx_ptr);
 }
 
@@ -35,15 +46,16 @@ int MotionNotify(int x, int y, t_struct *cub)
     if (x > 0 && x < W_WIDTH && y > 0 && y < W_HEIGHT)
     {
         if(cub->med_x < x)
-            cub->player.rottAngle += cub->player.rottSpeed/4;
+            cub->player.rottAngle += cub->player.rottSpeed/6;
         if(cub->med_x > x)
-            cub->player.rottAngle -= cub->player.rottSpeed/4;
+            cub->player.rottAngle -= cub->player.rottSpeed/6;
         if(cub->med_x == x)
             cub->player.rottAngle =  cub->player.rottAngle;
         cub->med_x = x;
     }
     return (0);
 }
+
 int typeofmap(char *path, char *type, int len)
 {
     int i = 0;
@@ -59,6 +71,7 @@ int typeofmap(char *path, char *type, int len)
         return (-2);
     return (0);
 }
+
 int main(int ac, char **av)
 {
     t_struct cub;
