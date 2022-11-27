@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/27 14:41:33 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 16:37:48 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void hooking(t_struct *cub)
     mlx_hook(cub->win_ptr, 02, 0, KeyPress ,cub);
     mlx_hook(cub->win_ptr, 03, 0, KeyRelease, cub);
     mlx_loop_hook(cub->mlx_ptr, player_move, cub);
-    mlx_hook(cub->win_ptr, 04, (1L<<6), ButtonPress ,cub);
+   // mlx_hook(cub->win_ptr, 04, (1L<<6), ButtonPress ,cub);
     mlx_hook(cub->win_ptr, 05, (1L<<6), ButtonRelease, cub);
     mlx_hook(cub->win_ptr, 06, (1L<<8), MotionNotify, cub);
     mlx_loop(cub->mlx_ptr);
@@ -35,16 +35,16 @@ void hooking(t_struct *cub)
 int ButtonPress(int button, int x, int y, t_struct *cub)
 {
 float angle;
-if (button)
+if (button == 1)
 {
-    printf("hey\n");
-}
+
     if (x > 0 && x < W_WIDTH && y > 0 && y < W_HEIGHT)
     {
         angle = (y - cub->player.position_y)/ (x - cub->player.position_x);
          printf("in button press%f   -----\n", angle);
-         cub->player.rottAngle += angle;
+         cub->player.rottAngle = angle;
     }
+}
     return (0);
 }
 
@@ -59,10 +59,18 @@ int ButtonRelease(int button, int x, int y, t_struct *cub)
 }
 
 int MotionNotify(int x, int y, t_struct *cub)
-{(void)cub;
+{// float angle;
     if (x > 0 && x < W_WIDTH && y > 0 && y < W_HEIGHT)
     {
-        printf("in moves of mouse%d   -----   %d\n", x, y);
+       // angle = (y - cub->player.position_y)/ (x - cub->player.position_x);
+         printf("in button press x %d   -----\n", x);
+              printf("in cub->med_x  %d   -----\n", cub->med_x);
+        if(cub->med_x < x)
+            cub->player.rottAngle += 0.005;
+        if(cub->med_x > x)
+            cub->player.rottAngle -= 0.005;
+        if(cub->med_x == x)
+            cub->player.rottAngle =  cub->player.rottAngle;
     }
     return (0);
 }
@@ -89,6 +97,8 @@ int main(int ac, char **av)
     cub.scaleWidth = 64;
     cub.texture_height = 64;
     cub.texture_width = 64;
+    cub.med_x = W_WIDTH / 2;
+    //cub.med_x = W_HEIGHT / 2;
     
     if (ac != 2)
 		return (ft_putstr_fd("Usage : ./cub3D path/to/map.cub", 0), 0);

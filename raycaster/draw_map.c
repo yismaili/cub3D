@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/27 11:29:48 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 16:34:22 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ void    ft_draw_map(t_struct *cub)
         {
             if (cub->my_map[y][x] == '1')
                draw_cub(cub, x, y, 0xFFF0000);
-            else 
-                draw_cub(cub, x, y, 0);
             x++;
         }
         y++;
