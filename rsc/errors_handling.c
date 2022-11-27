@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 21:24:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/26 20:27:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 21:07:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,20 @@ char    *ft_check_texture(t_struct *cub, char *dirct, int len)
         if (fd < 0)
             return (NULL);
     }
+    free_map(new_map);
     return (path);
+}
+
+void free_map(char **ptr)
+{
+    int i = 0;
+    while (ptr[i])
+    {
+       free(ptr[i]);
+       ptr[i] = NULL;
+       i++;
+    }
+    free(ptr);
 }
 
 int ft_check_alltextures(t_struct *cub)
@@ -174,6 +187,7 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len)
 
     new_map = ft_split_map(cub);
     srch = ft_search_innewmap(new_map,  flor_clg, len);
+    free_map(new_map);
     data = ft_strdup(srch);
     if (!data)
         return (NULL);
@@ -183,6 +197,7 @@ char    **ft_check_florclg(t_struct *cub, char *flor_clg, int len)
     if(handling_rgb(data) != 2)
         return (NULL);
     splt_data = ft_split(data, ',');
+    free(data);
     i = 0;
     while (splt_data[i])
     {
@@ -237,6 +252,7 @@ int ft_check_rgb(t_struct *cub)
         cub->flr.r = ft_atoi(splt_dataflr[0]);
         cub->flr.g = ft_atoi(splt_dataflr[1]);
         cub->flr.b = ft_atoi(splt_dataflr[2]);
+        free_map(splt_dataflr);
     }
     else
         return (ft_putstr_fd("invalide color\n", 2), 0);
@@ -246,6 +262,7 @@ int ft_check_rgb(t_struct *cub)
         cub->clg.r = ft_atoi(splt_dataclg[0]);
         cub->clg.g = ft_atoi(splt_dataclg[1]);
         cub->clg.b = ft_atoi(splt_dataclg[2]);
+        free_map(splt_dataclg);
     }
     else
         return (ft_putstr_fd("invalide color\n", 2), 0);

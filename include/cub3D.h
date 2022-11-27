@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/27 17:56:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 20:51:24 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,4 +172,5 @@ void	loading_map(t_struct *cub);
 int 	MotionNotify(int x, int y, t_struct *cub);
 int		ft_close(int keycode);
 void print(char **str);
+void free_map(char **ptr);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:53:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 21:50:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 20:44:00 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int	get_height(char *map_file)
 	get_line = get_next_line(fd);
 	while (get_line)
 	{
+		free(get_line);
 		get_line = get_next_line(fd);
 		height ++;
 	}
-	free(get_line);
 	close(fd);
 	return (height);
 }

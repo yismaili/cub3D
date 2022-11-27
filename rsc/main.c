@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/27 17:58:53 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 21:07:43 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	loading_map(t_struct *cub)
     // if (cub->ray.rayFacingUp){
     //     cub->img2 = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.east_path,&cub->texture_width, &cub->texture_height);
     // }
-      cub->img2 = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.north_path,&cub->texture_width, &cub->texture_height);
+    cub->img2 = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.north_path,&cub->texture_width, &cub->texture_height);
 	if (!cub->img2)
 		return ;
 	cub->data = (int *)mlx_get_data_addr(cub->img2, &cub->bits_per_pixel2, &cub->size_line, &cub->endian2);
