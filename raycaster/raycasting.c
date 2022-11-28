@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 20:02:03 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/28 20:18:23 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,8 +317,6 @@ void castAllRays(t_struct *cub)
     }
     else
         cub->ray.rayFacingLeft = 1;
-    
-
     castVrtcalRays(cub);
     castHrzntalRays(cub);
     hrzntlDstnc = calculDistance(cub->ray.horzWallHitX, cub->ray.horzWallHitY, cub->player.position_x, cub->player.position_y);
@@ -328,13 +326,13 @@ void castAllRays(t_struct *cub)
         cub->ray.wallHit_x = cub->ray.vrticlWallHitX;
         cub->ray.wallHit_y = cub->ray.vrtclWallHitY;
         cub->ray.Distance  = vrtclDstnc;
-          cub->ray.check = 1;
+        cub->ray.check = 1;
     }
     else
     {
         cub->ray.wallHit_x = cub->ray.horzWallHitX;
         cub->ray.wallHit_y = cub->ray.horzWallHitY;
         cub->ray.Distance  = hrzntlDstnc;
-          cub->ray.check = 2;
+        cub->ray.check = 2;
     }
 }
