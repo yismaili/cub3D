@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/27 20:51:24 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:14:49 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ typedef struct s_floor
 	int g;
 	int b;
 }	t_floor;
+typedef struct s_tmp
+{
+	int		i;
+	int		j;
+	int		len;
+	int		k;
+	int		l;
+	char	**path;
+	int		check;
+}	t_tmp;
 
 typedef struct s_ceilling
 {
@@ -119,7 +129,7 @@ typedef struct s_struct
 	void			*img2;
 	int 			*data;
 	int				med_x;
-	
+	t_tmp			tmp;
 }	t_struct;
 
 
@@ -167,10 +177,15 @@ int		KeyRelease(int key, t_struct *cub);
 int		KeyPress(int key, t_struct *cub);
 int 	handling_rgb(char *data);
 int		ft_check_isnum(char *num);
-int 	typeofFile(char *path, char *type, int len);
+int 	typeof_file(char *path, char *type, int len);
 void	loading_map(t_struct *cub);
 int 	MotionNotify(int x, int y, t_struct *cub);
 int		ft_close(int keycode);
+void    set_map(t_struct *cub, int len);
 void print(char **str);
 void free_map(char **ptr);
+int check_elmntof_map(t_struct *cub);
+char    **convert_tonum(char **splt_data);
+void remplir_rgb_flor(t_struct *cub, char **splt_dataflr);
+int len_ofpath(char *path);
 #endif
