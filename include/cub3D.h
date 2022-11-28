@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 18:14:49 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:58:49 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,17 @@ typedef struct s_dirct
 	char 	*east_path;
 	
 }	t_dirct;
+
+typedef struct s_textures
+{
+	int		img_width;
+	int		img_height;
+	void	*img;
+	int 		*data;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+}	t_textures;
 typedef struct  s_player{
 	
 	double	position_x;
@@ -87,6 +98,10 @@ typedef struct  s_ray{
 	double  vrticlWallHitX;
     double  vrtclWallHitY;
 	int check;
+	int down;
+	int up;
+	int left;
+	int right;
 	
 }  t_ray;
 
@@ -98,6 +113,7 @@ typedef struct s_struct
 	t_dirct			drct;
 	int				height;
 	int				width;
+	t_textures	*texture;
 	int				len_ofmap;
 	void			*mlx_ptr;
     void			*win_ptr;
@@ -188,4 +204,7 @@ int check_elmntof_map(t_struct *cub);
 char    **convert_tonum(char **splt_data);
 void remplir_rgb_flor(t_struct *cub, char **splt_dataflr);
 int len_ofpath(char *path);
+void	init_textures(t_struct *cub);
+void	load_texture(t_struct *cub,t_textures *texture);
+
 #endif

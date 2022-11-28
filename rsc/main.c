@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 18:38:01 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:56:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	main(int ac, char **av)
     directionOfPlayer(&cub);
     cub.widthofmap = cub.scaleWidth * cub.widthof_minimap;
     cub.heightofmap = cub.scaleHeight * cub.heightof_minimap;
-    loading_map(&cub);
+	init_textures(&cub);
     ft_draw_map(&cub);
     hooking(&cub);
     while (1)
@@ -124,12 +124,29 @@ int	main(int ac, char **av)
     return (0);
 }
 
-void	loading_map(t_struct *cub)
+void	init_textures(t_struct *cub)
 {
-    cub->img2 = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.north_path,&cub->texture_width, &cub->texture_height);
-	if (!cub->img2)
-		return ;
-	cub->data = (int *)mlx_get_data_addr(cub->img2, &cub->bits_per_pixel2, &cub->size_line, &cub->endian2);
-	if (!cub->data || cub->texture_width != cub->texture_height)
-		return ;
+	cub->texture = malloc(sizeof(t_textures) * 4);
+	
+    load_texture(cub,cub->texture);
+}
+
+void	load_texture(t_struct *cub,t_textures *texture)
+{
+
+
+	texture[0].img = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.north_path, &texture[0].img_width, &texture[0].img_height);
+	texture[0].data = (int *)mlx_get_data_addr(texture[0].img, &texture[0].bits_per_pixel, &texture[0].size_line, &texture[0].endian);
+	texture[1].img = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.south_path, &texture[1].img_width, &texture[1].img_height);
+	texture[1].data = (int *)mlx_get_data_addr(texture[1].img, &texture[1].bits_per_pixel, &texture[1].size_line, &texture[1].endian);
+    texture[2].img = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.east_path, &texture[2].img_width, &texture[2].img_height);
+	texture[2].data = (int *)mlx_get_data_addr(texture[2].img, &texture[2].bits_per_pixel, &texture[2].size_line, &texture[2].endian);
+    texture[3].img = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.west_path, &texture[3].img_width, &texture[3].img_height);
+	texture[3].data = (int *)mlx_get_data_addr(texture[3].img, &texture[3].bits_per_pixel, &texture[3].size_line, &texture[3].endian);
+    if(!texture[0].img || !texture[1].img || !texture[2].img || !texture[3].img )
+        return ;
+    if (!texture[0].data || !texture[1].data || !texture[2].data || !texture[3].data)
+        return ;
+    if(texture[0].img_width != texture[0].img_height || texture[1].img_width != texture[1].img_height || texture[2].img_width != texture[2].img_height || texture[3].img_width != texture[3].img_height)
+        return ;	
 }
