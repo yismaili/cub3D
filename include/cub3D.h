@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 18:58:49 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:27:14 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ int 	handling_rgb(char *data);
 int		ft_check_isnum(char *num);
 int 	typeof_file(char *path, char *type, int len);
 void	loading_map(t_struct *cub);
-int 	MotionNotify(int x, int y, t_struct *cub);
+int	motion_notify(int x, int y, t_struct *cub);
 int		ft_close(int keycode);
 void    set_map(t_struct *cub, int len);
 void print(char **str);
