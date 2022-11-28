@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/27 21:07:43 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/27 21:13:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,23 +126,16 @@ int main(int ac, char **av)
     loading_map(&cub);
     ft_draw_map(&cub);
     hooking(&cub);
+    while (1)
+    {
+        /* code */
+    }
+    
     return (0);
 }
 
 void	loading_map(t_struct *cub)
 {
-    // if (cub->ray.rayFacingDown){
-    //     cub->img2 = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.north_path,&cub->texture_width, &cub->texture_height); 
-    // }
-    // if (cub->ray.rayFacingLeft){
-    //     cub->img2 = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.south_path,&cub->texture_width, &cub->texture_height);
-    // }
-    // if (cub->ray.rayFacingRight){
-    //     cub->img2 = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.west_path,&cub->texture_width, &cub->texture_height);
-    // }
-    // if (cub->ray.rayFacingUp){
-    //     cub->img2 = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.east_path,&cub->texture_width, &cub->texture_height);
-    // }
     cub->img2 = mlx_xpm_file_to_image(cub->mlx_ptr, cub->drct.north_path,&cub->texture_width, &cub->texture_height);
 	if (!cub->img2)
 		return ;
