@@ -6,7 +6,7 @@
 #    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 13:19:25 by yismaili          #+#    #+#              #
-#    Updated: 2022/11/27 20:30:20 by yismaili         ###   ########.fr        #
+#    Updated: 2022/11/28 17:15:31 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ FLAGS = -g -Wall -Werror -Wextra -g #-fsanitize=address
 framework= -framework OpenGL -framework AppKit 
 RM = rm -rf
 
-FILES = rsc/read_map.c  rsc/main.c rsc/errors_handling.c raycaster/draw_map.c  raycaster/raycasting.c raycaster/randeringWall.c 
+FILES = rsc/read_map.c  rsc/main.c rsc/errors_handling.c raycaster/draw_map.c  raycaster/raycasting.c raycaster/randeringWall.c rsc/rgb_color_tool.c rsc/rgb_color.c  rsc/texture_files_tool.c rsc/texture_files.c  rsc/errors_maptool.c 
 
 OBJ_FILES= $(FILES:.c=.o)
 
