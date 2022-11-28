@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 21:27:14 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/28 22:39:08 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,5 +206,8 @@ void remplir_rgb_flor(t_struct *cub, char **splt_dataflr);
 int len_ofpath(char *path);
 void	init_textures(t_struct *cub);
 void	load_texture(t_struct *cub,t_textures *texture);
+void	color_oftexture(t_struct *cub);
+int	motion_notify(int x, int y, t_struct *cub);
+int	typeofmap(char *path, char *type, int len);
 
 #endif
