@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 16:05:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:18:33 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	check_input(t_struct *cub, char **av, int ac)
 	cub->player.walkDrctn = 0;
 	cub->numOfRays = W_WIDTH;
 	cub->med_x = W_WIDTH / 2;
+	cub->angleIncrem = (M_PI / 3) / cub->numOfRays;
 	if (ac != 2)
 		return (ft_putstr_fd("Usage : ./cub3D path/to/map.cub", 0), 0);
 	if (typeofmap(av[1], ".cub", 4) == -2)

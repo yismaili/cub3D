@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 20:18:23 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:55:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,19 @@
 
 /* cast all rays */
 
-void drawRaysOfplyer(t_struct *cub,int x, int y, int color)
+void randering_wall(t_struct *cub)
 {
     int i = -1;
-  //  double	sostra;
 	int		wallBottomPixel ;
 	double		wallTopPixel;
-    int j;
-    //int k;
     int o;
     o = 0;
-    (void) x;
-    (void) y;
-    (void) color;
     cub->wallStripHeight = 0;
-    double angleIncrem = (M_PI / 3) / cub->numOfRays;
     cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6); 
-
-
-    j = 0;
- 
-
     while (++i < cub->numOfRays)
     { 
         cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
-        castAllRays(cub);
+        cast_all_rays(cub);
 	    double correctDistance = cub->ray.Distance * cos(cub->ray.rayAngle - cub->player.rottAngle);
 	    cub->wallStripHeight = (cub->scaleHeight * (W_HEIGHT)) /  correctDistance;
         double len = cub->wallStripHeight;
@@ -108,23 +96,22 @@ void drawRaysOfplyer(t_struct *cub,int x, int y, int color)
             cub->addr[(W_WIDTH * n) + i] = (cub->flr.r << 16) + (cub->flr.g << 8) + (cub->flr.b);
             n++;
         }
-        cub->ray.rayAngle += angleIncrem;
+        cub->ray.rayAngle += cub->angleIncrem;
     }
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 } 
 void drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color)
 {
     int i = 0;
-    double angleIncrem = (M_PI / 3) / cub->numOfRays;
     cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6);  
     while (i < cub->numOfRays)
     {  
         cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
-        castAllRays(cub);
+        cast_all_rays(cub);
         cub->ray.wallHit_x = (cub->ray.wallHit_x / cub->scaleWidth) * cub->mini_map.mini_scaleWidth;
         cub->ray.wallHit_y = (cub->ray.wallHit_y / cub->scaleHeight) * cub->mini_map.mini_scaleHeight;
-        ddaForLine(cub, x, y, cub->ray.wallHit_x , cub->ray.wallHit_y ,color);
-        cub->ray.rayAngle += angleIncrem;
+        dda(cub, x, y, cub->ray.wallHit_x , cub->ray.wallHit_y ,color);
+        cub->ray.rayAngle += cub->angleIncrem;
         i++;
    } 
 }
@@ -138,40 +125,47 @@ int abs(int n)
         return (n *(-1));
     }
 }
-// DDA Function for line generation
-void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
+
+void dda(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
 {
-    // calculate dstnc_x & dstnc_y
-    int dstnc_x = x_1 - x_0;
-    int dstnc_y = y_1 - y_0;
- 
-    // calculate steps required for generating pixels
+    int dstnc_x;
+    int dstnc_y;
     int steps;
+    float x_inc;
+    int     i;
+    float y_inc;
+    float x;
+    float y;
+    
+    dstnc_x = x_1 - x_0;
+    dstnc_y = y_1 - y_0;
     if (abs(dstnc_x) > abs(dstnc_y))
         steps = abs(dstnc_x);
     else
         steps = abs(dstnc_y);
-    // calculate increment in x & y for each steps
-    float x_inc = dstnc_x / (float)steps;
-    float y_inc = dstnc_y / (float)steps;
-    // Put pixel for each step
-    float x = x_0;
-    float y = y_0;
-    int i = 0;
+    x_inc = dstnc_x / (float)steps;
+    y_inc = dstnc_y / (float)steps;
+    x = x_0;
+    y = y_0;
+    i = 0;
     while (i <= steps)
     {
        my_mlx_pixel_put(cub, x, y, color);
-       x += x_inc; // increment in x at each step
-       y += y_inc; // increment in y at each step
+       x += x_inc; 
+       y += y_inc;
        i++;
     }
 }
  
  int check_wall(t_struct *cub, double x, double y)
  {
-    int gred_y = (int)(y/cub->scaleHeight); /*The value to round down to the nearest integer*/
-    int gred_x = (int)(x/cub->scaleWidth);
-    if (gred_y < cub->heightof_minimap  && gred_x <  cub->widthof_minimap){
+    int gred_y;
+    int gred_x;
+    
+    gred_y = (int)(y / cub->scaleHeight);
+    gred_x = (int)(x / cub->scaleWidth);
+    if (gred_y < cub->heightof_minimap  && gred_x <  cub->widthof_minimap)
+    {
         if (cub->my_map[gred_y][gred_x] == '1')
             return (1);   
     }
@@ -194,41 +188,43 @@ double calculDistance(double wallHit_x, double wallHit_y, double x, double y)
     return (sqrt(pow((x - wallHit_x ),2) + pow((y - wallHit_y),2)));  
 }
     
-void castHrzntalRays(t_struct *cub)
+void cast_hrzntal_rays(t_struct *cub)
 {
-    double x_hrzntlIntrsctn;
-    double y_hrzntlIntrsctn;
-    double y_incrmnt;
-    double x_incrmnt;
-    
-    y_hrzntlIntrsctn =  floor(cub->player.position_y / cub->scaleHeight) * cub->scaleHeight;
+    cub->tmp.y_hrzntlIntrsctn =  floor(cub->player.position_y / cub->scaleHeight) * cub->scaleHeight;
     if (cub->ray.rayFacingDown)
-        y_hrzntlIntrsctn += cub->scaleHeight;
-    x_hrzntlIntrsctn = cub->player.position_x + (y_hrzntlIntrsctn - cub->player.position_y) / tan(cub->ray.rayAngle);
-    y_incrmnt = cub->scaleHeight;
+        cub->tmp.y_hrzntlIntrsctn += cub->scaleHeight;
+    cub->tmp.x_hrzntlIntrsctn = cub->player.position_x + (cub->tmp.y_hrzntlIntrsctn - cub->player.position_y) / tan(cub->ray.rayAngle);
+    cub->tmp.y_incrmnt = cub->scaleHeight;
     if (cub->ray.rayFacingUp)
-        y_incrmnt *= -1;
+        cub->tmp.y_incrmnt *= -1;
     if (cub->ray.rayFacingUp)
-        y_hrzntlIntrsctn -= 1;
-    x_incrmnt =  y_incrmnt / (tan(cub->ray.rayAngle));
-    if (cub->ray.rayFacingLeft && x_incrmnt > 0)
-        x_incrmnt *= -1;
-    if (cub->ray.rayFacingRight && x_incrmnt < 0)
-        x_incrmnt *= -1;
-    bool check = false;
-    while (x_hrzntlIntrsctn >= 0 && x_hrzntlIntrsctn < cub->widthofmap && y_hrzntlIntrsctn >= 0 &&y_hrzntlIntrsctn < cub->heightofmap)
+        cub->tmp.y_hrzntlIntrsctn -= 1;
+    cub->tmp.x_incrmnt =  cub->tmp.y_incrmnt / (tan(cub->ray.rayAngle));
+    if (cub->ray.rayFacingLeft && cub->tmp.x_incrmnt > 0)
+        cub->tmp.x_incrmnt *= -1;
+    if (cub->ray.rayFacingRight && cub->tmp.x_incrmnt < 0)
+        cub->tmp.x_incrmnt *= -1;
+    searchto_wall_hrzntl(cub);
+}
+
+void    searchto_wall_hrzntl(t_struct *cub)
+{
+    bool check;
+
+    check = false;
+    while (cub->tmp.x_hrzntlIntrsctn >= 0 && cub->tmp.x_hrzntlIntrsctn < cub->widthofmap && cub->tmp.y_hrzntlIntrsctn >= 0 &&cub->tmp.y_hrzntlIntrsctn < cub->heightofmap)
     {
-        if (check_wall(cub, x_hrzntlIntrsctn,y_hrzntlIntrsctn))
+        if (check_wall(cub, cub->tmp.x_hrzntlIntrsctn,cub->tmp.y_hrzntlIntrsctn))
         {
             if (cub->ray.rayFacingUp)
-                y_hrzntlIntrsctn += 1;
-            cub->ray.horzWallHitY = y_hrzntlIntrsctn;
-            cub->ray.horzWallHitX = x_hrzntlIntrsctn;
+                cub->tmp.y_hrzntlIntrsctn += 1;
+            cub->ray.horzWallHitY = cub->tmp.y_hrzntlIntrsctn;
+            cub->ray.horzWallHitX = cub->tmp.x_hrzntlIntrsctn;
             check = true;
             break;
         }
-        x_hrzntlIntrsctn += x_incrmnt;
-        y_hrzntlIntrsctn += y_incrmnt;
+        cub->tmp.x_hrzntlIntrsctn += cub->tmp.x_incrmnt;
+        cub->tmp.y_hrzntlIntrsctn += cub->tmp.y_incrmnt;
      }
      if (!check)
      {
@@ -237,88 +233,58 @@ void castHrzntalRays(t_struct *cub)
      }
 }
 
-void castVrtcalRays(t_struct *cub)
+void cast_vrtcal_rays(t_struct *cub)
 {
-    double y_vrtclIntrsctn;
-    double x_vrticlIntrsctn;
-    double x_incrmntVrtcl;
-    double y_incrmntVrtcl;
-    
-    x_vrticlIntrsctn =  floor(cub->player.position_x / cub->scaleWidth) * cub->scaleWidth;
+    cub->tmp.x_vrticlIntrsctn =  floor(cub->player.position_x / cub->scaleWidth) * cub->scaleWidth;
     if (cub->ray.rayFacingRight)
-        x_vrticlIntrsctn += cub->scaleWidth;
-    y_vrtclIntrsctn = cub->player.position_y + ((x_vrticlIntrsctn - cub->player.position_x) * tan(cub->ray.rayAngle));
-    x_incrmntVrtcl = cub->scaleWidth;
+        cub->tmp.x_vrticlIntrsctn += cub->scaleWidth;
+    cub->tmp.y_vrtclIntrsctn = cub->player.position_y + ((cub->tmp.x_vrticlIntrsctn - cub->player.position_x) * tan(cub->ray.rayAngle));
+    cub->tmp.x_incrmntVrtcl = cub->scaleWidth;
     if (cub->ray.rayFacingLeft)
-        x_incrmntVrtcl *= -1;
+        cub->tmp.x_incrmntVrtcl *= -1;
     if (cub->ray.rayFacingLeft)
-        x_vrticlIntrsctn -= 1;
-    y_incrmntVrtcl =  x_incrmntVrtcl  * tan(cub->ray.rayAngle);
-    if (cub->ray.rayFacingUp && y_incrmntVrtcl > 0)
-        y_incrmntVrtcl *= -1;
-    if (cub->ray.rayFacingDown && y_incrmntVrtcl < 0)
-        y_incrmntVrtcl *= -1;
-    bool check = false;
-    while (x_vrticlIntrsctn >= 0 && x_vrticlIntrsctn < cub->widthofmap && y_vrtclIntrsctn >= 0 && y_vrtclIntrsctn <  cub->heightofmap)
+        cub->tmp.x_vrticlIntrsctn -= 1;
+    cub->tmp.y_incrmntVrtcl =  cub->tmp.x_incrmntVrtcl  * tan(cub->ray.rayAngle);
+    if (cub->ray.rayFacingUp && cub->tmp.y_incrmntVrtcl > 0)
+        cub->tmp.y_incrmntVrtcl *= -1;
+    if (cub->ray.rayFacingDown && cub->tmp.y_incrmntVrtcl < 0)
+        cub->tmp.y_incrmntVrtcl *= -1;
+    searchto_wall_vrtcl(cub);
+}
+
+void    searchto_wall_vrtcl(t_struct *cub)
+{
+    bool check;
+    check = false;
+    while (cub->tmp.x_vrticlIntrsctn >= 0 && cub->tmp.x_vrticlIntrsctn < cub->widthofmap && cub->tmp.y_vrtclIntrsctn >= 0 && cub->tmp.y_vrtclIntrsctn <  cub->heightofmap)
     {
-        if (check_wall(cub, x_vrticlIntrsctn, y_vrtclIntrsctn))
+        if (check_wall(cub, cub->tmp.x_vrticlIntrsctn, cub->tmp.y_vrtclIntrsctn))
         {
             if (cub->ray.rayFacingLeft)
-                 x_vrticlIntrsctn += 1;
-            cub->ray.vrticlWallHitX = x_vrticlIntrsctn;
-            cub->ray.vrtclWallHitY = y_vrtclIntrsctn;
+                 cub->tmp.x_vrticlIntrsctn += 1;
+            cub->ray.vrticlWallHitX = cub->tmp.x_vrticlIntrsctn;
+            cub->ray.vrtclWallHitY = cub->tmp.y_vrtclIntrsctn;
             check = true;
             break;
         }
-        x_vrticlIntrsctn += x_incrmntVrtcl;
-        y_vrtclIntrsctn += y_incrmntVrtcl;
+        cub->tmp.x_vrticlIntrsctn += cub->tmp.x_incrmntVrtcl;
+        cub->tmp.y_vrtclIntrsctn += cub->tmp.y_incrmntVrtcl;
      }
-     if (!check)
+     if (!cub->tmp.check)
      {
         cub->ray.vrticlWallHitX = 1e9;
         cub->ray.vrtclWallHitY = 1e9;
      }
 }
 
-void castAllRays(t_struct *cub)
+void cast_all_rays(t_struct *cub)
 {
     double hrzntlDstnc = 0;
     double vrtclDstnc = 0;
 
-    cub->ray.wallHit_x = 0;
-    cub->ray.wallHit_y = 0;
-    cub->ray.Distance = 0;
-    cub->ray.rayFacingDown = 0;
-    cub->ray.rayFacingUp = 0;
-    cub->ray.rayFacingRight = 0;
-    cub->ray.rayFacingLeft = 0;
-    cub->ray.vrticlWallHitX = 0;
-    cub->ray.vrtclWallHitY = 0;
-    cub->ray.horzWallHitX = 0;
-    cub->ray.horzWallHitY = 0;
-    cub->ray.down = 0;
-    cub->ray.up = 0;
-    cub->ray.right = 0;
-    cub->ray.left = 0;
-
-    if (cub->ray.rayAngle > 0 && cub->ray.rayAngle < M_PI)
-    {
-        cub->ray.down = 1;
-        cub->ray.rayFacingDown = 1;
-    }
-    else
-        cub->ray.rayFacingUp = 1;
-   
-    
-    if (cub->ray.rayAngle < (M_PI / 2) || cub->ray.rayAngle > ((3 * M_PI) / 2))
-    {
-        cub->ray.right = 1;
-        cub->ray.rayFacingRight = 1;
-    }
-    else
-        cub->ray.rayFacingLeft = 1;
-    castVrtcalRays(cub);
-    castHrzntalRays(cub);
+    init_dataray(cub);
+    cast_vrtcal_rays(cub);
+    cast_hrzntal_rays(cub);
     hrzntlDstnc = calculDistance(cub->ray.horzWallHitX, cub->ray.horzWallHitY, cub->player.position_x, cub->player.position_y);
     vrtclDstnc = calculDistance(cub->ray.vrticlWallHitX, cub->ray.vrtclWallHitY, cub->player.position_x, cub->player.position_y);
     if (hrzntlDstnc >= vrtclDstnc)
@@ -335,4 +301,27 @@ void castAllRays(t_struct *cub)
         cub->ray.Distance  = hrzntlDstnc;
         cub->ray.check = 2;
     }
+}
+
+void    init_dataray(t_struct *cub)
+{
+    cub->ray.wallHit_x = 0;
+    cub->ray.wallHit_y = 0;
+    cub->ray.Distance = 0;
+    cub->ray.rayFacingDown = 0;
+    cub->ray.rayFacingUp = 0;
+    cub->ray.rayFacingRight = 0;
+    cub->ray.rayFacingLeft = 0;
+    cub->ray.vrticlWallHitX = 0;
+    cub->ray.vrtclWallHitY = 0;
+    cub->ray.horzWallHitX = 0;
+    cub->ray.horzWallHitY = 0;
+    if (cub->ray.rayAngle > 0 && cub->ray.rayAngle < M_PI)
+        cub->ray.rayFacingDown = 1;
+    else
+        cub->ray.rayFacingUp = 1;
+    if (cub->ray.rayAngle < (M_PI / 2) || cub->ray.rayAngle > ((3 * M_PI) / 2))
+        cub->ray.rayFacingRight = 1;
+    else
+        cub->ray.rayFacingLeft = 1; 
 }

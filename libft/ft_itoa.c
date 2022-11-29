@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 15:47:03 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 15:35:58 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:21:44 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_itoa(int n)
 	len = 0;
 	i = 0;
 	len = ft_lennum(num);
-	dest = (char *)ft_calloc(sizeof(char), (len + 1) );
+	dest = (char *)ft_calloc(sizeof(char), (len + 1));
 	if (!dest)
 		return (NULL);
 	dest[len] = '\0';
