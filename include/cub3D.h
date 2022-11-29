@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 17:30:41 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:55:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,14 @@ typedef struct s_tmp
 	int	y;
 	int	xx;
 	int	yy;
-
+	double y_vrtclIntrsctn;
+    double x_vrticlIntrsctn;
+    double x_incrmntVrtcl;
+    double y_incrmntVrtcl;
+	double x_hrzntlIntrsctn;
+    double y_hrzntlIntrsctn;
+    double y_incrmnt;
+    double x_incrmnt;
 }	t_tmp;
 
 typedef struct s_ceilling
@@ -179,9 +186,9 @@ void 	check_nextsteep(t_struct *cub);
 void	check_downsteep(t_struct *cub);
 double	normalizeAngle(double angle);
 double 	calculDistance(double wallHit_X, double wallHit_y, double x, double y);
-void 	castHrzntalRays(t_struct *cub);
-void 	castVrtcalRays(t_struct *cub);
-void 	castAllRays(t_struct *cub);
+void 	cast_hrzntal_rays(t_struct *cub);
+void 	cast_vrtcal_rays(t_struct *cub);
+void 	cast_all_rays(t_struct *cub);
 void 	drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color);
 int 	ft_count_height(t_struct *cub);
 void	my_mlx_pixel_put(t_struct *ptr, int x, int y, unsigned int color);
@@ -208,4 +215,7 @@ int	motion_notify(int x, int y, t_struct *cub);
 int	typeofmap(char *path, char *type, int len);
 void	load_texture(t_struct *c, t_textures *t);
 void	color_oftexture(t_struct *cub);
+void    init_dataray(t_struct *cub);
+void    searchto_wall_vrtcl(t_struct *cub);
+void    searchto_wall_hrzntl(t_struct *cub);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 20:01:52 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 15:34:49 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:26:40 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	*ft_strjoin(char *left_str, char *buff)
 	}
 	if (!left_str || !buff)
 		return (NULL);
-	str = ft_calloc(sizeof(char), ((ft_strlen(left_str) + ft_strlen(buff)) + 1));
+	str = ft_calloc(sizeof(char), ((ft_strlen(left_str) + \
+					ft_strlen(buff)) + 1));
 	if (str == NULL)
 		return (NULL);
 	i = -1;
