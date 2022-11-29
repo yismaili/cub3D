@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 11:58:27 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:05:47 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int ac, char **av)
 			&cub.line_length, &cub.endian);
 	color_oftexture(&cub);
 	player_position(&cub);
-	directionOfPlayer(&cub);
+	direction_of_player(&cub);
 	cub.widthofmap = cub.scaleWidth * cub.widthof_minimap;
 	cub.heightofmap = cub.scaleHeight * cub.heightof_minimap;
 	init_textures(&cub);

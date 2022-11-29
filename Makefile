@@ -6,7 +6,7 @@
 #    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/21 13:19:25 by yismaili          #+#    #+#              #
-#    Updated: 2022/11/29 14:08:45 by yismaili         ###   ########.fr        #
+#    Updated: 2022/11/29 16:43:58 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ framework= -framework OpenGL -framework AppKit
 RM = rm -rf
 
 FILES = rsc/read_map.c  rsc/main.c rsc/errors_handling.c raycaster/draw_map.c  raycaster/raycasting.c raycaster/randeringWall.c rsc/rgb_color_tool.c rsc/rgb_color.c  rsc/texture_files_tool.c rsc/texture_files.c  \
-rsc/errors_maptool.c raycaster/movesOfplayer_tool.c raycaster/movesOfplayer.c
+rsc/errors_maptool.c raycaster/movesOfplayer_tool.c raycaster/movesOfplayer.c raycaster/loading_texture.c 
 
 OBJ_FILES= $(FILES:.c=.o)
 

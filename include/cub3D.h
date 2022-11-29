@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 14:56:54 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:49:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ typedef struct s_tmp
 	int		l;
 	char	**path;
 	int		check;
+	int	x;
+	int	y;
+	int	xx;
+	int	yy;
+
 }	t_tmp;
 
 typedef struct s_ceilling
@@ -169,7 +174,7 @@ char    *ft_search_inmap(t_struct *cub, char *search, int len_ofsrch);
 void    ft_draw_map(t_struct *cub);
 void 	player_position(t_struct *cub);
 int		player_move(t_struct *cub);
-void 	directionOfPlayer(t_struct *cub);
+void 	direction_of_player(t_struct *cub);
 void 	ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
 int 	check_wall(t_struct *cub, double x, double y);
 void 	drawRaysOfplyer(t_struct *cub, int x, int y, int color);
@@ -185,10 +190,8 @@ void 	drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color);
 int 	ft_count_height(t_struct *cub);
 void	my_mlx_pixel_put(t_struct *ptr, int x, int y, unsigned int color);
 void    ft_jump_lines(t_struct *cub);
-void 	ft_colorBuffer(t_struct *cub);
+void 	ft_color_buffer(t_struct *cub);
 double	degrees_to_radians(double a);
-int		is_ceiling(unsigned int **buffer, int i, int k);
-int		is_floor(unsigned int **buffer, int i, int k);
 int	key_release(int key, t_struct *cub);
 int		key_press(int key, t_struct *cub);
 int 	handling_rgb(char *data);
@@ -205,9 +208,8 @@ char    **convert_tonum(char **splt_data);
 void remplir_rgb_flor(t_struct *cub, char **splt_dataflr);
 int len_ofpath(char *path);
 void	init_textures(t_struct *cub);
-void	load_texture(t_struct *cub,t_textures *texture);
-void	color_oftexture(t_struct *cub);
 int	motion_notify(int x, int y, t_struct *cub);
 int	typeofmap(char *path, char *type, int len);
-
+void	load_texture(t_struct *c, t_textures *t);
+void	color_oftexture(t_struct *cub);
 #endif
