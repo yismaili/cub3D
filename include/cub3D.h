@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 22:39:08 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 14:56:54 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,8 @@ void 	ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
 int 	check_wall(t_struct *cub, double x, double y);
 void 	drawRaysOfplyer(t_struct *cub, int x, int y, int color);
 int		castRays(t_struct *cub);
-void 	check_nextSteep(t_struct *cub);
-void	check_downSteep(t_struct *cub);
+void 	check_nextsteep(t_struct *cub);
+void	check_downsteep(t_struct *cub);
 double	normalizeAngle(double angle);
 double 	calculDistance(double wallHit_X, double wallHit_y, double x, double y);
 void 	castHrzntalRays(t_struct *cub);
@@ -189,8 +189,8 @@ void 	ft_colorBuffer(t_struct *cub);
 double	degrees_to_radians(double a);
 int		is_ceiling(unsigned int **buffer, int i, int k);
 int		is_floor(unsigned int **buffer, int i, int k);
-int		KeyRelease(int key, t_struct *cub);
-int		KeyPress(int key, t_struct *cub);
+int	key_release(int key, t_struct *cub);
+int		key_press(int key, t_struct *cub);
 int 	handling_rgb(char *data);
 int		ft_check_isnum(char *num);
 int 	typeof_file(char *path, char *type, int len);

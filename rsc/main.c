@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 22:38:45 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 11:58:27 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	hooking(t_struct *cub)
 {
-	mlx_hook(cub->win_ptr, 02, 0, KeyPress, cub);
-	mlx_hook(cub->win_ptr, 03, 0, KeyRelease, cub);
+	mlx_hook(cub->win_ptr, 02, 0, key_press, cub);
+	mlx_hook(cub->win_ptr, 03, 0, key_release, cub);
 	mlx_loop_hook (cub->mlx_ptr, player_move, cub);
 	mlx_hook(cub->win_ptr, 06, (1L << 8), motion_notify, cub);
 	mlx_hook(cub->win_ptr, 17, 0, ft_close, cub);
@@ -28,6 +28,9 @@ int	check_input(t_struct *cub, char **av, int ac)
 	cub->scaleWidth = 64;
 	cub->texture_height = 64;
 	cub->texture_width = 64;
+	cub->player.rottSpeed = 0.174533;
+	cub->player.walkDrctn = 0;
+	cub->numOfRays = W_WIDTH;
 	cub->med_x = W_WIDTH / 2;
 	if (ac != 2)
 		return (ft_putstr_fd("Usage : ./cub3D path/to/map.cub", 0), 0);
