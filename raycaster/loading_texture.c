@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:26:18 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 16:49:55 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:07:54 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,9 @@ int	ft_count_height(t_struct *cub)
 		i++;
 	}
 	return (len);
+}
+
+double	calcul_distance(double wallHit_x, double wallHit_y, double x, double y)
+{
+	return (sqrt(pow((x - wallHit_x), 2) + pow((y - wallHit_y), 2)));
 }
