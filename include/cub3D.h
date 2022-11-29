@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 18:55:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 21:55:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,23 @@ typedef struct s_tmp
     double y_hrzntlIntrsctn;
     double y_incrmnt;
     double x_incrmnt;
+	int dstnc_x;
+    int dstnc_y;
+    int steps;
+    float x_inc;
+	float y_inc;
+	int		wallBottomPixel;
+	double		wallTopPixel;
+	double textureOffsetX ;
+    double textureOffsetY;
+	double correctDistance;
+	double len_n;
+	int o;
+	int i_n;
+	 int j_n;
+	int distanceFromTop;
+	unsigned int texturecolor;
+	int n;
 }	t_tmp;
 
 typedef struct s_ceilling
@@ -178,18 +195,18 @@ void    ft_draw_map(t_struct *cub);
 void 	player_position(t_struct *cub);
 int		player_move(t_struct *cub);
 void 	direction_of_player(t_struct *cub);
-void 	dda(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
+void 	dda(t_struct *cub,int x_0, int y_0);
 int 	check_wall(t_struct *cub, double x, double y);
 void 	randering_wall(t_struct *cub);
 int		castRays(t_struct *cub);
 void 	check_nextsteep(t_struct *cub);
 void	check_downsteep(t_struct *cub);
-double	normalizeAngle(double angle);
-double 	calculDistance(double wallHit_X, double wallHit_y, double x, double y);
+double	normalize_angle(double angle);
+double 	calcul_distance(double wallHit_X, double wallHit_y, double x, double y);
 void 	cast_hrzntal_rays(t_struct *cub);
 void 	cast_vrtcal_rays(t_struct *cub);
 void 	cast_all_rays(t_struct *cub);
-void 	drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color);
+void 	drawrays_of_plyer_mini(t_struct *cub, int x, int y);
 int 	ft_count_height(t_struct *cub);
 void	my_mlx_pixel_put(t_struct *ptr, int x, int y, unsigned int color);
 void    ft_jump_lines(t_struct *cub);
@@ -218,4 +235,7 @@ void	color_oftexture(t_struct *cub);
 void    init_dataray(t_struct *cub);
 void    searchto_wall_vrtcl(t_struct *cub);
 void    searchto_wall_hrzntl(t_struct *cub);
+void set_texturecolor(t_struct *cub);
+void calcul_heigtof_wall(t_struct *cub);
+void calcul_texture_pixls(t_struct *cub);
 #endif

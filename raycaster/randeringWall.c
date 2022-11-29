@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:51:18 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 20:07:01 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 21:57:29 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,87 +56,89 @@ void	init_dataray(t_struct *cub)
 
 void randering_wall(t_struct *cub)
 {
-    int i = -1;
-	int		wallBottomPixel ;
-	double		wallTopPixel;
-    int o;
-    o = 0;
+    cub->tmp.i_n = -1;
+   	cub->tmp.o = 0;
     cub->wallStripHeight = 0;
     cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6); 
-    while (++i < cub->numOfRays)
+    while (++cub->tmp.i_n < cub->numOfRays)
     { 
         cub->ray.rayAngle = normalize_angle(cub->ray.rayAngle);
         cast_all_rays(cub);
-	    double correctDistance = cub->ray.Distance * cos(cub->ray.rayAngle - cub->player.rottAngle);
-	    cub->wallStripHeight = (cub->scaleHeight * (W_HEIGHT)) /  correctDistance;
-        double len = cub->wallStripHeight;
-	    if (cub->wallStripHeight > W_HEIGHT)
-		     cub->wallStripHeight = W_HEIGHT;
-	    wallTopPixel = (W_HEIGHT/ 2) - ( cub->wallStripHeight/ 2);
-	    if (wallTopPixel < 0)
-		    wallTopPixel = 0;
-	    wallBottomPixel = (W_HEIGHT / 2) + (cub->wallStripHeight / 2);
-	    if (wallBottomPixel >= W_HEIGHT)
-		    wallBottomPixel = W_HEIGHT - 1;
-	    o = (wallTopPixel - 1);
-        double textureOffsetX ;
-        double textureOffsetY;
-        if(cub->ray.check == 1)
+		calcul_heigtof_wall(cub);
+       	calcul_texture_pixls(cub);
+       	cub->tmp.n = cub->tmp.wallBottomPixel;
+        while(cub->tmp.n < W_HEIGHT)
         {
-                textureOffsetX = cub->ray.vrtclWallHitY;
-        }else{
-                textureOffsetX = cub->ray.horzWallHitX;
-        }
-
-        int j = 0;
-        while(j < wallTopPixel)
-        {
-            cub->addr[(W_WIDTH * j) + i] = (cub->clg.r << 16) + (cub->clg.g << 8) + (cub->clg.b);
-            j++;
-        }
-        textureOffsetX /= cub->scaleHeight;
-        textureOffsetX -= floor(textureOffsetX);
-        textureOffsetX *= cub->texture->img_width;
-        o = wallTopPixel;
-        while (o < wallBottomPixel)
-        {
-            int distanceFromTop = o + ((len / 2) - (W_HEIGHT/2));
-            if (distanceFromTop < 0)
-                distanceFromTop = 0;
-
-            textureOffsetY = (distanceFromTop) * ((double)cub->texture->img_height/ len);
-            textureOffsetY = floor(textureOffsetY);
-
-            unsigned int texturecolor = 0;
-           
-            if(cub->ray.check == 1)//vertical
-           {
-                if(cub->ray.rayAngle < (M_PI / 2) || cub->ray.rayAngle > ((3 * M_PI) / 2))
-                    texturecolor = cub->texture[0].data[(int)(cub->texture[0].img_width * textureOffsetY) + (int)textureOffsetX];
-                else
-                    texturecolor = cub->texture[1].data[(int)(cub->texture[1].img_width * textureOffsetY) + (int)textureOffsetX];
- 
-            }
-            else if(cub->ray.check  == 2)//horizontal
-            {
-                if(cub->ray.rayAngle > 0 && cub->ray.rayAngle < M_PI)
-                    texturecolor = cub->texture[3].data[(int)(cub->texture[3].img_width * textureOffsetY) + (int)textureOffsetX];
-                else
-                    texturecolor = cub->texture[2].data[(int)(cub->texture[2].img_width * textureOffsetY) + (int)textureOffsetX];
-                
-           }
-
-            cub->addr[(W_WIDTH * o) + i] = texturecolor;
-            cub->check_test = 1;
-            o++;
-        }
-        int n = wallBottomPixel;
-        while(n < W_HEIGHT)
-        {
-            cub->addr[(W_WIDTH * n) + i] = (cub->flr.r << 16) + (cub->flr.g << 8) + (cub->flr.b);
-            n++;
+            cub->addr[(W_WIDTH * cub->tmp.n) + cub->tmp.i_n] = (cub->flr.r << 16) + (cub->flr.g << 8) + (cub->flr.b);
+            cub->tmp.n++;
         }
         cub->ray.rayAngle += cub->angleIncrem;
     }
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
-} 
+}
+
+void calcul_texture_pixls(t_struct *cub)
+{
+	cub->tmp.textureOffsetX /= cub->scaleHeight;
+    cub->tmp.textureOffsetX -= floor(cub->tmp.textureOffsetX);
+    cub->tmp.textureOffsetX *= cub->texture->img_width;
+    cub->tmp.o = cub->tmp.wallTopPixel;
+    while (cub->tmp.o < cub->tmp.wallBottomPixel)
+    {
+        cub->tmp.distanceFromTop = cub->tmp.o + ((cub->tmp.len_n / 2) - (W_HEIGHT/2));
+        if (cub->tmp.distanceFromTop < 0)
+            cub->tmp.distanceFromTop = 0;
+		cub->tmp.textureOffsetY = (cub->tmp.distanceFromTop) * ((double)cub->texture->img_height/ cub->tmp.len_n);
+        cub->tmp.textureOffsetY = floor(cub->tmp.textureOffsetY);
+		set_texturecolor(cub);
+		cub->addr[(W_WIDTH * cub->tmp.o) + cub->tmp.i_n] = cub->tmp.texturecolor;
+		cub->check_test = 1;
+        cub->tmp.o++;
+    }
+}
+
+void calcul_heigtof_wall(t_struct *cub)
+{
+	cub->tmp.correctDistance = cub->ray.Distance * cos(cub->ray.rayAngle - cub->player.rottAngle);
+	cub->wallStripHeight = (cub->scaleHeight * (W_HEIGHT)) /  cub->tmp.correctDistance;
+    cub->tmp.len_n = cub->wallStripHeight;
+	if (cub->wallStripHeight > W_HEIGHT)
+		cub->wallStripHeight = W_HEIGHT;
+	cub->tmp.wallTopPixel = (W_HEIGHT/ 2) - ( cub->wallStripHeight/ 2);
+	if (cub->tmp.wallTopPixel < 0)
+		cub->tmp.wallTopPixel = 0;
+	cub->tmp.wallBottomPixel = (W_HEIGHT / 2) + (cub->wallStripHeight / 2);
+	if (cub->tmp.wallBottomPixel >= W_HEIGHT)
+		cub->tmp.wallBottomPixel = W_HEIGHT - 1;
+	cub->tmp.o = (cub->tmp.wallTopPixel - 1);
+    if(cub->ray.check == 1)
+        cub->tmp.textureOffsetX = cub->ray.vrtclWallHitY;
+    else
+        cub->tmp.textureOffsetX = cub->ray.horzWallHitX;
+	cub->tmp.j_n = 0;
+    while(cub->tmp.j_n < cub->tmp.wallTopPixel)
+    {
+        cub->addr[(W_WIDTH * cub->tmp.j_n) + cub->tmp.i_n] = (cub->clg.r << 16) + (cub->clg.g << 8) + (cub->clg.b);
+        cub->tmp.j_n++;
+    }
+}
+void set_texturecolor(t_struct *cub)
+{
+	 cub->tmp.texturecolor = 0;
+           
+    if(cub->ray.check == 1)
+    {
+		if(cub->ray.rayAngle < (M_PI / 2) || cub->ray.rayAngle > ((3 * M_PI) / 2))
+			cub->tmp.texturecolor = cub->texture[0].data[(int)(cub->texture[0].img_width * cub->tmp.textureOffsetY) + (int)cub->tmp.textureOffsetX];
+		else
+			cub->tmp.texturecolor = cub->texture[1].data[(int)(cub->texture[1].img_width * cub->tmp.textureOffsetY) + (int)cub->tmp.textureOffsetX];
+	}
+    else if(cub->ray.check  == 2)
+    {
+		if(cub->ray.rayAngle > 0 && cub->ray.rayAngle < M_PI)
+			cub->tmp.texturecolor = cub->texture[3].data[(int)(cub->texture[3].img_width * cub->tmp.textureOffsetY) + (int)cub->tmp.textureOffsetX];
+		else
+			cub->tmp.texturecolor = cub->texture[2].data[(int)(cub->texture[2].img_width * cub->tmp.textureOffsetY) + (int)cub->tmp.textureOffsetX];
+    }
+
+}
