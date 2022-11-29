@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 19:11:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 23:22:33 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	draw_cub(t_struct *ptr, int x, int y, int color)
 	int	i;
 	int	j;
 
-	start_x = x * ptr->mini_map.mini_scaleWidth;
-	start_y = y * ptr->mini_map.mini_scaleHeight;
+	start_x = x * ptr->mini_map.mini_scalewidth;
+	start_y = y * ptr->mini_map.mini_scaleheight;
 	i = start_y;
 	j = start_x;
-	while (i < start_y + ptr->mini_map.mini_scaleHeight)
+	while (i < start_y + ptr->mini_map.mini_scaleheight)
 	{
 		j = start_x;
-		while (j < start_x + ptr->mini_map.mini_scaleWidth)
+		while (j < start_x + ptr->mini_map.mini_scalewidth)
 		{
 			my_mlx_pixel_put(ptr, j, i, color);
 			j++;
@@ -50,10 +50,10 @@ void	draw_cub(t_struct *ptr, int x, int y, int color)
 void	ft_draw_map(t_struct *cub)
 {
 	cub->tmp.y = 0;
-	cub->tmp.xx = (cub->player.position_x / cub->scaleWidth) * cub->mini_map. \
-		mini_scaleWidth;
-	cub->tmp.yy = (cub->player.position_y / cub->scaleHeight) * cub->mini_map. \
-		mini_scaleHeight;
+	cub->tmp.xx = (cub->player.position_x / cub->scalewidth) * cub->mini_map. \
+		mini_scalewidth;
+	cub->tmp.yy = (cub->player.position_y / cub->scaleheight) * cub->mini_map. \
+		mini_scaleheight;
 	mlx_clear_window(cub->mlx_ptr, cub->win_ptr);
 	randering_wall(cub);
 	while (cub->my_map[cub->tmp.y])
@@ -86,10 +86,10 @@ void	player_position(t_struct *cub)
 			if (cub->my_map[i][j] == 'E' || cub->my_map[i][j] == 'N' || \
 					cub->my_map[i][j] == 'S' || cub->my_map[i][j] == 'W')
 			{
-				cub->player.position_x = j * cub->scaleWidth;
-				cub->player.position_y = i * cub->scaleHeight;
-				cub->mini_map.mini_scaleWidth = (W_WIDTH / cub->width) / 4;
-				cub->mini_map.mini_scaleHeight = \
+				cub->player.position_x = j * cub->scalewidth;
+				cub->player.position_y = i * cub->scaleheight;
+				cub->mini_map.mini_scalewidth = (W_WIDTH / cub->width) / 4;
+				cub->mini_map.mini_scaleheight = \
 										(W_HEIGHT / cub->heightof_minimap) / 4;
 				return ;
 			}
@@ -104,14 +104,14 @@ void	direction_of_player(t_struct *cub)
 	int	gred_y;
 	int	gred_x;
 
-	gred_y = floor(cub->player.position_y / cub->scaleHeight);
-	gred_x = floor(cub->player.position_x / cub->scaleWidth);
+	gred_y = floor(cub->player.position_y / cub->scaleheight);
+	gred_x = floor(cub->player.position_x / cub->scalewidth);
 	if (cub->my_map[gred_y][gred_x] == 'N')
-		cub->player.rottAngle = M_PI / 2;
+		cub->player.rottangle = M_PI / 2;
 	if (cub->my_map[gred_y][gred_x] == 'S')
-		cub->player.rottAngle = M_PI * (3 / 2);
+		cub->player.rottangle = M_PI * (3 / 2);
 	if (cub->my_map[gred_y][gred_x] == 'W')
-		cub->player.rottAngle = M_PI;
+		cub->player.rottangle = M_PI;
 	if (cub->my_map[gred_y][gred_x] == 'E')
-		cub->player.rottAngle = 0;
+		cub->player.rottangle = 0;
 }
