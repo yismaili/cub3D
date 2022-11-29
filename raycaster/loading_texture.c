@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:26:18 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 20:07:54 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 23:26:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ void	color_oftexture(t_struct *cub)
 		cub->color_buffer[i] = (unsigned int *)ft_calloc(sizeof(unsigned int), \
 				W_WIDTH);
 	ft_color_buffer(cub);
-	cub->wallTexture = (unsigned int *) ft_calloc (sizeof(unsigned int), \
-			(unsigned int)cub->scaleWidth * (unsigned int)cub->scaleHeight);
+	cub->walltexture = (unsigned int *) ft_calloc (sizeof(unsigned int), \
+			(unsigned int)cub->scalewidth * (unsigned int)cub->scaleheight);
 	i = 0;
-	while (i < cub->scaleWidth)
+	while (i < cub->scalewidth)
 	{
 		j = 0;
-		while (j < cub->scaleHeight)
+		while (j < cub->scaleheight)
 		{
 			if (i % 8 && j % 8)
-				cub->wallTexture[(cub->scaleWidth * j) + i] = 0xadd8e6;
+				cub->walltexture[(cub->scalewidth * j) + i] = 0xadd8e6;
 			else
-				cub->wallTexture[(cub->scaleWidth * j) + i] = 0xFFF0000;
+				cub->walltexture[(cub->scalewidth * j) + i] = 0xFFF0000;
 			j++;
 		}
 		i++;

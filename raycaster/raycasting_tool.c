@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 20:03:04 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 20:05:07 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 23:27:21 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	dda(t_struct *cub, int x_0, int y_0)
 	float	x;
 	float	y;
 
-	cub->tmp.dstnc_x = cub->ray.wallHit_x - x_0;
-	cub->tmp.dstnc_y = cub->ray.wallHit_y - y_0;
+	cub->tmp.dstnc_x = cub->ray.wallhit_x - x_0;
+	cub->tmp.dstnc_y = cub->ray.wallhit_y - y_0;
 	if (abs(cub->tmp.dstnc_x) > abs(cub->tmp.dstnc_y))
 		cub->tmp.steps = abs(cub->tmp.dstnc_x);
 	else
@@ -43,17 +43,17 @@ void	drawrays_of_plyer_mini(t_struct *cub, int x, int y)
 	int	i;
 
 	i = 0;
-	cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6);
-	while (i < cub->numOfRays)
+	cub->ray.rayangle = cub->player.rottangle - (M_PI / 6);
+	while (i < cub->numofrays)
 	{
-		cub->ray.rayAngle = normalize_angle(cub->ray.rayAngle);
+		cub->ray.rayangle = normalize_angle(cub->ray.rayangle);
 		cast_all_rays(cub);
-		cub->ray.wallHit_x = (cub->ray.wallHit_x / cub->scaleWidth) * \
-							cub->mini_map.mini_scaleWidth;
-		cub->ray.wallHit_y = (cub->ray.wallHit_y / cub->scaleHeight) * \
-							cub->mini_map.mini_scaleHeight;
+		cub->ray.wallhit_x = (cub->ray.wallhit_x / cub->scalewidth) * \
+							cub->mini_map.mini_scalewidth;
+		cub->ray.wallhit_y = (cub->ray.wallhit_y / cub->scaleheight) * \
+							cub->mini_map.mini_scaleheight;
 		dda(cub, x, y);
-		cub->ray.rayAngle += cub->angleIncrem;
+		cub->ray.rayangle += cub->angleincrem;
 		i++;
 	}
 }
@@ -71,8 +71,8 @@ int	check_wall(t_struct *cub, double x, double y)
 	int	gred_y;
 	int	gred_x;
 
-	gred_y = (int)(y / cub->scaleHeight);
-	gred_x = (int)(x / cub->scaleWidth);
+	gred_y = (int)(y / cub->scaleheight);
+	gred_x = (int)(x / cub->scalewidth);
 	if (gred_y < cub->heightof_minimap && gred_x < cub->widthof_minimap)
 	{
 		if (cub->my_map[gred_y][gred_x] == '1')

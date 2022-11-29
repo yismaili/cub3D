@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 17:18:33 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 23:28:44 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void	hooking(t_struct *cub)
 
 int	check_input(t_struct *cub, char **av, int ac)
 {
-	cub->scaleHeight = 64;
-	cub->scaleWidth = 64;
+	cub->scaleheight = 64;
+	cub->scalewidth = 64;
 	cub->texture_height = 64;
 	cub->texture_width = 64;
-	cub->player.rottSpeed = 0.174533;
-	cub->player.walkDrctn = 0;
-	cub->numOfRays = W_WIDTH;
+	cub->player.rottspeed = 0.174533;
+	cub->player.walkdrctn = 0;
+	cub->numofrays = W_WIDTH;
 	cub->med_x = W_WIDTH / 2;
-	cub->angleIncrem = (M_PI / 3) / cub->numOfRays;
+	cub->angleincrem = (M_PI / 3) / cub->numofrays;
 	if (ac != 2)
 		return (ft_putstr_fd("Usage : ./cub3D path/to/map.cub", 0), 0);
 	if (typeofmap(av[1], ".cub", 4) == -2)
@@ -65,8 +65,8 @@ int	main(int ac, char **av)
 	color_oftexture(&cub);
 	player_position(&cub);
 	direction_of_player(&cub);
-	cub.widthofmap = cub.scaleWidth * cub.widthof_minimap;
-	cub.heightofmap = cub.scaleHeight * cub.heightof_minimap;
+	cub.widthofmap = cub.scalewidth * cub.widthof_minimap;
+	cub.heightofmap = cub.scaleheight * cub.heightof_minimap;
 	init_textures(&cub);
 	ft_draw_map(&cub);
 	hooking(&cub);
