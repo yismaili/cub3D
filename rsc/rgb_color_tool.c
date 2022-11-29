@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:05:34 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 18:38:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 14:07:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	**ft_split_map(t_struct *c)
 			c->tmp.j++;
 		}
 		c->tmp.path[c->tmp.k][c->tmp.l] = '\0';
+	printf("%s\n", c->tmp.path[c->tmp.k]);
 		c->tmp.k++;
 		c->tmp.i++;
 	}

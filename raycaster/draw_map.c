@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 22:37:48 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 15:03:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,72 +125,6 @@ void player_position(t_struct *cub){
    } 
 }
 
-int	player_move(t_struct *cub)
-{ 
-	check_nextSteep(cub);
-	check_downSteep(cub);
-    if (cub->player.angle == 1 || cub->player.angle == -1)
-        cub->player.rottAngle += (cub->player.rottSpeed * cub->player.angle);
-     cub->player.angle = 0;
-    ft_draw_map(cub);
-    return (0);
-}
-
-int KeyPress(int key, t_struct *cub)
-{
-	if (key == 1)
-        cub->player.walkDrctn = -1;
-	else if (key == 13)
-        cub->player.walkDrctn = 1;
-	else if (key == 2)
-        cub->player.walkDown = 1;
-	else if (key == 0)
-        cub->player.walkDown= -1;
-    else if (key == 124)
-        cub->player.angle = 1;
-    else if (key == 123)
-        cub->player.angle = -1;
-    return (0);
-}
-
-int	KeyRelease(int key, t_struct *cub)
-{ 
-    (void)key;
-    cub->player.walkDrctn = 0;
-    cub->player.walkDrctn = 0;
-    cub->player.walkDown = 0;
-    cub->player.walkDown= 0;
-    cub->player.angle = 0;
-    return (0);
-}
-
-void check_nextSteep(t_struct *cub)
-{
-  double  new_x;
-  double  new_y;
-
-    new_x = cub->player.position_x + (cos(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 4));
-    new_y = cub->player.position_y + (sin(cub->player.rottAngle) * ((double)cub->player.walkDrctn * 4));
-    if (check_wall(cub, new_x, new_y) != 1)
-    {
-        cub->player.position_x = new_x;
-        cub->player.position_y = new_y;
-    }   
-}
-
-void check_downSteep(t_struct *cub)
-{
-  double  new_x;
-  double  new_y;
-
-    new_x = cub->player.position_x + (cos(cub->player.rottAngle + (M_PI/2)) * 4) * cub->player.walkDown;
-    new_y = cub->player.position_y + (sin(cub->player.rottAngle + (M_PI/2)) * 4) * cub->player.walkDown;
-    if (check_wall(cub, new_x, new_y) != 1)
-    {
-        cub->player.position_x = new_x;
-        cub->player.position_y = new_y;
-    }   
-}
 
 void directionOfPlayer(t_struct *cub)
 {
@@ -205,29 +139,6 @@ void directionOfPlayer(t_struct *cub)
     if (cub->my_map[gred_y][gred_x] == 'E')
         cub->player.rottAngle = 0;
 }
-
-int	ft_close(int keycode)
-{
-	if (keycode)
-		exit(1);
-	return (0);
-}
-
-int	motion_notify(int x, int y, t_struct *cub)
-{
-	if (x > 0 && x < W_WIDTH && y > 0 && y < W_HEIGHT)
-	{
-		if (cub->med_x < x)
-			cub->player.rottAngle += cub->player.rottSpeed / 6;
-		if (cub->med_x > x)
-			cub->player.rottAngle -= cub->player.rottSpeed / 6;
-		if (cub->med_x == x)
-			cub->player.rottAngle = cub->player.rottAngle;
-		cub->med_x = x;
-	}
-	return (0);
-}
-
 
 void	color_oftexture(t_struct *cub)
 {
