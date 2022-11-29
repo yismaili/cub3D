@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 16:49:39 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:30:41 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,6 @@ typedef struct  s_ray{
 	double  vrticlWallHitX;
     double  vrtclWallHitY;
 	int check;
-	int down;
-	int up;
-	int left;
-	int right;
-	
 }  t_ray;
 
 typedef struct s_struct
@@ -151,6 +146,7 @@ typedef struct s_struct
 	int 			*data;
 	int				med_x;
 	t_tmp			tmp;
+	double 			angleIncrem;
 }	t_struct;
 
 
@@ -175,9 +171,9 @@ void    ft_draw_map(t_struct *cub);
 void 	player_position(t_struct *cub);
 int		player_move(t_struct *cub);
 void 	direction_of_player(t_struct *cub);
-void 	ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
+void 	dda(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color);
 int 	check_wall(t_struct *cub, double x, double y);
-void 	drawRaysOfplyer(t_struct *cub, int x, int y, int color);
+void 	randering_wall(t_struct *cub);
 int		castRays(t_struct *cub);
 void 	check_nextsteep(t_struct *cub);
 void	check_downsteep(t_struct *cub);

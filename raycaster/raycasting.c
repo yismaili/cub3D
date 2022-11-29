@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:26:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 20:18:23 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:47:48 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,15 @@
 
 /* cast all rays */
 
-void drawRaysOfplyer(t_struct *cub,int x, int y, int color)
+void randering_wall(t_struct *cub)
 {
     int i = -1;
-  //  double	sostra;
 	int		wallBottomPixel ;
 	double		wallTopPixel;
-    int j;
-    //int k;
     int o;
     o = 0;
-    (void) x;
-    (void) y;
-    (void) color;
     cub->wallStripHeight = 0;
-    double angleIncrem = (M_PI / 3) / cub->numOfRays;
     cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6); 
-
-
-    j = 0;
- 
-
     while (++i < cub->numOfRays)
     { 
         cub->ray.rayAngle = normalizeAngle(cub->ray.rayAngle);
@@ -108,14 +96,13 @@ void drawRaysOfplyer(t_struct *cub,int x, int y, int color)
             cub->addr[(W_WIDTH * n) + i] = (cub->flr.r << 16) + (cub->flr.g << 8) + (cub->flr.b);
             n++;
         }
-        cub->ray.rayAngle += angleIncrem;
+        cub->ray.rayAngle += cub->angleIncrem;
     }
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
 } 
 void drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color)
 {
     int i = 0;
-    double angleIncrem = (M_PI / 3) / cub->numOfRays;
     cub->ray.rayAngle = cub->player.rottAngle - (M_PI / 6);  
     while (i < cub->numOfRays)
     {  
@@ -123,8 +110,8 @@ void drawRaysOfplyer_mini(t_struct *cub, int x, int y, int color)
         castAllRays(cub);
         cub->ray.wallHit_x = (cub->ray.wallHit_x / cub->scaleWidth) * cub->mini_map.mini_scaleWidth;
         cub->ray.wallHit_y = (cub->ray.wallHit_y / cub->scaleHeight) * cub->mini_map.mini_scaleHeight;
-        ddaForLine(cub, x, y, cub->ray.wallHit_x , cub->ray.wallHit_y ,color);
-        cub->ray.rayAngle += angleIncrem;
+        dda(cub, x, y, cub->ray.wallHit_x , cub->ray.wallHit_y ,color);
+        cub->ray.rayAngle += cub->angleIncrem;
         i++;
    } 
 }
@@ -138,40 +125,47 @@ int abs(int n)
         return (n *(-1));
     }
 }
-// DDA Function for line generation
-void ddaForLine(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
+
+void dda(t_struct *cub,int x_0, int y_0, int x_1, int y_1, int color)
 {
-    // calculate dstnc_x & dstnc_y
-    int dstnc_x = x_1 - x_0;
-    int dstnc_y = y_1 - y_0;
- 
-    // calculate steps required for generating pixels
+    int dstnc_x;
+    int dstnc_y;
     int steps;
+    float x_inc;
+    int     i;
+    float y_inc;
+    float x;
+    float y;
+    
+    dstnc_x = x_1 - x_0;
+    dstnc_y = y_1 - y_0;
     if (abs(dstnc_x) > abs(dstnc_y))
         steps = abs(dstnc_x);
     else
         steps = abs(dstnc_y);
-    // calculate increment in x & y for each steps
-    float x_inc = dstnc_x / (float)steps;
-    float y_inc = dstnc_y / (float)steps;
-    // Put pixel for each step
-    float x = x_0;
-    float y = y_0;
-    int i = 0;
+    x_inc = dstnc_x / (float)steps;
+    y_inc = dstnc_y / (float)steps;
+    x = x_0;
+    y = y_0;
+    i = 0;
     while (i <= steps)
     {
        my_mlx_pixel_put(cub, x, y, color);
-       x += x_inc; // increment in x at each step
-       y += y_inc; // increment in y at each step
+       x += x_inc; 
+       y += y_inc;
        i++;
     }
 }
  
  int check_wall(t_struct *cub, double x, double y)
  {
-    int gred_y = (int)(y/cub->scaleHeight); /*The value to round down to the nearest integer*/
-    int gred_x = (int)(x/cub->scaleWidth);
-    if (gred_y < cub->heightof_minimap  && gred_x <  cub->widthof_minimap){
+    int gred_y;
+    int gred_x;
+    
+    gred_y = (int)(y / cub->scaleHeight);
+    gred_x = (int)(x / cub->scaleWidth);
+    if (gred_y < cub->heightof_minimap  && gred_x <  cub->widthof_minimap)
+    {
         if (cub->my_map[gred_y][gred_x] == '1')
             return (1);   
     }
@@ -200,6 +194,7 @@ void castHrzntalRays(t_struct *cub)
     double y_hrzntlIntrsctn;
     double y_incrmnt;
     double x_incrmnt;
+    bool    check;
     
     y_hrzntlIntrsctn =  floor(cub->player.position_y / cub->scaleHeight) * cub->scaleHeight;
     if (cub->ray.rayFacingDown)
@@ -215,7 +210,7 @@ void castHrzntalRays(t_struct *cub)
         x_incrmnt *= -1;
     if (cub->ray.rayFacingRight && x_incrmnt < 0)
         x_incrmnt *= -1;
-    bool check = false;
+    check = false;
     while (x_hrzntlIntrsctn >= 0 && x_hrzntlIntrsctn < cub->widthofmap && y_hrzntlIntrsctn >= 0 &&y_hrzntlIntrsctn < cub->heightofmap)
     {
         if (check_wall(cub, x_hrzntlIntrsctn,y_hrzntlIntrsctn))
@@ -243,6 +238,7 @@ void castVrtcalRays(t_struct *cub)
     double x_vrticlIntrsctn;
     double x_incrmntVrtcl;
     double y_incrmntVrtcl;
+    bool check;
     
     x_vrticlIntrsctn =  floor(cub->player.position_x / cub->scaleWidth) * cub->scaleWidth;
     if (cub->ray.rayFacingRight)
@@ -258,7 +254,7 @@ void castVrtcalRays(t_struct *cub)
         y_incrmntVrtcl *= -1;
     if (cub->ray.rayFacingDown && y_incrmntVrtcl < 0)
         y_incrmntVrtcl *= -1;
-    bool check = false;
+    check = false;
     while (x_vrticlIntrsctn >= 0 && x_vrticlIntrsctn < cub->widthofmap && y_vrtclIntrsctn >= 0 && y_vrtclIntrsctn <  cub->heightofmap)
     {
         if (check_wall(cub, x_vrticlIntrsctn, y_vrtclIntrsctn))
@@ -296,25 +292,13 @@ void castAllRays(t_struct *cub)
     cub->ray.vrtclWallHitY = 0;
     cub->ray.horzWallHitX = 0;
     cub->ray.horzWallHitY = 0;
-    cub->ray.down = 0;
-    cub->ray.up = 0;
-    cub->ray.right = 0;
-    cub->ray.left = 0;
 
     if (cub->ray.rayAngle > 0 && cub->ray.rayAngle < M_PI)
-    {
-        cub->ray.down = 1;
         cub->ray.rayFacingDown = 1;
-    }
     else
         cub->ray.rayFacingUp = 1;
-   
-    
     if (cub->ray.rayAngle < (M_PI / 2) || cub->ray.rayAngle > ((3 * M_PI) / 2))
-    {
-        cub->ray.right = 1;
         cub->ray.rayFacingRight = 1;
-    }
     else
         cub->ray.rayFacingLeft = 1;
     castVrtcalRays(cub);

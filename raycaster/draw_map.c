@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 16:46:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:34:30 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	ft_draw_map(t_struct *cub)
 	cub->tmp.yy = (cub->player.position_y / cub->scaleHeight) * cub->mini_map. \
 		mini_scaleHeight;
 	mlx_clear_window(cub->mlx_ptr, cub->win_ptr);
-	drawRaysOfplyer(cub, cub->player.position_x, \
-			cub->player.position_y, 0xFFFF0F);
+	randering_wall(cub);
 	while (cub->my_map[cub->tmp.y])
 	{
 		cub->tmp.x = 0;
