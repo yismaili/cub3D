@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:00:11 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 13:19:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 00:57:34 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	**ft_check_florclg(t_struct *cub, char *flor_clg, int len)
 
 	new_map = ft_split_map(cub);
 	srch = ft_search_innewmap(new_map, flor_clg, len);
-	free_map(new_map);
 	data = ft_strdup(srch);
 	if (!data)
 		return (NULL);
@@ -47,6 +46,7 @@ char	**ft_check_florclg(t_struct *cub, char *flor_clg, int len)
 		return (NULL);
 	splt_data = ft_split(data, ',');
 	free(data);
+	free_map(new_map);
 	return (convert_tonum(splt_data));
 }
 
