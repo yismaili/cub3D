@@ -1,9 +1,9 @@
-NO ./texure/xpm/N.xpm
+NO ./texure/  xpm/N.xpm
 SO ./texure/xpm/N.xpm
 WE ./texure/xpm/N.xpm
 EA ./texure/xpm/N.xpm
 
-C 69,69,69
+C   69,    69,         69
 F 0,0,0
 
                                                         111111
