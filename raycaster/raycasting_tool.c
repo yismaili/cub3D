@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 20:03:04 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 23:27:21 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:38:15 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ int	check_wall(t_struct *cub, double x, double y)
 	gred_x = (int)(x / cub->scalewidth);
 	if (gred_y < cub->heightof_minimap && gred_x < cub->widthof_minimap)
 	{
-		if (cub->my_map[gred_y][gred_x] == '1')
+		if (cub->my_map[gred_y][gred_x] == '1' \
+		|| cub->my_map[gred_y][gred_x] == ' ')
 			return (1);
 	}
 	return (0);

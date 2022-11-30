@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:26:18 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/30 13:29:36 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:02:21 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	color_oftexture(t_struct *cub)
 
 void	init_textures(t_struct *cub)
 {
-	cub->texture = malloc(sizeof(t_textures) * 4);
+	cub->texture = ft_calloc(sizeof(t_textures), 4);
 	load_texture(cub, cub->texture);
 }
 
