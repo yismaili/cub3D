@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 12:48:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 23:22:33 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:36:57 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ void	direction_of_player(t_struct *cub)
 	gred_y = floor(cub->player.position_y / cub->scaleheight);
 	gred_x = floor(cub->player.position_x / cub->scalewidth);
 	if (cub->my_map[gred_y][gred_x] == 'N')
-		cub->player.rottangle = M_PI / 2;
+		cub->player.rottangle = (M_PI * 3) / 2;
 	if (cub->my_map[gred_y][gred_x] == 'S')
-		cub->player.rottangle = M_PI * (3 / 2);
+		cub->player.rottangle = M_PI / 2;
 	if (cub->my_map[gred_y][gred_x] == 'W')
 		cub->player.rottangle = M_PI;
 	if (cub->my_map[gred_y][gred_x] == 'E')
