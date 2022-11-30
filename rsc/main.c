@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 23:28:44 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:58:52 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	hooking(t_struct *cub)
 {
 	mlx_hook(cub->win_ptr, 02, 0, key_press, cub);
 	mlx_hook(cub->win_ptr, 03, 0, key_release, cub);
+	mlx_hook(cub->win_ptr, 17, 0, ft_close, cub);
 	mlx_loop_hook (cub->mlx_ptr, player_move, cub);
 	mlx_hook(cub->win_ptr, 06, (1L << 8), motion_notify, cub);
-	mlx_hook(cub->win_ptr, 17, 0, ft_close, cub);
 	mlx_loop(cub->mlx_ptr);
 }
 
@@ -28,7 +28,7 @@ int	check_input(t_struct *cub, char **av, int ac)
 	cub->scalewidth = 64;
 	cub->texture_height = 64;
 	cub->texture_width = 64;
-	cub->player.rottspeed = 0.174533;
+	cub->player.rottspeed = 0.114533;
 	cub->player.walkdrctn = 0;
 	cub->numofrays = W_WIDTH;
 	cub->med_x = W_WIDTH / 2;
