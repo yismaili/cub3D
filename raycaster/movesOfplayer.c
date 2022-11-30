@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:53 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/30 15:08:51 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:38:22 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int	player_move(t_struct *cub)
 {
 	check_nextsteep(cub);
 	check_downsteep(cub);
-	if (cub->player.angle == 1 || cub->player.angle == -1)
-		cub->player.rottangle += (cub->player.rottspeed * cub->player.angle);
-	cub->player.angle = 0;
+	cub->player.rottangle += (cub->player.rottspeed * cub->player.angle);
 	ft_draw_map(cub);
 	return (0);
 }
