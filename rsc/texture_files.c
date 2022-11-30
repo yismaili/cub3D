@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:09:14 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/28 18:25:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:03:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ int	ft_check_double(t_struct *cub, char *dirct, int len)
 
 int	ft_check_alldouble(t_struct *cub)
 {
-	if (ft_check_double(cub, "NO", 2) == 2 || \
-			ft_check_double(cub, "SO", 2) == 2)
+	if (ft_check_double(cub, "NO", 2) != 1 || \
+			ft_check_double(cub, "SO", 2) != 1)
 		return (0);
-	if (ft_check_double(cub, "WE", 2) == 2 || \
-			ft_check_double(cub, "EA", 2) == 2)
+	if (ft_check_double(cub, "WE", 2) != 1 || \
+			ft_check_double(cub, "EA", 2) != 1)
 		return (0);
-	if (ft_check_double(cub, "F", 1) == 2 || \
-			ft_check_double(cub, "C", 1) == 2)
+	if (ft_check_double(cub, "F", 1) != 1 || \
+			ft_check_double(cub, "C", 1) != 1)
 		return (0);
 	return (1);
 }
