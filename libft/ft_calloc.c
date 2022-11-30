@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 15:24:39 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/25 15:25:15 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:34:27 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	*ft_calloc(size_t count, size_t size)
 	size_t	i;
 
 	i = 0;
+	if (size < 0)
+	{
+		ft_putstr_fd("No space lift 'are you kidding me' \n", 2);
+		exit(30);
+	}
 	dst = (char *)malloc(count * size);
 	if (!dst)
 	{
