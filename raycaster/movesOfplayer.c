@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:53 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/30 14:56:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:08:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	key_release(int key, t_struct *cub)
 		cub->player.angle = 0;
 	if (key == 123)
 		cub->player.angle = 0;
+	if (key == 53)
+		ft_close(key);
 	return (0);
 }
 
