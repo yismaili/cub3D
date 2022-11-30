@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:46:01 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/30 14:58:52 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:41:22 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_input(t_struct *cub, char **av, int ac)
 	cub->scalewidth = 64;
 	cub->texture_height = 64;
 	cub->texture_width = 64;
-	cub->player.rottspeed = 0.114533;
+	cub->player.rottspeed = 0.0804533;
 	cub->player.walkdrctn = 0;
 	cub->numofrays = W_WIDTH;
 	cub->med_x = W_WIDTH / 2;
