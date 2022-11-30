@@ -1,10 +1,10 @@
-NO ./texure/xpm/1.xpm
-SO ./texure/xpm/wood.xpm
-WE ./texure/xpm/pillar.xpm
-EA ./texure/xpm/mossy.xpm
+NO ./texure/xpm/N.xpm
+SO ./texure/xpm/N.xpm
+WE ./texure/xpm/N.xpm
+EA ./texure/xpm/N.xpm
 
-F 120,50,0
-C 0,50,100
+C 105,65,192
+F 17,17,40
 
                                                         111111
                                                         11000111111111

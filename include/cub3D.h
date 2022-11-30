@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 13:56:15 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 23:48:54 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:18:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,5 +236,5 @@ void	searchto_wall_hrzntl(t_struct *cub);
 void	set_texturecolor(t_struct *cub);
 void	calcul_heigtof_wall(t_struct *cub);
 void	calcul_texture_pixls(t_struct *cub);
-
+int		errors_txtr(void);
 #endif

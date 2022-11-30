@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:25:48 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/29 23:21:40 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:29:46 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,10 @@ void	set_texturecolor(t_struct *cub)
 				(cub->texture[2].img_width * cub->tmp.textureoffsety) + \
 				(int)cub->tmp.textureoffsetx];
 	}
+}
+
+int	errors_txtr(void)
+{
+	ft_putstr_fd("Texture invalid\n", 2);
+	exit(1);
 }
