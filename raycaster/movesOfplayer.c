@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:51:53 by yismaili          #+#    #+#             */
-/*   Updated: 2022/11/30 13:51:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:08:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,35 @@ int	key_press(int key, t_struct *cub)
 {
 	if (key == 1)
 		cub->player.walkdrctn = -1;
-	else if (key == 13)
+	if (key == 13)
 		cub->player.walkdrctn = 1;
-	else if (key == 2)
+	if (key == 2)
 		cub->player.walkdown = 1;
-	else if (key == 0)
+	if (key == 0)
 		cub->player.walkdown = -1;
-	else if (key == 124)
+	if (key == 124)
 		cub->player.angle = 1;
-	else if (key == 123)
+	if (key == 123)
 		cub->player.angle = -1;
 	return (0);
 }
 
 int	key_release(int key, t_struct *cub)
 {
-	(void)key;
-	cub->player.walkdrctn = 0;
-	cub->player.walkdrctn = 0;
-	cub->player.walkdown = 0;
-	cub->player.walkdown = 0;
-	cub->player.angle = 0;
+	if (key == 1)
+		cub->player.walkdrctn = 0;
+	if (key == 13)
+		cub->player.walkdrctn = 0;
+	if (key == 2)
+		cub->player.walkdown = 0;
+	if (key == 0)
+		cub->player.walkdown = 0;
+	if (key == 124)
+		cub->player.angle = 0;
+	if (key == 123)
+		cub->player.angle = 0;
+	if (key == 53)
+		ft_close(key);
 	return (0);
 }
 
