@@ -1,5 +1,10 @@
 # cub3D
 This project’s objectives are similar to all this first year’s objectives: Rigor, use of C, use of basic algorithms, information research etc. As a graphic design project, cub3D will enable you to improve your skills in these areas: windows, colors, events, fill shapes, etc. To conclude cub3D is a remarkable playground to explore the playful practical applications of mathematics without having to understand the specifics. With the help of the numerous documents available on the internet, you will use mathematics as a tool to create elegant and efficient algorithms.
+<img width="823" alt="Screen Shot 2022-12-01 at 2 01 42 PM" src="https://user-images.githubusercontent.com/69278312/205059590-52919002-a4f5-4033-927a-0a0112139201.png">
+
+![big-o-cheat-sheet-poster](https://user-images.githubusercontent.com/69278312/205059606-19b2c005-b6d6-4c2a-9f94-4f124e30a047.png)
+
+
 <img width="545" alt="Screen Shot 2022-11-19 at 3 20 12 PM" src="https://user-images.githubusercontent.com/69278312/203139979-c80e88ed-b02a-4111-ab78-29d2d484b31b.png">
 <img width="689" alt="Screen Shot 2022-11-14 at 11 24 45 PM" src="https://user-images.githubusercontent.com/69278312/203140109-9ddd869d-3a2f-4a34-98cd-2fecc52aebcf.png">
 <img width="1020" alt="Screen Shot 2022-11-20 at 11 33 21 AM" src="https://user-images.githubusercontent.com/69278312/203140125-ade7f73e-4ee8-4494-b2a3-176a460bd324.png">
