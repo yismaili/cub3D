@@ -23,7 +23,7 @@ framework= -framework OpenGL -framework AppKit
 RM = rm -rf
 
 FILES = rsc/read_map.c  rsc/main.c rsc/errors_handling.c raycaster/draw_map.c  raycaster/raycasting.c raycaster/randeringWall.c rsc/rgb_color_tool.c rsc/rgb_color.c  rsc/texture_files_tool.c rsc/texture_files.c  \
-rsc/errors_maptool.c raycaster/movesOfplayer_tool.c raycaster/movesOfplayer.c raycaster/loading_texture.c raycaster/raycasting_tool.c raycaster/texture.c
+rsc/errors_maptool.c raycaster/movesOfplayer_tool.c raycaster/movesOfplayer.c raycaster/loading_texture.c raycaster/raycasting_tool.c raycaster/texture.c raycaster/renderingWall_next.c
 
 OBJ_FILES= $(FILES:.c=.o)
 

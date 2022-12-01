@@ -20,7 +20,7 @@
 # include <math.h>
 # include "../libft/libft.h"
 # define W_WIDTH 1020
-# define W_HEIGHT 510
+# define W_HEIGHT 560
 # define BUFF 1024
 
 typedef struct s_floor
@@ -172,7 +172,15 @@ typedef struct s_struct
 	int				med_x;
 	t_tmp			tmp;
 	double			angleincrem;
+	double			walltop_pixel;
+	int				wallbottom_pixel;
+	double			len;
+	double			textureoffsetx;
+	double			textureoffsety;
+	unsigned int	texturecolor;
+	int				i;
 }	t_struct;
+
 int		get_height(char *map_file);
 int		get_width(char *map_file, int height);
 int		ft_check_map(t_struct *cub);
@@ -237,4 +245,12 @@ void	set_texturecolor(t_struct *cub);
 void	calcul_heigtof_wall(t_struct *cub);
 void	calcul_texture_pixls(t_struct *cub);
 int		errors_txtr(void);
+void	calcule_wall_strip_height(t_struct	*cub);
+void	draw_the_wall(t_struct	*cub);
+void	calcule_xoffset(t_struct	*cub);
+void	draw_ceilling(t_struct	*cub);
+void	draw_floor(t_struct	*cub);
+void	check_vert_texture(t_struct	*cub);
+void	check_hori_texture(t_struct	*cub);
+
 #endif

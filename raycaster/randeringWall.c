@@ -54,55 +54,68 @@ void	init_dataray(t_struct *cub)
 		cub->ray.rayfacingleft = 1;
 }
 
-void	randering_wall(t_struct *cub)
+void	calcule_wall_strip_height(t_struct	*cub)
 {
-	cub->tmp.i_n = -1;
-	cub->tmp.o = 0;
+	double	correctdistance;
+
+	correctdistance = cub->ray.distance * \
+		cos(cub->ray.rayangle - cub->player.rottangle);
+	cub->wallstripheight = (cub->scaleheight * (W_HEIGHT)) / correctdistance;
+	cub->len = cub->wallstripheight;
+	if (cub->wallstripheight > W_HEIGHT)
+		cub->wallstripheight = W_HEIGHT;
+		cub->walltop_pixel = (W_HEIGHT / 2) - (cub->wallstripheight / 2);
+	if (cub->walltop_pixel < 0)
+		cub->walltop_pixel = 0;
+	cub->wallbottom_pixel = (W_HEIGHT / 2) + (cub->wallstripheight / 2);
+	if (cub->wallbottom_pixel >= W_HEIGHT)
+		cub->wallbottom_pixel = W_HEIGHT - 1;
+}
+
+void	draw_the_wall(t_struct	*cub)
+{
+	int	o;
+	int	distancefromtop;
+
+	o = cub->walltop_pixel;
+	while (o < cub->wallbottom_pixel)
+	{
+		distancefromtop = o + ((cub->len / 2) - (W_HEIGHT / 2));
+		if (distancefromtop < 0)
+			distancefromtop = 0;
+		cub->textureoffsety = (distancefromtop) * \
+			((double)cub->texture_height / cub->len);
+		cub->textureoffsety = floor(cub->textureoffsety);
+		cub->texturecolor = 0;
+		if (cub->ray.check == 1)
+			check_vert_texture(cub);
+		else if (cub->ray.check == 2)
+			check_hori_texture(cub);
+		cub->addr[(W_WIDTH * o) + cub->i] = cub->texturecolor;
+		o++;
+	}
+}
+
+void	randering_wall(t_struct	*cub)
+{
+	int		j;
+	double	angleincrem;
+
+	cub->i = -1;
 	cub->wallstripheight = 0;
+	angleincrem = (M_PI / 3) / cub->numofrays;
 	cub->ray.rayangle = cub->player.rottangle - (M_PI / 6);
-	while (++cub->tmp.i_n < cub->numofrays)
+	j = 0;
+	while (++cub->i < cub->numofrays)
 	{
 		cub->ray.rayangle = normalize_angle(cub->ray.rayangle);
 		cast_all_rays(cub);
-		calcul_heigtof_wall(cub);
-		calcul_texture_pixls(cub);
-		cub->tmp.n = cub->tmp.wallbottompixel;
-		while (cub->tmp.n < W_HEIGHT)
-		{
-			cub->addr[(W_WIDTH * cub->tmp.n) + cub->tmp.i_n] = (cub->flr.r \
-					<< 16) + (cub->flr.g << 8) + (cub->flr.b);
-			cub->tmp.n++;
-		}
-		cub->ray.rayangle += cub->angleincrem;
+		calcule_wall_strip_height(cub);
+		calcule_xoffset(cub);
+		draw_ceilling(cub);
+		draw_the_wall(cub);
+		draw_floor(cub);
+		cub->ray.rayangle += angleincrem;
 	}
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img, 0, 0);
-}
-
-void	calcul_heigtof_wall(t_struct *cub)
-{
-	cub->tmp.correctdistance = cub->ray.distance * cos(cub->ray.rayangle - \
-			cub->player.rottangle);
-	cub->wallstripheight = (cub->scaleheight * (W_HEIGHT)) \
-						/ cub->tmp.correctdistance;
-	cub->tmp.len_n = cub->wallstripheight;
-	if (cub->wallstripheight > W_HEIGHT)
-		cub->wallstripheight = W_HEIGHT;
-	cub->tmp.walltoppixel = (W_HEIGHT / 2) - (cub->wallstripheight / 2);
-	if (cub->tmp.walltoppixel < 0)
-		cub->tmp.walltoppixel = 0;
-	cub->tmp.wallbottompixel = (W_HEIGHT / 2) + (cub->wallstripheight / 2);
-	if (cub->tmp.wallbottompixel >= W_HEIGHT)
-		cub->tmp.wallbottompixel = W_HEIGHT -1;
-	cub->tmp.o = (cub->tmp.walltoppixel -1);
-	if (cub->ray.check == 1)
-		cub->tmp.textureoffsetx = cub->ray.vrtclwallhity;
-	else
-		cub->tmp.textureoffsetx = cub->ray.horzwallhitx;
-	cub->tmp.j_n = 0;
-	while (cub->tmp.j_n < cub->tmp.walltoppixel)
-	{
-		cub->addr[(W_WIDTH * cub->tmp.j_n) + cub->tmp.i_n] = \
-					(cub->clg.r << 16) + (cub->clg.g << 8) + (cub->clg.b);
-		cub->tmp.j_n++;
-	}
 }
