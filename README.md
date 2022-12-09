@@ -52,5 +52,8 @@ The map data should be a grid of characters representing the different elements 
 # Controls
   . W/A/S/D: Move forward/left/backward/right
   
+# Raycasting
+
+raycasting technique to render walls in a 3D environment. The 'cast_hrzntal_rays' and 'cast_vrtcal_rays' functions are responsible for casting the rays and calculating the intersection points with the horizontal and vertical walls, respectively. The 'searchto_wall_hrzntl' and 'searchto_wall_vrtcl' functions then search for the walls along the rays until they reach the end of the map or intersect with a wall. The resulting intersection points are used to determine the visibility and appearance of the walls on the screen
 
 <img width="1016" alt="Screen Shot 2022-11-30 at 9 09 32 PM" src="https://user-images.githubusercontent.com/69278312/204899162-1ef6833b-7261-4f4c-ad0c-411c21f1606d.png">
