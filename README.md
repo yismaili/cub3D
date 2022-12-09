@@ -27,7 +27,6 @@ The map file should be a plain text file with the following format:
           SO [texture_path]
           WE [texture_path]
           EA [texture_path]
-          S [texture_path]
           F [color]
           C [color]
 
