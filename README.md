@@ -2,19 +2,16 @@
 Cub3D is a recreation of the classic game using the C programming language and the Raycasting technique.
 
 # Features
-
-. 3D environment on a 2D screen
-. Movement
-. Wall collisions
-. Textures
-. Minimap
-.  Rotate the point of view with the mouse
-
+        . 3D environment on a 2D screen
+        . Movement
+        . Wall collisions
+        . Textures
+        . Minimap
+        . Rotate the point of view with the mouse
 # Installation
-1 - Clone or download the repository
-2 - Navigate to the project directory
-3 - Run 'make' to compile the game
-
+        1 - Clone or download the repository
+        2 - Navigate to the project directory
+        3 - Run 'make' to compile the game
 # Usage
 
 To run the game, use the following command:
