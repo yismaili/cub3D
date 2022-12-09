@@ -35,11 +35,11 @@ The map file should be a plain text file with the following format:
 
 where:
 
-   . NO, SO, WE, EA: North, South, West, East textures (optional)
-   . S: Sprite texture (optional)
-   . F: Floor color (required)
-   . C: Ceiling color (required)
-   . map: Map data (required)
+           . NO, SO, WE, EA: North, South, West, East textures (optional)
+           . S: Sprite texture (optional)
+           . F: Floor color (required)
+           . C: Ceiling color (required)
+           . map: Map data (required)
    
 The map data should be a grid of characters representing the different elements in the game world:
 
