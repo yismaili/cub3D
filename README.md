@@ -55,5 +55,8 @@ The map data should be a grid of characters representing the different elements 
 # Raycasting
 
 raycasting technique to render walls in a 3D environment. The 'cast_hrzntal_rays' and 'cast_vrtcal_rays' functions are responsible for casting the rays and calculating the intersection points with the horizontal and vertical walls, respectively. The 'searchto_wall_hrzntl' and 'searchto_wall_vrtcl' functions then search for the walls along the rays until they reach the end of the map or intersect with a wall. The resulting intersection points are used to determine the visibility and appearance of the walls on the screen
+# DDA
+
+the DDA (Digital Differential Analyzer) algorithm to draw a line between two points in a 2D environment. The 'dda' function takes in the 'cub' structure (which contains the necessary information for the program), the starting x and y coordinates, and calculates the distance between the two points. It then determines the number of steps needed to draw the line and calculates the increment in x and y coordinates for each step. Finally, it iterates over the number of steps and draws the line on the screen using the 'my_mlx_pixel_put' function.
 
 <img width="1016" alt="Screen Shot 2022-11-30 at 9 09 32 PM" src="https://user-images.githubusercontent.com/69278312/204899162-1ef6833b-7261-4f4c-ad0c-411c21f1606d.png">
