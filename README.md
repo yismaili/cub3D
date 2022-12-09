@@ -3,11 +3,10 @@ Cub3D is a recreation of the classic game using the C programming language and t
 
 # Features
 . 3D environment on a 2D screen
-. Movement
+. Movement and Rotate the point of view with the mouse
 . Wall collisions
 . Textures
 . Minimap
-. Rotate the point of view with the mouse
 
 # Installation
 1 - Clone or download the repository
