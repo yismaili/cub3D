@@ -35,19 +35,18 @@ The map file should be a plain text file with the following format:
 where:
 
            . NO, SO, WE, EA: North, South, West, East textures (optional)
-           . S: Sprite texture (optional)
            . F: Floor color (required)
            . C: Ceiling color (required)
            . map: Map data (required)
    
 The map data should be a grid of characters representing the different elements in the game world:
 
-  0: Empty space
-  1: Wall
-  N,S,W,E : player
+          0: Empty space
+          1: Wall
+          N,S,W,E : player
 
 # Controls
-  . W/A/S/D: Move forward/left/backward/right
+          . W/A/S/D: Move forward/left/backward/right
   
 # Raycasting
 
