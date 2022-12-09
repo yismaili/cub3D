@@ -1,7 +1,59 @@
 # cub3D
-This project’s objectives are similar to all this first year’s objectives: Rigor, use of C, use of basic algorithms, information research etc. As a graphic design project, cub3D will enable you to improve your skills in these areas: windows, colors, events, fill shapes, etc. To conclude cub3D is a remarkable playground to explore the playful practical applications of mathematics without having to understand the specifics. With the help of the numerous documents available on the internet, you will use mathematics as a tool to create elegant and efficient algorithms.
-<img width="823" alt="Screen Shot 2022-12-01 at 2 01 42 PM" src="https://user-images.githubusercontent.com/69278312/205059590-52919002-a4f5-4033-927a-0a0112139201.png">
+Cub3D is a recreation of the classic game using the C programming language and the Raycasting technique.
 
+# Features
+. 3D environment on a 2D screen
+. Movement and shooting
+. Wall collisions
+. Textures
+. Minimap
+
+# Installation
+1 - Clone or download the repository
+2 - Navigate to the project directory
+3 - Run 'make' to compile the game
+
+# Usage
+
+To run the game, use the following command:
+        
+        ./cub3D [map_file]
+where map_file is the path to the map file to be used.
+
+# Map Format
+
+The map file should be a plain text file with the following format:
+
+          R [width] [height]
+          NO [texture_path]
+          SO [texture_path]
+          WE [texture_path]
+          EA [texture_path]
+          S [texture_path]
+          F [color]
+          C [color]
+
+          [map]
+
+where:
+
+   . R: Resolution (required)
+   . NO, SO, WE, EA: North, South, West, East textures (optional)
+   . S: Sprite texture (optional)
+   . F: Floor color (required)
+   . C: Ceiling color (required)
+   . map: Map data (required)
+   
+The map data should be a grid of characters representing the different elements in the game world:
+
+  0: Empty space
+  1: Wall
+  2: Spawn point
+
+# Controls
+  . W/A/S/D: Move forward/left/backward/right
+  . Left mouse button: Shoot
+  
 ![big-o-cheat-sheet-poster](https://user-images.githubusercontent.com/69278312/205059606-19b2c005-b6d6-4c2a-9f94-4f124e30a047.png)
 
 
