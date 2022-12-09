@@ -3,10 +3,11 @@ Cub3D is a recreation of the classic game using the C programming language and t
 
 # Features
 . 3D environment on a 2D screen
-. Movement and shooting
+. Movement
 . Wall collisions
 . Textures
 . Minimap
+. Rotate the point of view with the mouse
 
 # Installation
 1 - Clone or download the repository
@@ -24,7 +25,6 @@ where map_file is the path to the map file to be used.
 
 The map file should be a plain text file with the following format:
 
-          R [width] [height]
           NO [texture_path]
           SO [texture_path]
           WE [texture_path]
@@ -37,7 +37,6 @@ The map file should be a plain text file with the following format:
 
 where:
 
-   . R: Resolution (required)
    . NO, SO, WE, EA: North, South, West, East textures (optional)
    . S: Sprite texture (optional)
    . F: Floor color (required)
@@ -48,11 +47,10 @@ The map data should be a grid of characters representing the different elements 
 
   0: Empty space
   1: Wall
-  2: Spawn point
+  N,S,W,E : player
 
 # Controls
   . W/A/S/D: Move forward/left/backward/right
-  . Left mouse button: Shoot
   
 ![big-o-cheat-sheet-poster](https://user-images.githubusercontent.com/69278312/205059606-19b2c005-b6d6-4c2a-9f94-4f124e30a047.png)
 
